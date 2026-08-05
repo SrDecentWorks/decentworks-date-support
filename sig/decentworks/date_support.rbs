@@ -1,0 +1,107 @@
+module Decentworks
+  module DateSupport
+    def beginning_of_this_week: (?Symbol?) -> ::Date
+    def end_of_this_week: (?Symbol?) -> ::Date
+    def all_this_week: (?Symbol?) -> ::Range[::Date]
+
+    def all_this_month: -> ::Range[::Date]
+
+    def two_months_ago: -> ::Date
+    def three_months_ago: -> ::Date
+    def four_months_ago: -> ::Date
+    def five_months_ago: -> ::Date
+    def six_months_ago: -> ::Date
+    def half_year_ago: -> ::Date
+    def seven_months_ago: -> ::Date
+    def eight_months_ago: -> ::Date
+    def nine_months_ago: -> ::Date
+    def ten_months_ago: -> ::Date
+    def eleven_months_ago: -> ::Date
+
+    def two_months_since: -> ::Date
+    def three_months_since: -> ::Date
+    def four_months_since: -> ::Date
+    def five_months_since: -> ::Date
+    def six_months_since: -> ::Date
+    def half_year_since: -> ::Date
+    def seven_months_since: -> ::Date
+    def eight_months_since: -> ::Date
+    def nine_months_since: -> ::Date
+    def ten_months_since: -> ::Date
+    def eleven_months_since: -> ::Date
+
+    def beginning_of_january: -> ::Date
+    def end_of_january: -> ::Date
+    def all_january: -> ::Range[::Date]
+
+    def beginning_of_february: -> ::Date
+    def end_of_february: -> ::Date
+    def all_february: -> ::Range[::Date]
+
+    def beginning_of_march: -> ::Date
+    def end_of_march: -> ::Date
+    def all_march: -> ::Range[::Date]
+
+    def beginning_of_april: -> ::Date
+    def end_of_april: -> ::Date
+    def all_april: -> ::Range[::Date]
+
+    def beginning_of_may: -> ::Date
+    def end_of_may: -> ::Date
+    def all_may: -> ::Range[::Date]
+
+    def beginning_of_june: -> ::Date
+    def end_of_june: -> ::Date
+    def all_june: -> ::Range[::Date]
+
+    def beginning_of_july: -> ::Date
+    def end_of_july: -> ::Date
+    def all_july: -> ::Range[::Date]
+
+    def beginning_of_august: -> ::Date
+    def end_of_august: -> ::Date
+    def all_august: -> ::Range[::Date]
+
+    def beginning_of_september: -> ::Date
+    def end_of_september: -> ::Date
+    def all_september: -> ::Range[::Date]
+
+    def beginning_of_october: -> ::Date
+    def end_of_october: -> ::Date
+    def all_october: -> ::Range[::Date]
+
+    def beginning_of_november: -> ::Date
+    def end_of_november: -> ::Date
+    def all_november: -> ::Range[::Date]
+
+    def beginning_of_december: -> ::Date
+    def end_of_december: -> ::Date
+    def all_december: -> ::Range[::Date]
+
+    def beginning_of_first_quarter: -> ::Date
+    def end_of_first_quarter: -> ::Date
+    def all_first_quarter: -> ::Range[::Date]
+
+    def beginning_of_second_quarter: -> ::Date
+    def end_of_second_quarter: -> ::Date
+    def all_second_quarter: -> ::Range[::Date]
+
+    def beginning_of_third_quarter: -> ::Date
+    def end_of_third_quarter: -> ::Date
+    def all_third_quarter: -> ::Range[::Date]
+
+    def beginning_of_fourth_quarter: -> ::Date
+    def end_of_fourth_quarter: -> ::Date
+    def all_fourth_quarter: -> ::Range[::Date]
+
+    def beginning_of_first_half: -> ::Date
+    def end_of_first_half: -> ::Date
+    def all_first_half: -> ::Range[::Date]
+
+    def beginning_of_second_half: -> ::Date
+    def end_of_second_half: -> ::Date
+    def all_second_half: -> ::Range[::Date]
+
+    def whole_months_elapsed: (?from: ::Date, ?to: ::Date) -> ::Integer
+  end
+end

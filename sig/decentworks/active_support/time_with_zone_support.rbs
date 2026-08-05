@@ -1,0 +1,109 @@
+module Decentworks
+  module ActiveSupport
+    module TimeWithZoneSupport
+      def beginning_of_this_week: (?Symbol?) -> ::ActiveSupport::TimeWithZone
+      def end_of_this_week: (?Symbol?) -> ::ActiveSupport::TimeWithZone
+      def all_this_week: (?Symbol?) -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def all_this_month: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def two_months_ago: -> ::ActiveSupport::TimeWithZone
+      def three_months_ago: -> ::ActiveSupport::TimeWithZone
+      def four_months_ago: -> ::ActiveSupport::TimeWithZone
+      def five_months_ago: -> ::ActiveSupport::TimeWithZone
+      def six_months_ago: -> ::ActiveSupport::TimeWithZone
+      def half_year_ago: -> ::ActiveSupport::TimeWithZone
+      def seven_months_ago: -> ::ActiveSupport::TimeWithZone
+      def eight_months_ago: -> ::ActiveSupport::TimeWithZone
+      def nine_months_ago: -> ::ActiveSupport::TimeWithZone
+      def ten_months_ago: -> ::ActiveSupport::TimeWithZone
+      def eleven_months_ago: -> ::ActiveSupport::TimeWithZone
+
+      def two_months_since: -> ::ActiveSupport::TimeWithZone
+      def three_months_since: -> ::ActiveSupport::TimeWithZone
+      def four_months_since: -> ::ActiveSupport::TimeWithZone
+      def five_months_since: -> ::ActiveSupport::TimeWithZone
+      def six_months_since: -> ::ActiveSupport::TimeWithZone
+      def half_year_since: -> ::ActiveSupport::TimeWithZone
+      def seven_months_since: -> ::ActiveSupport::TimeWithZone
+      def eight_months_since: -> ::ActiveSupport::TimeWithZone
+      def nine_months_since: -> ::ActiveSupport::TimeWithZone
+      def ten_months_since: -> ::ActiveSupport::TimeWithZone
+      def eleven_months_since: -> ::ActiveSupport::TimeWithZone
+
+      def beginning_of_january: -> ::ActiveSupport::TimeWithZone
+      def end_of_january: -> ::ActiveSupport::TimeWithZone
+      def all_january: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_february: -> ::ActiveSupport::TimeWithZone
+      def end_of_february: -> ::ActiveSupport::TimeWithZone
+      def all_february: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_march: -> ::ActiveSupport::TimeWithZone
+      def end_of_march: -> ::ActiveSupport::TimeWithZone
+      def all_march: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_april: -> ::ActiveSupport::TimeWithZone
+      def end_of_april: -> ::ActiveSupport::TimeWithZone
+      def all_april: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_may: -> ::ActiveSupport::TimeWithZone
+      def end_of_may: -> ::ActiveSupport::TimeWithZone
+      def all_may: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_june: -> ::ActiveSupport::TimeWithZone
+      def end_of_june: -> ::ActiveSupport::TimeWithZone
+      def all_june: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_july: -> ::ActiveSupport::TimeWithZone
+      def end_of_july: -> ::ActiveSupport::TimeWithZone
+      def all_july: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_august: -> ::ActiveSupport::TimeWithZone
+      def end_of_august: -> ::ActiveSupport::TimeWithZone
+      def all_august: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_september: -> ::ActiveSupport::TimeWithZone
+      def end_of_september: -> ::ActiveSupport::TimeWithZone
+      def all_september: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_october: -> ::ActiveSupport::TimeWithZone
+      def end_of_october: -> ::ActiveSupport::TimeWithZone
+      def all_october: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_november: -> ::ActiveSupport::TimeWithZone
+      def end_of_november: -> ::ActiveSupport::TimeWithZone
+      def all_november: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_december: -> ::ActiveSupport::TimeWithZone
+      def end_of_december: -> ::ActiveSupport::TimeWithZone
+      def all_december: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_first_quarter: -> ::ActiveSupport::TimeWithZone
+      def end_of_first_quarter: -> ::ActiveSupport::TimeWithZone
+      def all_first_quarter: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_second_quarter: -> ::ActiveSupport::TimeWithZone
+      def end_of_second_quarter: -> ::ActiveSupport::TimeWithZone
+      def all_second_quarter: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_third_quarter: -> ::ActiveSupport::TimeWithZone
+      def end_of_third_quarter: -> ::ActiveSupport::TimeWithZone
+      def all_third_quarter: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_fourth_quarter: -> ::ActiveSupport::TimeWithZone
+      def end_of_fourth_quarter: -> ::ActiveSupport::TimeWithZone
+      def all_fourth_quarter: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_first_half: -> ::ActiveSupport::TimeWithZone
+      def end_of_first_half: -> ::ActiveSupport::TimeWithZone
+      def all_first_half: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def beginning_of_second_half: -> ::ActiveSupport::TimeWithZone
+      def end_of_second_half: -> ::ActiveSupport::TimeWithZone
+      def all_second_half: -> ::Range[::ActiveSupport::TimeWithZone]
+
+      def whole_months_elapsed: (?from: ::ActiveSupport::TimeWithZone, ?to: ::ActiveSupport::TimeWithZone) -> ::Integer
+    end
+  end
+end
