@@ -44,6 +44,11 @@ d = ::Date.new(2026, 8, 5)
 d.all_this_week(:sunday) # => ::Date.new(2026, 8, 2)..::Date.new(2026, 8, 8)
 ```
 
-## ライセンス
+```ruby
+require 'decentworks_date_support'
 
-- [MIT License](https://github.com/SrDecentWorks/decentworks-date-support/blob/develop/LICENSE)
+using ::Decentworks::ActiveSupport::TimeWithZoneSupport
+
+d = ::Time.zone.local(2026, 8, 5)
+d.all_this_week(:sunday) # => ::Date.new(2026, 8, 2).beginning_of_day..::Date.new(2026, 8, 8).end_of_day
+```

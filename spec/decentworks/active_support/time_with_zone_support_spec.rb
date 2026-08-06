@@ -11,7 +11,6 @@ require "decentworks/date_support"
 require "decentworks/active_support/time_with_zone_support"
 
 RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
-  using ::Decentworks::DateSupport
   using ::Decentworks::ActiveSupport::TimeWithZoneSupport
 
   let(:instance) { ::Time.zone.local(2026, 8, 5, 12, 34, 56) }
