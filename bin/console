@@ -2,7 +2,14 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "decentworks/date/support"
+
+require "date"
+
+require "active_support"
+require "active_support/core_ext"
+require "active_support/time"
+
+require "decentworks_date_support"
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
