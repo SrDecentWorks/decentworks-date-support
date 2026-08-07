@@ -4,7 +4,29 @@
 
 Railsの`Date`、`ActiveSupport::TimeWithZone`に対する機能拡張を行います。
 
+## refinements
+
+gemによる影響範囲を限定するため、refinementsを採用しています。  
+利用する場合は、適切なスコープで`using`を利用してください。
+
 ## 機能
+
+### Dateクラス拡張
+
+#### using
+
+```ruby
+using ::Decentworks::DateSupport
+```
+
+### ActiveSupport::TimeWithZoneクラス拡張
+
+#### using
+
+```ruby
+using ::Decentworks::ActiveSupport::TimeWithZoneSupport
+```
+
 
 ### 週関係
 
