@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-require 'simplecov'
+require "faker"
+
+require "simplecov"
 SimpleCov.start
 
 RSpec.configure do |config|
