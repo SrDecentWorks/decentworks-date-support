@@ -1,0 +1,14 @@
+module Decentworks
+  module DateSupport
+    class Configuration
+      MONTHS: Hash[Symbol, Integer]
+      DEFAULT: Symbol
+
+      attr_reader beginning_of_first_quarter: Symbol
+
+      def beginning_of_first_quarter=: (Symbol) -> void
+
+      def beginning_of_first_quarter_month: -> Integer
+    end
+  end
+end

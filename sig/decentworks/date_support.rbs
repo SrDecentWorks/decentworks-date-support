@@ -33,74 +33,128 @@ module Decentworks
     def beginning_of_january: -> ::Date
     def end_of_january: -> ::Date
     def all_january: -> ::Range[::Date]
+    def beginning_of_january?: -> bool
+    def end_of_january?: -> bool
+    def in_january?: -> bool
 
     def beginning_of_february: -> ::Date
     def end_of_february: -> ::Date
     def all_february: -> ::Range[::Date]
+    def beginning_of_february?: -> bool
+    def end_of_february?: -> bool
+    def in_february?: -> bool
 
     def beginning_of_march: -> ::Date
     def end_of_march: -> ::Date
     def all_march: -> ::Range[::Date]
+    def beginning_of_march?: -> bool
+    def end_of_march?: -> bool
+    def in_march?: -> bool
 
     def beginning_of_april: -> ::Date
     def end_of_april: -> ::Date
     def all_april: -> ::Range[::Date]
+    def beginning_of_april?: -> bool
+    def end_of_april?: -> bool
+    def in_april?: -> bool
 
     def beginning_of_may: -> ::Date
     def end_of_may: -> ::Date
     def all_may: -> ::Range[::Date]
+    def beginning_of_may?: -> bool
+    def end_of_may?: -> bool
+    def in_may?: -> bool
 
     def beginning_of_june: -> ::Date
     def end_of_june: -> ::Date
     def all_june: -> ::Range[::Date]
+    def beginning_of_june?: -> bool
+    def end_of_june?: -> bool
+    def in_june?: -> bool
 
     def beginning_of_july: -> ::Date
     def end_of_july: -> ::Date
     def all_july: -> ::Range[::Date]
+    def beginning_of_july?: -> bool
+    def end_of_july?: -> bool
+    def in_july?: -> bool
 
     def beginning_of_august: -> ::Date
     def end_of_august: -> ::Date
     def all_august: -> ::Range[::Date]
+    def beginning_of_august?: -> bool
+    def end_of_august?: -> bool
+    def in_august?: -> bool
 
     def beginning_of_september: -> ::Date
     def end_of_september: -> ::Date
     def all_september: -> ::Range[::Date]
+    def beginning_of_september?: -> bool
+    def end_of_september?: -> bool
+    def in_september?: -> bool
 
     def beginning_of_october: -> ::Date
     def end_of_october: -> ::Date
     def all_october: -> ::Range[::Date]
+    def beginning_of_october?: -> bool
+    def end_of_october?: -> bool
+    def in_october?: -> bool
 
     def beginning_of_november: -> ::Date
     def end_of_november: -> ::Date
     def all_november: -> ::Range[::Date]
+    def beginning_of_november?: -> bool
+    def end_of_november?: -> bool
+    def in_november?: -> bool
 
     def beginning_of_december: -> ::Date
     def end_of_december: -> ::Date
     def all_december: -> ::Range[::Date]
+    def beginning_of_december?: -> bool
+    def end_of_december?: -> bool
+    def in_december?: -> bool
 
     def beginning_of_first_quarter: -> ::Date
     def end_of_first_quarter: -> ::Date
     def all_first_quarter: -> ::Range[::Date]
+    def beginning_of_first_quarter?: -> bool
+    def end_of_first_quarter?: -> bool
+    def in_first_quarter?: -> bool
 
     def beginning_of_second_quarter: -> ::Date
     def end_of_second_quarter: -> ::Date
     def all_second_quarter: -> ::Range[::Date]
+    def beginning_of_second_quarter?: -> bool
+    def end_of_second_quarter?: -> bool
+    def in_second_quarter?: -> bool
 
     def beginning_of_third_quarter: -> ::Date
     def end_of_third_quarter: -> ::Date
     def all_third_quarter: -> ::Range[::Date]
+    def beginning_of_third_quarter?: -> bool
+    def end_of_third_quarter?: -> bool
+    def in_third_quarter?: -> bool
 
     def beginning_of_fourth_quarter: -> ::Date
     def end_of_fourth_quarter: -> ::Date
     def all_fourth_quarter: -> ::Range[::Date]
+    def beginning_of_fourth_quarter?: -> bool
+    def end_of_fourth_quarter?: -> bool
+    def in_fourth_quarter?: -> bool
 
     def beginning_of_first_half: -> ::Date
     def end_of_first_half: -> ::Date
     def all_first_half: -> ::Range[::Date]
+    def beginning_of_first_half?: -> bool
+    def end_of_first_half?: -> bool
+    def all_first_half?: -> bool
 
     def beginning_of_second_half: -> ::Date
     def end_of_second_half: -> ::Date
     def all_second_half: -> ::Range[::Date]
+    def beginning_of_second_half?: -> bool
+    def end_of_second_half?: -> bool
+    def all_second_half?: -> bool
 
     def whole_months_elapsed: (?from: ::Date, ?to: ::Date) -> ::Integer
   end
