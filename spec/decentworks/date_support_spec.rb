@@ -1349,57 +1349,56 @@ RSpec.describe ::Decentworks::DateSupport do
 
   describe "#beginning_of_first_quarter" do
     context "1月始まりの場合（初期値）" do
-      let(:at_2024) { ::Date.new(2024, 1, 1) }
-      let(:at_2025) { ::Date.new(2025, 1, 1) }
-      let(:at_2026) { ::Date.new(2026, 1, 1) }
-      let(:at_2027) { ::Date.new(2027, 1, 1) }
-      let(:at_2028) { ::Date.new(2028, 1, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 1, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 1, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 1, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 1, 1) }
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
 
     context "2月始まりの場合" do
-      let(:at_2024) { ::Date.new(2024, 2, 1) }
-      let(:at_2025) { ::Date.new(2025, 2, 1) }
-      let(:at_2026) { ::Date.new(2026, 2, 1) }
-      let(:at_2027) { ::Date.new(2027, 2, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 2, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 2, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 2, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 2, 1) }
 
       before do
         ::Decentworks::DateSupport.configure do |config|
@@ -1407,52 +1406,52 @@ RSpec.describe ::Decentworks::DateSupport do
         end
       end
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2024 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2024 }
 
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
 
     context "3月始まりの場合" do
-      let(:at_2024) { ::Date.new(2024, 3, 1) }
-      let(:at_2025) { ::Date.new(2025, 3, 1) }
-      let(:at_2026) { ::Date.new(2026, 3, 1) }
-      let(:at_2027) { ::Date.new(2027, 3, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 3, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 3, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 3, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 3, 1) }
 
       before do
         ::Decentworks::DateSupport.configure do |config|
@@ -1460,52 +1459,52 @@ RSpec.describe ::Decentworks::DateSupport do
         end
       end
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2024 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2024 }
 
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
 
     context "4月始まりの場合" do
-      let(:at_2024) { ::Date.new(2024, 4, 1) }
-      let(:at_2025) { ::Date.new(2025, 4, 1) }
-      let(:at_2026) { ::Date.new(2026, 4, 1) }
-      let(:at_2027) { ::Date.new(2027, 4, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 4, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 4, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 4, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 4, 1) }
 
       before do
         ::Decentworks::DateSupport.configure do |config|
@@ -1513,52 +1512,52 @@ RSpec.describe ::Decentworks::DateSupport do
         end
       end
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2024 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2024 }
 
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
 
     context "5月始まりの場合" do
-      let(:at_2024) { ::Date.new(2024, 5, 1) }
-      let(:at_2025) { ::Date.new(2025, 5, 1) }
-      let(:at_2026) { ::Date.new(2026, 5, 1) }
-      let(:at_2027) { ::Date.new(2027, 5, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 5, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 5, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 5, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 5, 1) }
 
       before do
         ::Decentworks::DateSupport.configure do |config|
@@ -1566,52 +1565,52 @@ RSpec.describe ::Decentworks::DateSupport do
         end
       end
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2024 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2024 }
 
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
 
     context "6月始まりの場合" do
-      let(:at_2024) { ::Date.new(2024, 6, 1) }
-      let(:at_2025) { ::Date.new(2025, 6, 1) }
-      let(:at_2026) { ::Date.new(2026, 6, 1) }
-      let(:at_2027) { ::Date.new(2027, 6, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 6, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 6, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 6, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 6, 1) }
 
       before do
         ::Decentworks::DateSupport.configure do |config|
@@ -1619,53 +1618,52 @@ RSpec.describe ::Decentworks::DateSupport do
         end
       end
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2024 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2024 }
 
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
 
     context "7月始まりの場合" do
-      let(:at_2024) { ::Date.new(2024, 7, 1) }
-      let(:at_2025) { ::Date.new(2025, 7, 1) }
-      let(:at_2026) { ::Date.new(2026, 7, 1) }
-      let(:at_2027) { ::Date.new(2027, 7, 1) }
-      let(:at_2028) { ::Date.new(2028, 7, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 7, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 7, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 7, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 7, 1) }
 
       before do
         ::Decentworks::DateSupport.configure do |config|
@@ -1673,52 +1671,52 @@ RSpec.describe ::Decentworks::DateSupport do
         end
       end
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2024 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2024 }
 
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
 
     context "8月始まりの場合" do
-      let(:at_2024) { ::Date.new(2024, 8, 1) }
-      let(:at_2025) { ::Date.new(2025, 8, 1) }
-      let(:at_2026) { ::Date.new(2026, 8, 1) }
-      let(:at_2027) { ::Date.new(2027, 8, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 8, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 8, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 8, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 8, 1) }
 
       before do
         ::Decentworks::DateSupport.configure do |config|
@@ -1726,52 +1724,52 @@ RSpec.describe ::Decentworks::DateSupport do
         end
       end
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2024 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2024 }
 
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
 
     context "9月始まりの場合" do
-      let(:at_2024) { ::Date.new(2024, 9, 1) }
-      let(:at_2025) { ::Date.new(2025, 9, 1) }
-      let(:at_2026) { ::Date.new(2026, 9, 1) }
-      let(:at_2027) { ::Date.new(2027, 9, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 9, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 9, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 9, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 9, 1) }
 
       before do
         ::Decentworks::DateSupport.configure do |config|
@@ -1779,52 +1777,52 @@ RSpec.describe ::Decentworks::DateSupport do
         end
       end
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2024 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2024 }
 
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
 
     context "10月始まりの場合" do
-      let(:at_2024) { ::Date.new(2024, 10, 1) }
-      let(:at_2025) { ::Date.new(2025, 10, 1) }
-      let(:at_2026) { ::Date.new(2026, 10, 1) }
-      let(:at_2027) { ::Date.new(2027, 10, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 10, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 10, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 10, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 10, 1) }
 
       before do
         ::Decentworks::DateSupport.configure do |config|
@@ -1832,52 +1830,52 @@ RSpec.describe ::Decentworks::DateSupport do
         end
       end
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2024 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2024 }
 
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
 
     context "11月始まりの場合" do
-      let(:at_2024) { ::Date.new(2024, 11, 1) }
-      let(:at_2025) { ::Date.new(2025, 11, 1) }
-      let(:at_2026) { ::Date.new(2026, 11, 1) }
-      let(:at_2027) { ::Date.new(2027, 11, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 11, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 11, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 11, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 11, 1) }
 
       before do
         ::Decentworks::DateSupport.configure do |config|
@@ -1885,52 +1883,52 @@ RSpec.describe ::Decentworks::DateSupport do
         end
       end
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2024 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2024 }
 
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2027 }
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
 
     context "12月始まりの場合" do
-      let(:at_2024) { ::Date.new(2024, 12, 1) }
-      let(:at_2025) { ::Date.new(2025, 12, 1) }
-      let(:at_2026) { ::Date.new(2026, 12, 1) }
-      let(:at_2027) { ::Date.new(2027, 12, 1) }
+      let(:on_fy_2024) { ::Date.new(2024, 12, 1) }
+      let(:on_fy_2025) { ::Date.new(2025, 12, 1) }
+      let(:on_fy_2026) { ::Date.new(2026, 12, 1) }
+      let(:on_fy_2027) { ::Date.new(2027, 12, 1) }
 
       before do
         ::Decentworks::DateSupport.configure do |config|
@@ -1938,45 +1936,45 @@ RSpec.describe ::Decentworks::DateSupport do
         end
       end
 
-      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq at_2024 }
-      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq at_2024 }
+      it { expect(::Date.new(2025,  1, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  2, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  3, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  4, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  5, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  6, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  7, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  8, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025,  9, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025, 10, 1).beginning_of_first_quarter).to eq on_fy_2024 }
+      it { expect(::Date.new(2025, 11, 1).beginning_of_first_quarter).to eq on_fy_2024 }
 
-      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq at_2025 }
-      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq at_2025 }
+      it { expect(::Date.new(2025, 12, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  1, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  2, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  3, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  4, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  5, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  6, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  7, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  8, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026,  9, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026, 10, 1).beginning_of_first_quarter).to eq on_fy_2025 }
+      it { expect(::Date.new(2026, 11, 1).beginning_of_first_quarter).to eq on_fy_2025 }
 
-      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq at_2026 }
-      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq at_2026 }
+      it { expect(::Date.new(2026, 12, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  1, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  2, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  3, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  4, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  5, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  6, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  7, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  8, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027,  9, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027, 10, 1).beginning_of_first_quarter).to eq on_fy_2026 }
+      it { expect(::Date.new(2027, 11, 1).beginning_of_first_quarter).to eq on_fy_2026 }
 
-      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq at_2027 }
+      it { expect(::Date.new(2027, 12, 1).beginning_of_first_quarter).to eq on_fy_2027 }
     end
   end
 
