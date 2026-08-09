@@ -15,4 +15,14 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.before do
+    ::Decentworks::DateSupport.configure do |config|
+      config.beginning_of_first_quarter = :january
+    end
+  end
+
+  config.after do
+    ::Decentworks::DateSupport.reset_configuration!
+  end
 end
