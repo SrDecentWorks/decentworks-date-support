@@ -74,7 +74,7 @@ require 'decentworks_date_support'
 using ::Decentworks::DateSupport
 
 d = ::Date.new(2026, 8, 5)
-d.all_this_week(:sunday) # => ::Date.new(2026, 8, 2)..::Date.new(2026, 8, 8)
+d.all_this_week # => Mon, 03 Aug 2026..Sun, 09 Aug 2026
 ```
 
 ```ruby
@@ -83,5 +83,5 @@ require 'decentworks_date_support'
 using ::Decentworks::ActiveSupport::TimeWithZoneSupport
 
 d = ::Time.zone.local(2026, 8, 5)
-d.all_this_week(:sunday) # => ::Date.new(2026, 8, 2).beginning_of_day..::Date.new(2026, 8, 8).end_of_day
+d.all_this_week # => 2026-08-03 00:00:00.000000000 JST +09:00..2026-08-09 23:59:59.999999999 JST +09:00
 ```
