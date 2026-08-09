@@ -7,15 +7,15 @@ module Decentworks
   module DateSupport
     class << self
       def configure
-        @@configuration ||= Configuration.new
+        @configuration ||= Configuration.new
 
-        yield(@@configuration) if block_given?
+        yield(@configuration) if block_given?
       end
 
       def configuration
-        raise "Initialization has not been performed." if @@configuration.nil?
+        raise "Initialization has not been performed." if @configuration.nil?
 
-        @@configuration
+        @configuration
       end
 
       # 開始月名
