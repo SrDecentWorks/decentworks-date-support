@@ -10,13 +10,13 @@ Gem::Specification.new do |spec|
 
   spec.summary = "日付機能拡張ライブラリ"
   spec.description = "日付機能拡張ライブラリ"
-  spec.homepage = "https://github.com/YutakaMizomoto/decentworks-date-support"
+  spec.homepage = "https://github.com/SrDecentWorks/decentworks-date-support/tree/main"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 4.0.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/YutakaMizomoto/decentworks-date-support"
-  spec.metadata["changelog_uri"] = "https://github.com/SrDecentWorks/decentworks-date-support/blob/develop/CHANGELOG.md"
+  spec.metadata["source_code_uri"] = spec.homepage
+  spec.metadata["changelog_uri"] = "https://github.com/SrDecentWorks/decentworks-date-support/blob/main/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
