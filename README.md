@@ -1,5 +1,11 @@
 # Decentworks::Date::Support - 日付機能拡張ライブラリ
 
+## はじめに
+
+このgemは、個人開発用です。  
+そのため、予告なく仕様の追加・変更・削除が行われます。  
+もちろん、このgemを使用したことによるバグなどの責任は負えません。
+
 ## 概要
 
 Railsの`Date`、`ActiveSupport::TimeWithZone`に対する機能拡張を行います。
