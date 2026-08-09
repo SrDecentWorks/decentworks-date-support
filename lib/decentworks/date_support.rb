@@ -15,30 +15,13 @@ module Decentworks
       #
 
       # 現在の日付が属する週の始まりの日付
-      #
-      # @param beginning_of_week 週の始まりの曜日。省略した場合は、config.beginning_of_weekの設定に従います。
-      def beginning_of_this_week(beginning_of_week = nil)
-        beginning_of_week(beginning_of_week.presence || ::Date.beginning_of_week) # steep:ignore NoMethod
-      end
+      def beginning_of_this_week = beginning_of_week(::Date.beginning_of_week) # steep:ignore NoMethod
 
       # 現在の日付が属する週の終わりの日付
-      #
-      # @param beginning_of_week 週の始まりの曜日。省略した場合は、config.beginning_of_weekの設定に従います。
-      def end_of_this_week(beginning_of_week = nil)
-        next_week # steep:ignore NoMethod
-          .beginning_of_this_week(beginning_of_week)
-          .yesterday
-      end
+      def end_of_this_week = next_week.beginning_of_this_week.yesterday
 
       # 今週の期間
-      #
-      # @param beginning_of_week 週の始まりの曜日。省略した場合は、config.beginning_of_weekの設定に従います。
-      def all_this_week(beginning_of_week = nil)
-        ::Range.new(
-          beginning_of_this_week(beginning_of_week),
-          end_of_this_week(beginning_of_week)
-        )
-      end
+      def all_this_week = ::Range.new(beginning_of_this_week, end_of_this_week)
 
       # ###############################################################################################################
       # 月関係

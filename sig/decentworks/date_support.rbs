@@ -1,8 +1,8 @@
 module Decentworks
   module DateSupport
-    def beginning_of_this_week: (?Symbol?) -> ::Date
-    def end_of_this_week: (?Symbol?) -> ::Date
-    def all_this_week: (?Symbol?) -> ::Range[::Date]
+    def beginning_of_this_week: -> ::Date
+    def end_of_this_week: -> ::Date
+    def all_this_week: -> ::Range[::Date]
 
     def all_this_month: -> ::Range[::Date]
 
