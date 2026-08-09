@@ -1,5 +1,10 @@
 module Decentworks
   module DateSupport
+    VERSION: String
+
+    def self.configure: -> void
+    def self.configuration: -> ::Decentworks::DateSupport::Configuration
+
     def beginning_of_this_week: -> ::Date
     def end_of_this_week: -> ::Date
     def all_this_week: -> ::Range[::Date]

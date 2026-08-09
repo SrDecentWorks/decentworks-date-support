@@ -1,25 +1,13 @@
 # frozen_string_literal: true
 
-require "date"
-
-require "active_support"
-require "active_support/core_ext"
-require "active_support/time"
-
 require "spec_helper"
 require "decentworks/date_support"
-require "decentworks/date_support/configuration"
 require "decentworks/active_support/time_with_zone_support"
 
 RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
   using ::Decentworks::ActiveSupport::TimeWithZoneSupport
 
   let(:instance) { ::Time.zone.local(2026, 8, 5, 12, 34, 56) }
-
-  before do
-    ::Time.zone = "Asia/Tokyo"
-    ::Date.beginning_of_week = :monday # 週は月曜日始まり
-  end
 
   # ###################################################################################################################
   # 週関係

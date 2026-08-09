@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "date"
+require "active_support/time"
 require "decentworks/date_support/configuration"
 
 module Decentworks

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "date"
+require "active_support/core_ext/module/delegation"
 
 module Decentworks
   module DateSupport
@@ -12,9 +13,7 @@ module Decentworks
       end
 
       def configuration
-        unless class_variable_defined?(:@@configuration)
-          raise "Initialization has not been performed."
-        end
+        raise "Initialization has not been performed." if @@configuration.nil?
 
         @@configuration
       end
@@ -59,17 +58,17 @@ module Decentworks
         @beginning_of_first_quarter = month_name
       end
 
-      # 開始月の初期化
-      def reset_configuration!
-        @beginning_of_first_quarter = DEFAULT
-      end
-
       # 開始月数
       def beginning_of_first_quarter_month = MONTHS.fetch(beginning_of_first_quarter)
 
       # 1月始まりとの開始月のずれ
       def first_quarter_month_offset
         beginning_of_first_quarter_month - 1
+      end
+
+      # 開始月の初期化
+      def reset_configuration!
+        @beginning_of_first_quarter = DEFAULT
       end
     end
   end

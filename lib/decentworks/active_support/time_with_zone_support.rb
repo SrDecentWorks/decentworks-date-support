@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require "date"
-require "decentworks/date_support"
+require "active_support/time"
+require "decentworks/date_support" # using ::Decentworks::DateSupport に必要
 
 module Decentworks
   module ActiveSupport
