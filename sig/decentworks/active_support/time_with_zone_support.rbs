@@ -1,9 +1,9 @@
 module Decentworks
   module ActiveSupport
     module TimeWithZoneSupport
-      def beginning_of_this_week: (?Symbol?) -> ::ActiveSupport::TimeWithZone
-      def end_of_this_week: (?Symbol?) -> ::ActiveSupport::TimeWithZone
-      def all_this_week: (?Symbol?) -> ::Range[::ActiveSupport::TimeWithZone]
+      def beginning_of_this_week: -> ::ActiveSupport::TimeWithZone
+      def end_of_this_week: -> ::ActiveSupport::TimeWithZone
+      def all_this_week: -> ::Range[::ActiveSupport::TimeWithZone]
 
       def all_this_month: -> ::Range[::ActiveSupport::TimeWithZone]
 

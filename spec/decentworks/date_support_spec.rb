@@ -24,57 +24,21 @@ RSpec.describe ::Decentworks::DateSupport do
   # ###################################################################################################################
 
   describe "#beginning_of_this_week" do
-    subject { instance.beginning_of_this_week(beginning_of_week) }
+    subject { instance.beginning_of_this_week }
 
-    let(:beginning_of_week) { nil }
-
-    context "引数での週の始まりの曜日設定なし（月曜日始まり）" do
-      let(:beginning_of_week) { nil }
-
-      it { is_expected.to eq ::Date.new(2026, 8, 3) }
-    end
-
-    context "引数での週の始まりの曜日設定あり（日曜日始まり）" do
-      let(:beginning_of_week) { :sunday }
-
-      it { is_expected.to eq ::Date.new(2026, 8, 2) }
-    end
+    it { is_expected.to eq ::Date.new(2026, 8, 3) }
   end
 
   describe "#end_of_this_week" do
-    subject { instance.end_of_this_week(beginning_of_week) }
+    subject { instance.end_of_this_week }
 
-    let(:beginning_of_week) { nil }
-
-    context "引数での週の始まりの曜日設定なし（月曜日始まり）" do
-      let(:beginning_of_week) { nil }
-
-      it { is_expected.to eq ::Date.new(2026, 8, 9) }
-    end
-
-    context "引数での週の始まりの曜日設定あり（日曜日始まり）" do
-      let(:beginning_of_week) { :sunday }
-
-      it { is_expected.to eq ::Date.new(2026, 8, 8) }
-    end
+    it { is_expected.to eq ::Date.new(2026, 8, 9) }
   end
 
   describe "#all_this_week" do
-    subject { instance.all_this_week(beginning_of_week) }
+    subject { instance.all_this_week }
 
-    let(:beginning_of_week) { nil }
-
-    context "引数での週の始まりの曜日設定なし（月曜日始まり）" do
-      let(:beginning_of_week) { nil }
-
-      it { is_expected.to eq ::Range.new(::Date.new(2026, 8, 3), ::Date.new(2026, 8, 9)) }
-    end
-
-    context "引数での週の始まりの曜日設定あり（日曜日始まり）" do
-      let(:beginning_of_week) { :sunday }
-
-      it { is_expected.to eq ::Range.new(::Date.new(2026, 8, 2), ::Date.new(2026, 8, 8)) }
-    end
+    it { is_expected.to eq ::Range.new(::Date.new(2026, 8, 3), ::Date.new(2026, 8, 9)) }
   end
 
   # ###################################################################################################################
