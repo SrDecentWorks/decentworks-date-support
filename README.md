@@ -55,6 +55,17 @@ using ::Decentworks::ActiveSupport::TimeWithZoneSupport
 gem 'decentworks-date-support'
 ```
 
+### 初期化ファイルの生成（Rails）
+
+Railsから利用する場合は、以下のジェネレータで`config/initializers/decentworks_date_support.rb`を生成できます。
+
+```shell
+bin/rails generate decentworks:date_support:install
+```
+
+- 初期値は1月始まりです。
+- その他の月に変更したい場合は、ファイルの内容を修正してください。
+
 ## 使い方の例
 
 ```ruby
