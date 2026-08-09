@@ -24,8 +24,10 @@ module Decentworks
       # 開始月数
       delegate :beginning_of_first_quarter_month, to: :configuration
 
-      # 開始月の初期化
-      delegate :reset_configuration!, to: :configuration
+      # 開始月の初期
+      def reset_configuration!
+        @configuration = nil
+      end
 
       # 1月始まりとの開始月のずれ
       delegate :first_quarter_month_offset, to: :configuration
@@ -64,11 +66,6 @@ module Decentworks
       # 1月始まりとの開始月のずれ
       def first_quarter_month_offset
         beginning_of_first_quarter_month - 1
-      end
-
-      # 開始月の初期化
-      def reset_configuration!
-        @beginning_of_first_quarter = DEFAULT
       end
     end
   end

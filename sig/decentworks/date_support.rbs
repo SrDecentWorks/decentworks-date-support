@@ -5,6 +5,8 @@ module Decentworks
     def self.configure: -> void
     def self.configuration: -> ::Decentworks::DateSupport::Configuration
 
+    def self.reset_configuration!: -> nil
+
     def beginning_of_this_week: -> ::Date
     def end_of_this_week: -> ::Date
     def all_this_week: -> ::Range[::Date]

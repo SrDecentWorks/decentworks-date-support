@@ -11,8 +11,6 @@ module Decentworks
       def beginning_of_first_quarter_month: -> Integer
 
       def first_quarter_month_offset: -> Integer
-
-      def reset_configuration!: -> void
     end
   end
 end
