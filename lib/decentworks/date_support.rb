@@ -154,7 +154,7 @@ module Decentworks
       def end_of_january? = eql?(end_of_january)
 
       # 1月か？
-      def in_january? = all_january.include?(self)
+      def in_january? = all_january.cover?(self)
 
       #
       # 2月
@@ -176,7 +176,7 @@ module Decentworks
       def end_of_february? = eql?(end_of_february)
 
       # 2月か？
-      def in_february? = all_february.include?(self)
+      def in_february? = all_february.cover?(self)
 
       #
       # 3月
@@ -198,7 +198,7 @@ module Decentworks
       def end_of_march? = eql?(end_of_march)
 
       # 3月か？
-      def in_march? = all_march.include?(self)
+      def in_march? = all_march.cover?(self)
 
       #
       # 4月
@@ -220,7 +220,7 @@ module Decentworks
       def end_of_april? = eql?(end_of_april)
 
       # 4月か？
-      def in_april? = all_april.include?(self)
+      def in_april? = all_april.cover?(self)
 
       #
       # 5月
@@ -242,7 +242,7 @@ module Decentworks
       def end_of_may? = eql?(end_of_may)
 
       # 5月か？
-      def in_may? = all_may.include?(self)
+      def in_may? = all_may.cover?(self)
 
       #
       # 6月
@@ -264,7 +264,7 @@ module Decentworks
       def end_of_june? = eql?(end_of_june)
 
       # 6月か？
-      def in_june? = all_june.include?(self)
+      def in_june? = all_june.cover?(self)
 
       #
       # 7月
@@ -286,7 +286,7 @@ module Decentworks
       def end_of_july? = eql?(end_of_july)
 
       # 7月か？
-      def in_july? = all_july.include?(self)
+      def in_july? = all_july.cover?(self)
 
       #
       # 8月
@@ -308,7 +308,7 @@ module Decentworks
       def end_of_august? = eql?(end_of_august)
 
       # 8月か？
-      def in_august? = all_august.include?(self)
+      def in_august? = all_august.cover?(self)
 
       #
       # 9月
@@ -330,7 +330,7 @@ module Decentworks
       def end_of_september? = eql?(end_of_september)
 
       # 9月か？
-      def in_september? = all_september.include?(self)
+      def in_september? = all_september.cover?(self)
 
       #
       # 10月
@@ -352,7 +352,7 @@ module Decentworks
       def end_of_october? = eql?(end_of_october)
 
       # 10月か？
-      def in_october? = all_october.include?(self)
+      def in_october? = all_october.cover?(self)
 
       #
       # 11月
@@ -374,7 +374,7 @@ module Decentworks
       def end_of_november? = eql?(end_of_november)
 
       # 11月か？
-      def in_november? = all_november.include?(self)
+      def in_november? = all_november.cover?(self)
 
       #
       # 12月
@@ -396,7 +396,7 @@ module Decentworks
       def end_of_december? = eql?(end_of_december)
 
       # 12月か？
-      def in_december? = all_december.include?(self)
+      def in_december? = all_december.cover?(self)
 
       # ###############################################################################################################
       # 四半期関係
@@ -426,7 +426,7 @@ module Decentworks
       def end_of_first_quarter? = eql?(end_of_first_quarter)
 
       # 第1四半期か？
-      def in_first_quarter? = all_first_quarter.include?(self)
+      def in_first_quarter? = all_first_quarter.cover?(self)
 
       #
       # 第2四半期
@@ -448,7 +448,7 @@ module Decentworks
       def end_of_second_quarter? = eql?(end_of_second_quarter)
 
       # 第2四半期か？
-      def in_second_quarter? = all_second_quarter.include?(self)
+      def in_second_quarter? = all_second_quarter.cover?(self)
 
       #
       # 第3四半期
@@ -470,7 +470,7 @@ module Decentworks
       def end_of_third_quarter? = eql?(end_of_third_quarter)
 
       # 第3四半期か？
-      def in_third_quarter? = all_third_quarter.include?(self)
+      def in_third_quarter? = all_third_quarter.cover?(self)
 
       #
       # 第4四半期
@@ -492,7 +492,7 @@ module Decentworks
       def end_of_fourth_quarter? = eql?(end_of_fourth_quarter)
 
       # 第4四半期か？
-      def in_fourth_quarter? = all_fourth_quarter.include?(self)
+      def in_fourth_quarter? = all_fourth_quarter.cover?(self)
 
       # ###############################################################################################################
       # 上下期関係
@@ -518,7 +518,7 @@ module Decentworks
       def end_of_first_half? = eql?(end_of_first_half)
 
       # 上期か？
-      def all_first_half? = all_first_half.include?(self)
+      def in_first_half? = all_first_half.cover?(self)
 
       #
       # 下期
@@ -540,7 +540,7 @@ module Decentworks
       def end_of_second_half? = eql?(end_of_second_half)
 
       # 下期か？
-      def all_second_half? = all_second_half.include?(self)
+      def in_second_half? = all_second_half.cover?(self)
     end
 
     refine ::Date.singleton_class do

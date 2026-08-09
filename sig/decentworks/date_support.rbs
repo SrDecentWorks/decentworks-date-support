@@ -147,14 +147,14 @@ module Decentworks
     def all_first_half: -> ::Range[::Date]
     def beginning_of_first_half?: -> bool
     def end_of_first_half?: -> bool
-    def all_first_half?: -> bool
+    def in_first_half?: -> bool
 
     def beginning_of_second_half: -> ::Date
     def end_of_second_half: -> ::Date
     def all_second_half: -> ::Range[::Date]
     def beginning_of_second_half?: -> bool
     def end_of_second_half?: -> bool
-    def all_second_half?: -> bool
+    def in_second_half?: -> bool
 
     def whole_months_elapsed: (?from: ::Date, ?to: ::Date) -> ::Integer
   end

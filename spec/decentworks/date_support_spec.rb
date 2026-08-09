@@ -7,8 +7,8 @@ require "active_support/core_ext"
 require "active_support/time"
 
 require "spec_helper"
-require "decentworks/date_support/configuration"
 require "decentworks/date_support"
+require "decentworks/date_support/configuration"
 
 RSpec.describe ::Decentworks::DateSupport do
   using ::Decentworks::DateSupport
@@ -2721,8 +2721,8 @@ RSpec.describe ::Decentworks::DateSupport do
     end
   end
 
-  describe "#all_first_half?" do
-    subject { instance.all_first_half? }
+  describe "#in_first_half?" do
+    subject { instance.in_first_half? }
 
     context "上期ではない（前期期末）" do
       let(:instance) { ::Date.new(2025, 12, 31) }
@@ -2880,8 +2880,8 @@ RSpec.describe ::Decentworks::DateSupport do
     end
   end
 
-  describe "#all_second_half?" do
-    subject { instance.all_second_half? }
+  describe "#in_second_half?" do
+    subject { instance.in_second_half? }
 
     context "下期ではない（前期期末）" do
       let(:instance) { ::Date.new(2026, 6, 30) }
