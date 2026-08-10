@@ -1,23 +1,12 @@
 # frozen_string_literal: true
 
-require "date"
-
-require "active_support"
-require "active_support/core_ext"
-require "active_support/time"
-
 require "spec_helper"
 require "decentworks/date_support"
-require "decentworks/date_support/configuration"
 
 RSpec.describe ::Decentworks::DateSupport do
   using ::Decentworks::DateSupport
 
   let(:instance) { ::Date.new(2026, 8, 5) }
-
-  before do
-    ::Date.beginning_of_week = :monday # 週は月曜日始まり
-  end
 
   # ###################################################################################################################
   # 週関係

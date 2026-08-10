@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     decentworks-date-support (0.1.1)
+      activesupport (~> 8.1)
 
 GEM
   remote: https://rubygems.org/

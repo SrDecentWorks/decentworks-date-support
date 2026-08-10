@@ -9,6 +9,8 @@ module Decentworks
       def beginning_of_first_quarter=: (Symbol) -> void
 
       def beginning_of_first_quarter_month: -> Integer
+
+      def first_quarter_month_offset: -> Integer
     end
   end
 end

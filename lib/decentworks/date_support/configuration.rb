@@ -1,22 +1,21 @@
 # frozen_string_literal: true
 
 require "date"
+require "active_support/core_ext/module/delegation"
 
 module Decentworks
   module DateSupport
     class << self
       def configure
-        @@configuration ||= Configuration.new
+        @configuration ||= Configuration.new
 
-        yield(@@configuration) if block_given?
+        yield(@configuration) if block_given?
       end
 
       def configuration
-        unless class_variable_defined?(:@@configuration)
-          raise "Initialization has not been performed."
-        end
+        raise "Initialization has not been performed." if @configuration.nil?
 
-        @@configuration
+        @configuration
       end
 
       # 開始月名
@@ -25,8 +24,10 @@ module Decentworks
       # 開始月数
       delegate :beginning_of_first_quarter_month, to: :configuration
 
-      # 開始月の初期化
-      delegate :reset_configuration!, to: :configuration
+      # 開始月の初期
+      def reset_configuration!
+        @configuration = nil
+      end
 
       # 1月始まりとの開始月のずれ
       delegate :first_quarter_month_offset, to: :configuration
@@ -57,11 +58,6 @@ module Decentworks
         end
 
         @beginning_of_first_quarter = month_name
-      end
-
-      # 開始月の初期化
-      def reset_configuration!
-        @beginning_of_first_quarter = DEFAULT
       end
 
       # 開始月数
