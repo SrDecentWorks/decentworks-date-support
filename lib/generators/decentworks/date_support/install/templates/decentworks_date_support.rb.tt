@@ -1,0 +1,52 @@
+# frozen_string_literal: true
+
+require "decentworks/date_support"
+
+::Decentworks::DateSupport.configure do |config|
+  # 第1四半期（上期）の開始月を指定します。
+  # 指定可能な値:
+  #   :january   # =>  1月
+  #   :february  # =>  2月
+  #   :march     # =>  3月
+  #   :april     # =>  4月
+  #   :may       # =>  5月
+  #   :june      # =>  6月
+  #   :july      # =>  7月
+  #   :august    # =>  8月
+  #   :september # =>  9月
+  #   :october   # => 10月
+  #   :november  # => 11月
+  #   :december  # => 12月
+
+  config.beginning_of_first_quarter = :january # 1月始まり
+  # 第1四半期：1月〜3月
+  # 第2四半期：4月〜6月
+  # 第3四半期：7月〜9月
+  # 第4四半期：10月〜12月
+  # 上期：1月〜6月
+  # 下期：7月〜12月
+
+  # config.beginning_of_first_quarter = :april # 4月始まり
+  # 第1四半期：4月〜6月
+  # 第2四半期：7月〜9月
+  # 第3四半期：10月〜12月
+  # 第4四半期：翌1月〜翌3月
+  # 上期：4月〜9月
+  # 下期：10月〜翌3月
+
+  # config.beginning_of_first_quarter = :july # 7月始まり
+  # 第1四半期：7月〜9月
+  # 第2四半期：10月〜12月
+  # 第3四半期：翌1月〜翌3月
+  # 第4四半期：翌4月〜翌6月
+  # 上期：7月〜12月
+  # 下期：翌1月〜翌6月
+
+  # config.beginning_of_first_quarter = :october # 10月始まり
+  # 第1四半期：10月〜12月
+  # 第2四半期：翌1月〜翌3月
+  # 第3四半期：翌4月〜翌6月
+  # 第4四半期：翌7月〜翌9月
+  # 上期：10月〜翌3月
+  # 下期：翌4月〜翌9月
+end

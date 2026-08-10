@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require "date"
-require "decentworks/date_support"
+require "active_support/time"
+require_relative "../date_support/date" # using ::Decentworks::DateSupport に必要
 
 module Decentworks
   module ActiveSupport
@@ -18,34 +19,13 @@ module Decentworks
         #
 
         # 現在の日付が属する週の始まりの日付
-        #
-        # @param beginning_of_week 週の始まりの曜日。省略した場合は、config.beginning_of_weekの設定に従います。
-        def beginning_of_this_week(beginning_of_week = nil)
-          to_date # steep:ignore NoMethod
-            .beginning_of_this_week(beginning_of_week)
-            .beginning_of_day
-        end
+        def beginning_of_this_week = to_date.beginning_of_this_week.beginning_of_day
 
         # 現在の日付が属する週の終わりの日付
-        #
-        # @param beginning_of_week 週の始まりの曜日。省略した場合は、config.beginning_of_weekの設定に従います。
-        def end_of_this_week(beginning_of_week = nil)
-          to_date # steep:ignore NoMethod
-            .next_week
-            .beginning_of_this_week(beginning_of_week)
-            .yesterday
-            .end_of_day
-        end
+        def end_of_this_week = to_date.next_week.beginning_of_this_week.yesterday.end_of_day
 
         # 今週の期間
-        #
-        # @param beginning_of_week 週の始まりの曜日。省略した場合は、config.beginning_of_weekの設定に従います。
-        def all_this_week(beginning_of_week = nil)
-          ::Range.new(
-            beginning_of_this_week(beginning_of_week),
-            end_of_this_week(beginning_of_week)
-          )
-        end
+        def all_this_week = ::Range.new(beginning_of_this_week, end_of_this_week)
 
         # #############################################################################################################
         # 月関係
@@ -136,6 +116,10 @@ module Decentworks
         # 暦月関係
         #
 
+        #
+        # 1月
+        #
+
         # 1月の月初
         def beginning_of_january = to_date.beginning_of_january.beginning_of_day # steep:ignore NoMethod
 
@@ -144,6 +128,19 @@ module Decentworks
 
         # 1月の期間
         def all_january = ::Range.new(beginning_of_january, end_of_january)
+
+        # 1月の月初か？
+        def beginning_of_january? = beginning_of_january.all_day.cover?(self)
+
+        # 1月の月末か？
+        def end_of_january? = end_of_january.all_day.cover?(self)
+
+        # 1月か？
+        def in_january? = all_january.cover?(self)
+
+        #
+        # 2月
+        #
 
         # 2月の月初
         def beginning_of_february = to_date.beginning_of_february.beginning_of_day # steep:ignore NoMethod
@@ -154,6 +151,19 @@ module Decentworks
         # 2月の期間
         def all_february = ::Range.new(beginning_of_february, end_of_february)
 
+        # 2月の月初か？
+        def beginning_of_february? = beginning_of_february.all_day.cover?(self)
+
+        # 2月の月末か？
+        def end_of_february? = end_of_february.all_day.cover?(self)
+
+        # 2月か？
+        def in_february? = all_february.cover?(self)
+
+        #
+        # 3月
+        #
+
         # 3月の月初
         def beginning_of_march = to_date.beginning_of_march.beginning_of_day # steep:ignore NoMethod
 
@@ -162,6 +172,19 @@ module Decentworks
 
         # 3月の期間
         def all_march = ::Range.new(beginning_of_march, end_of_march)
+
+        # 3月の月初か？
+        def beginning_of_march? = beginning_of_march.all_day.cover?(self)
+
+        # 3月の月末か？
+        def end_of_march? = end_of_march.all_day.cover?(self)
+
+        # 3月か？
+        def in_march? = all_march.cover?(self)
+
+        #
+        # 4月
+        #
 
         # 4月の月初
         def beginning_of_april = to_date.beginning_of_april.beginning_of_day # steep:ignore NoMethod
@@ -172,6 +195,19 @@ module Decentworks
         # 4月の期間
         def all_april = ::Range.new(beginning_of_april, end_of_april)
 
+        # 4月の月初か？
+        def beginning_of_april? = beginning_of_april.all_day.cover?(self)
+
+        # 4月の月末か？
+        def end_of_april? = end_of_april.all_day.cover?(self)
+
+        # 4月か？
+        def in_april? = all_april.cover?(self)
+
+        #
+        # 5月
+        #
+
         # 5月の月初
         def beginning_of_may = to_date.beginning_of_may.beginning_of_day # steep:ignore NoMethod
 
@@ -180,6 +216,19 @@ module Decentworks
 
         # 5月の期間
         def all_may = ::Range.new(beginning_of_may, end_of_may)
+
+        # 5月の月初か？
+        def beginning_of_may? = beginning_of_may.all_day.cover?(self)
+
+        # 5月の月末か？
+        def end_of_may? = end_of_may.all_day.cover?(self)
+
+        # 5月か？
+        def in_may? = all_may.cover?(self)
+
+        #
+        # 6月
+        #
 
         # 6月の月初
         def beginning_of_june = to_date.beginning_of_june.beginning_of_day # steep:ignore NoMethod
@@ -190,6 +239,19 @@ module Decentworks
         # 6月の期間
         def all_june = ::Range.new(beginning_of_june, end_of_june)
 
+        # 6月の月初か？
+        def beginning_of_june? = beginning_of_june.all_day.cover?(self)
+
+        # 6月の月末か？
+        def end_of_june? = end_of_june.all_day.cover?(self)
+
+        # 6月か？
+        def in_june? = all_june.cover?(self)
+
+        #
+        # 7月
+        #
+
         # 7月の月初
         def beginning_of_july = to_date.beginning_of_july.beginning_of_day # steep:ignore NoMethod
 
@@ -198,6 +260,19 @@ module Decentworks
 
         # 7月の期間
         def all_july = ::Range.new(beginning_of_july, end_of_july)
+
+        # 7月の月初か？
+        def beginning_of_july? = beginning_of_july.all_day.cover?(self)
+
+        # 7月の月末か？
+        def end_of_july? = end_of_july.all_day.cover?(self)
+
+        # 7月か？
+        def in_july? = all_july.cover?(self)
+
+        #
+        # 8月
+        #
 
         # 8月の月初
         def beginning_of_august = to_date.beginning_of_august.beginning_of_day # steep:ignore NoMethod
@@ -208,6 +283,19 @@ module Decentworks
         # 8月の期間
         def all_august = ::Range.new(beginning_of_august, end_of_august)
 
+        # 8月の月初か？
+        def beginning_of_august? = beginning_of_august.all_day.cover?(self)
+
+        # 8月の月末か？
+        def end_of_august? = end_of_august.all_day.cover?(self)
+
+        # 8月か？
+        def in_august? = all_august.cover?(self)
+
+        #
+        # 9月
+        #
+
         # 9月の月初
         def beginning_of_september = to_date.beginning_of_september.beginning_of_day # steep:ignore NoMethod
 
@@ -216,6 +304,19 @@ module Decentworks
 
         # 9月の期間
         def all_september = ::Range.new(beginning_of_september, end_of_september)
+
+        # 9月の月初か？
+        def beginning_of_september? = beginning_of_september.all_day.cover?(self)
+
+        # 9月の月末か？
+        def end_of_september? = end_of_september.all_day.cover?(self)
+
+        # 9月か？
+        def in_september? = all_september.cover?(self)
+
+        #
+        # 10月
+        #
 
         # 10月の月初
         def beginning_of_october = to_date.beginning_of_october.beginning_of_day # steep:ignore NoMethod
@@ -226,6 +327,19 @@ module Decentworks
         # 10月の期間
         def all_october = ::Range.new(beginning_of_october, end_of_october)
 
+        # 10月の月初か？
+        def beginning_of_october? = beginning_of_october.all_day.cover?(self)
+
+        # 10月の月末か？
+        def end_of_october? = end_of_october.all_day.cover?(self)
+
+        # 10月か？
+        def in_october? = all_october.cover?(self)
+
+        #
+        # 11月
+        #
+
         # 11月の月初
         def beginning_of_november = to_date.beginning_of_november.beginning_of_day # steep:ignore NoMethod
 
@@ -234,6 +348,19 @@ module Decentworks
 
         # 11月の期間
         def all_november = ::Range.new(beginning_of_november, end_of_november)
+
+        # 11月の月初か？
+        def beginning_of_november? = beginning_of_november.all_day.cover?(self)
+
+        # 11月の月末か？
+        def end_of_november? = end_of_november.all_day.cover?(self)
+
+        # 11月か？
+        def in_november? = all_november.cover?(self)
+
+        #
+        # 12月
+        #
 
         # 12月の月初
         def beginning_of_december = to_date.beginning_of_december.beginning_of_day # steep:ignore NoMethod
@@ -244,67 +371,154 @@ module Decentworks
         # 12月の期間
         def all_december = ::Range.new(beginning_of_december, end_of_december)
 
+        # 12月の月初か？
+        def beginning_of_december? = beginning_of_december.all_day.cover?(self)
+
+        # 12月の月末か？
+        def end_of_december? = end_of_december.all_day.cover?(self)
+
+        # 12月か？
+        def in_december? = all_december.cover?(self)
+
         # #############################################################################################################
         # 四半期関係
         # #############################################################################################################
 
-        # 第1四半期の始めの日付
-        alias_method :beginning_of_first_quarter, :beginning_of_january
+        #
+        # 第1四半期
+        #
 
-        # 第1四半期の終わりの日付
-        alias_method :end_of_first_quarter, :end_of_march
+        # 第1四半期の期首
+        def beginning_of_first_quarter = to_date.beginning_of_first_quarter.beginning_of_day
+
+        # 第1四半期の期末
+        def end_of_first_quarter = to_date.end_of_first_quarter.end_of_day
 
         # 第1四半期の期間
         def all_first_quarter = ::Range.new(beginning_of_first_quarter, end_of_first_quarter)
 
-        # 第2四半期の始めの日付
-        alias_method :beginning_of_second_quarter, :beginning_of_april
+        # 第1四半期の期首か？
+        def beginning_of_first_quarter? = beginning_of_first_quarter.all_day.cover?(self)
 
-        # 第2四半期の終わりの日付
-        alias_method :end_of_second_quarter, :end_of_june
+        # 第1四半期の期末か？
+        def end_of_first_quarter? = end_of_first_quarter.all_day.cover?(self)
+
+        # 第1四半期か？
+        def in_first_quarter? = all_first_quarter.cover?(self)
+
+        #
+        # 第2四半期
+        #
+
+        # 第2四半期の期首
+        def beginning_of_second_quarter = to_date.beginning_of_second_quarter.beginning_of_day
+
+        # 第2四半期の期末
+        def end_of_second_quarter = to_date.end_of_second_quarter.end_of_day
 
         # 第2四半期の期間
         def all_second_quarter = ::Range.new(beginning_of_second_quarter, end_of_second_quarter)
 
-        # 第3四半期の始めの日付
-        alias_method :beginning_of_third_quarter, :beginning_of_july
+        # 第2四半期の期首か？
+        def beginning_of_second_quarter? = beginning_of_second_quarter.all_day.cover?(self)
 
-        # 第3四半期の終わりの日付
-        alias_method :end_of_third_quarter, :end_of_september
+        # 第2四半期の期末か？
+        def end_of_second_quarter? = end_of_second_quarter.all_day.cover?(self)
+
+        # 第2四半期か？
+        def in_second_quarter? = all_second_quarter.cover?(self)
+
+        #
+        # 第3四半期
+        #
+
+        # 第3四半期の期首
+        def beginning_of_third_quarter = to_date.beginning_of_third_quarter.beginning_of_day
+
+        # 第3四半期の期末
+        def end_of_third_quarter = to_date.end_of_third_quarter.end_of_day
 
         # 第3四半期の期間
         def all_third_quarter = ::Range.new(beginning_of_third_quarter, end_of_third_quarter)
 
-        # 第4四半期の始めの日付
-        alias_method :beginning_of_fourth_quarter, :beginning_of_october
+        # 第3四半期の期首か？
+        def beginning_of_third_quarter? = beginning_of_third_quarter.all_day.cover?(self)
 
-        # 第4四半期の終わりの日付
-        alias_method :end_of_fourth_quarter, :end_of_december
+        # 第3四半期の期末か？
+        def end_of_third_quarter? = end_of_third_quarter.all_day.cover?(self)
+
+        # 第3四半期か？
+        def in_third_quarter? = all_third_quarter.cover?(self)
+
+        #
+        # 第4四半期
+        #
+
+        # 第4四半期の期首
+        def beginning_of_fourth_quarter = to_date.beginning_of_fourth_quarter.beginning_of_day
+
+        # 第4四半期の期末
+        def end_of_fourth_quarter = to_date.end_of_fourth_quarter.end_of_day
 
         # 第4四半期の期間
         def all_fourth_quarter = ::Range.new(beginning_of_fourth_quarter, end_of_fourth_quarter)
+
+        # 第4四半期の期首か？
+        def beginning_of_fourth_quarter? = beginning_of_fourth_quarter.all_day.cover?(self)
+
+        # 第4四半期の期末か？
+        def end_of_fourth_quarter? = end_of_fourth_quarter.all_day.cover?(self)
+
+        # 第4四半期か？
+        def in_fourth_quarter? = all_fourth_quarter.cover?(self)
 
         # #############################################################################################################
         # 上下期関係
         # #############################################################################################################
 
-        # 上期の始まりの日付
+        #
+        # 上期
+        #
+
+        # 上期の期首
         alias_method :beginning_of_first_half, :beginning_of_first_quarter
 
-        # 上期の終わりの日付
+        # 上期の期末
         alias_method :end_of_first_half, :end_of_second_quarter
 
         # 上期の期間
         def all_first_half = ::Range.new(beginning_of_first_half, end_of_first_half)
 
-        # 下期の始まりの日付
+        # 上期の期首か？
+        def beginning_of_first_half? = beginning_of_first_half.all_day.cover?(self)
+
+        # 上期の期末か？
+        def end_of_first_half? = end_of_first_half.all_day.cover?(self)
+
+        # 上期か？
+        def in_first_half? = all_first_half.cover?(self)
+
+        #
+        # 下期
+        #
+
+        # 下期の期首
         alias_method :beginning_of_second_half, :beginning_of_third_quarter
 
-        # 下期の終わりの日付
+        # 下期の期末
         alias_method :end_of_second_half, :end_of_fourth_quarter
 
         # 下期の期間
         def all_second_half = ::Range.new(beginning_of_second_half, end_of_second_half)
+
+        # 下期の期首か？
+        def beginning_of_second_half? = beginning_of_second_half.all_day.cover?(self)
+
+        # 下期の期末か？
+        def end_of_second_half? = end_of_second_half.all_day.cover?(self)
+
+        # 下期か？
+        def in_second_half? = all_second_half.cover?(self)
       end
 
       refine ::ActiveSupport::TimeWithZone.singleton_class do

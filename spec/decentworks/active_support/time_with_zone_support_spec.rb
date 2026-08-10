@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-require "date"
-
-require "active_support"
-require "active_support/core_ext"
-require "active_support/time"
-
 require "spec_helper"
 require "decentworks/date_support"
 require "decentworks/active_support/time_with_zone_support"
@@ -15,64 +9,31 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
 
   let(:instance) { ::Time.zone.local(2026, 8, 5, 12, 34, 56) }
 
-  before do
-    ::Time.zone = "Asia/Tokyo"
-    ::Date.beginning_of_week = :monday # 週は月曜日始まり
-  end
+  # ###################################################################################################################
+  # 週関係
+  # ###################################################################################################################
 
   describe "#beginning_of_this_week" do
-    subject { instance.beginning_of_this_week(beginning_of_week) }
+    subject { instance.beginning_of_this_week }
 
-    let(:beginning_of_week) { nil }
-
-    context "引数での週の始まりの曜日設定なし（月曜日始まり）" do
-      let(:beginning_of_week) { nil }
-
-      it { is_expected.to eq ::Date.new(2026, 8, 3).beginning_of_day }
-    end
-
-    context "引数での週の始まりの曜日設定あり（日曜日始まり）" do
-      let(:beginning_of_week) { :sunday }
-
-      it { is_expected.to eq ::Date.new(2026, 8, 2).beginning_of_day }
-    end
+    it { is_expected.to eq ::Date.new(2026, 8, 3).beginning_of_day }
   end
 
   describe "#end_of_this_week" do
-    subject { instance.end_of_this_week(beginning_of_week) }
+    subject { instance.end_of_this_week }
 
-    let(:beginning_of_week) { nil }
-
-    context "引数での週の始まりの曜日設定なし（月曜日始まり）" do
-      let(:beginning_of_week) { nil }
-
-      it { is_expected.to eq ::Date.new(2026, 8, 9).end_of_day }
-    end
-
-    context "引数での週の始まりの曜日設定あり（日曜日始まり）" do
-      let(:beginning_of_week) { :sunday }
-
-      it { is_expected.to eq ::Date.new(2026, 8, 8).end_of_day }
-    end
+    it { is_expected.to eq ::Date.new(2026, 8, 9).end_of_day }
   end
 
   describe "#all_this_week" do
-    subject { instance.all_this_week(beginning_of_week) }
+    subject { instance.all_this_week }
 
-    let(:beginning_of_week) { nil }
-
-    context "引数での週の始まりの曜日設定なし（月曜日始まり）" do
-      let(:beginning_of_week) { nil }
-
-      it { is_expected.to eq ::Range.new(::Date.new(2026, 8, 3).beginning_of_day, ::Date.new(2026, 8, 9).end_of_day) }
-    end
-
-    context "引数での週の始まりの曜日設定あり（日曜日始まり）" do
-      let(:beginning_of_week) { :sunday }
-
-      it { is_expected.to eq ::Range.new(::Date.new(2026, 8, 2).beginning_of_day, ::Date.new(2026, 8, 8).end_of_day) }
-    end
+    it { is_expected.to eq ::Range.new(::Date.new(2026, 8, 3).beginning_of_day, ::Date.new(2026, 8, 9).end_of_day) }
   end
+
+  # ###################################################################################################################
+  # 月関係
+  # ###################################################################################################################
 
   describe "#all_this_month" do
     subject { instance.all_this_month }
@@ -212,6 +173,10 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Time.zone.local(2027, 7, 5, 12, 34, 56) }
   end
 
+  #
+  # 1月
+  #
+
   describe "#beginning_of_january" do
     subject { instance.beginning_of_january }
 
@@ -232,6 +197,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
 
     it { is_expected.to eq ::Range.new(beginning_of_january, end_of_january) }
   end
+
+  describe "#beginning_of_january?" do
+    subject { instance.beginning_of_january? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 1, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_january?" do
+    subject { instance.end_of_january? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 1, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2026, 2, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_january?" do
+    subject { instance.in_january? }
+
+    context "1月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2025, 12, 31, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "1月月初" do
+      let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "1月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 1, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "1月月末" do
+      let(:instance) { ::Time.zone.local(2026, 1, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "1月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2026, 2, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 2月
+  #
 
   describe "#beginning_of_february" do
     subject { instance.beginning_of_february }
@@ -254,6 +289,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Range.new(beginning_of_february, end_of_february) }
   end
 
+  describe "#beginning_of_february?" do
+    subject { instance.beginning_of_february? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 2, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 2, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_february?" do
+    subject { instance.end_of_february? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 2, 28, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2026, 3, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_february?" do
+    subject { instance.in_february? }
+
+    context "1月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2026, 1, 31, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "2月月初" do
+      let(:instance) { ::Time.zone.local(2026, 2, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "2月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 2, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "2月月末" do
+      let(:instance) { ::Time.zone.local(2026, 2, 28, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "2月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2026, 3, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 3月
+  #
+
   describe "#beginning_of_march" do
     subject { instance.beginning_of_march }
 
@@ -274,6 +379,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
 
     it { is_expected.to eq ::Range.new(beginning_of_march, end_of_march) }
   end
+
+  describe "#beginning_of_march?" do
+    subject { instance.beginning_of_march? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 3, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 3, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_march?" do
+    subject { instance.end_of_march? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_march?" do
+    subject { instance.in_march? }
+
+    context "3月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2026, 2, 28, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "3月月初" do
+      let(:instance) { ::Time.zone.local(2026, 3, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "3月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 3, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "3月月末" do
+      let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "3月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 4月
+  #
 
   describe "#beginning_of_april" do
     subject { instance.beginning_of_april }
@@ -296,6 +471,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Range.new(beginning_of_april, end_of_april) }
   end
 
+  describe "#beginning_of_april?" do
+    subject { instance.beginning_of_april? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 4, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_april?" do
+    subject { instance.end_of_april? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 4, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2026, 5, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_april?" do
+    subject { instance.in_april? }
+
+    context "4月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "4月月初" do
+      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "4月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 4, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "4月月末" do
+      let(:instance) { ::Time.zone.local(2026, 4, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "4月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2026, 5, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 5月
+  #
+
   describe "#beginning_of_may" do
     subject { instance.beginning_of_may }
 
@@ -316,6 +561,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
 
     it { is_expected.to eq ::Range.new(beginning_of_may, end_of_may) }
   end
+
+  describe "#beginning_of_may?" do
+    subject { instance.beginning_of_may? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 5, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 5, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_may?" do
+    subject { instance.end_of_may? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 5, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2026, 6, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_may?" do
+    subject { instance.in_may? }
+
+    context "5月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2026, 4, 30, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "5月月初" do
+      let(:instance) { ::Time.zone.local(2026, 5, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "5月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 5, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "5月月末" do
+      let(:instance) { ::Time.zone.local(2026, 5, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "5月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2026, 6, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 6月
+  #
 
   describe "#beginning_of_june" do
     subject { instance.beginning_of_june }
@@ -338,6 +653,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Range.new(beginning_of_june, end_of_june) }
   end
 
+  describe "#beginning_of_june?" do
+    subject { instance.beginning_of_june? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 6, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 6, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_june?" do
+    subject { instance.end_of_june? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_june?" do
+    subject { instance.in_june? }
+
+    context "6月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2026, 5, 31, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "6月月初" do
+      let(:instance) { ::Time.zone.local(2026, 6, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "6月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 6, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "6月月末" do
+      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "6月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 7月
+  #
+
   describe "#beginning_of_july" do
     subject { instance.beginning_of_july }
 
@@ -358,6 +743,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
 
     it { is_expected.to eq ::Range.new(beginning_of_july, end_of_july) }
   end
+
+  describe "#beginning_of_july?" do
+    subject { instance.beginning_of_july? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 7, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_july?" do
+    subject { instance.end_of_july? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 7, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2026, 8, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_july?" do
+    subject { instance.in_july? }
+
+    context "7月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "7月月初" do
+      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "7月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 7, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "7月月末" do
+      let(:instance) { ::Time.zone.local(2026, 7, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "7月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2026, 8, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 8月
+  #
 
   describe "#beginning_of_august" do
     subject { instance.beginning_of_august }
@@ -380,6 +835,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Range.new(beginning_of_august, end_of_august) }
   end
 
+  describe "#beginning_of_august?" do
+    subject { instance.beginning_of_august? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 8, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 8, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_august?" do
+    subject { instance.end_of_august? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 8, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2026, 9, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_august?" do
+    subject { instance.in_august? }
+
+    context "8月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2026, 7, 31, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "8月月初" do
+      let(:instance) { ::Time.zone.local(2026, 8, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "8月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 8, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "8月月末" do
+      let(:instance) { ::Time.zone.local(2026, 8, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "8月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2026, 9, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 9月
+  #
+
   describe "#beginning_of_september" do
     subject { instance.beginning_of_september }
 
@@ -400,6 +925,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
 
     it { is_expected.to eq ::Range.new(beginning_of_september, end_of_september) }
   end
+
+  describe "#beginning_of_september?" do
+    subject { instance.beginning_of_september? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 9, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 9, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_september?" do
+    subject { instance.end_of_september? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_september?" do
+    subject { instance.in_september? }
+
+    context "9月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2026, 8, 31, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "9月月初" do
+      let(:instance) { ::Time.zone.local(2026, 9, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "9月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 9, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "9月月末" do
+      let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "9月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 10月
+  #
 
   describe "#beginning_of_october" do
     subject { instance.beginning_of_october }
@@ -422,6 +1017,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Range.new(beginning_of_october, end_of_october) }
   end
 
+  describe "#beginning_of_october?" do
+    subject { instance.beginning_of_october? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 10, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_october?" do
+    subject { instance.end_of_october? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 10, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2026, 11, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_october?" do
+    subject { instance.in_october? }
+
+    context "10月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "10月月初" do
+      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "10月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 10, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "10月月末" do
+      let(:instance) { ::Time.zone.local(2026, 10, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "10月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2026, 11, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 11月
+  #
+
   describe "#beginning_of_november" do
     subject { instance.beginning_of_november }
 
@@ -442,6 +1107,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
 
     it { is_expected.to eq ::Range.new(beginning_of_november, end_of_november) }
   end
+
+  describe "#beginning_of_november?" do
+    subject { instance.beginning_of_november? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 11, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 11, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_november?" do
+    subject { instance.end_of_november? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 11, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2026, 12, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_november?" do
+    subject { instance.in_november? }
+
+    context "11月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2026, 10, 31, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "11月月初" do
+      let(:instance) { ::Time.zone.local(2026, 11, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "11月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 11, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "11月月末" do
+      let(:instance) { ::Time.zone.local(2026, 11, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "11月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2026, 12, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 2月
+  #
 
   describe "#beginning_of_december" do
     subject { instance.beginning_of_december }
@@ -464,16 +1199,114 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Range.new(beginning_of_december, end_of_december) }
   end
 
+  describe "#beginning_of_december?" do
+    subject { instance.beginning_of_december? }
+
+    context "月初" do
+      let(:instance) { ::Time.zone.local(2026, 12, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月初以外" do
+      let(:instance) { ::Time.zone.local(2026, 12, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_december?" do
+    subject { instance.end_of_december? }
+
+    context "月末" do
+      let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "月末以外" do
+      let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_december?" do
+    subject { instance.in_december? }
+
+    context "12月ではない（前月月末）" do
+      let(:instance) { ::Time.zone.local(2026, 11, 30, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "12月月初" do
+      let(:instance) { ::Time.zone.local(2026, 12, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "12月中旬" do
+      let(:instance) { ::Time.zone.local(2026, 12, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "12月月末" do
+      let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "12月ではない（翌月月初）" do
+      let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  # ###################################################################################################################
+  # 四半期関係
+  # ###################################################################################################################
+
+  #
+  # 第1四半期
+  #
+
   describe "#beginning_of_first_quarter" do
     subject { instance.beginning_of_first_quarter }
 
-    it { is_expected.to eq instance.beginning_of_january }
+    context "1月始まりの場合（初期値）" do
+      it { is_expected.to eq ::Date.new(2026, 1, 1).beginning_of_day }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { is_expected.to eq ::Date.new(2026, 4, 1).beginning_of_day }
+    end
   end
 
   describe "#end_of_first_quarter" do
     subject { instance.end_of_first_quarter }
 
-    it { is_expected.to eq instance.end_of_march }
+    context "1月始まりの場合（初期値）" do
+      it { is_expected.to eq ::Date.new(2026, 3, 31).end_of_day }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { is_expected.to eq ::Date.new(2026, 6, 30).end_of_day }
+    end
   end
 
   describe "#all_first_quarter" do
@@ -485,16 +1318,154 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Range.new(beginning_of_first_quarter, end_of_first_quarter) }
   end
 
+  describe "#beginning_of_first_quarter?" do
+    subject { instance.beginning_of_first_quarter? }
+
+    context "1月始まりの場合（初期値）" do
+      context "期首" do
+        let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期首以外" do
+        let(:instance) { ::Time.zone.local(2026, 1, 2, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      context "期首" do
+        let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期首以外" do
+        let(:instance) { ::Time.zone.local(2026, 4, 2, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+  end
+
+  describe "#end_of_first_quarter?" do
+    subject { instance.end_of_first_quarter? }
+
+    context "1月始まりの場合（初期値）" do
+      context "期末" do
+        let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期末以外" do
+        let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      context "期末" do
+        let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期末以外" do
+        let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+  end
+
+  describe "#in_first_quarter?" do
+    subject { instance.in_first_quarter? }
+
+    context "第1四半期ではない（前期期末）" do
+      let(:instance) { ::Time.zone.local(2025, 12, 31, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "第1四半期期首" do
+      let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第1四半期中" do
+      let(:instance) { ::Time.zone.local(2026, 2, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第1四半期末" do
+      let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第1四半期ではない（翌期期首）" do
+      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 第2四半期
+  #
+
   describe "#beginning_of_second_quarter" do
     subject { instance.beginning_of_second_quarter }
 
-    it { is_expected.to eq instance.beginning_of_april }
+    context "1月始まりの場合（初期値）" do
+      it { is_expected.to eq ::Date.new(2026, 4, 1).beginning_of_day }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { is_expected.to eq ::Date.new(2026, 7, 1).beginning_of_day }
+    end
   end
 
   describe "#end_of_second_quarter" do
     subject { instance.end_of_second_quarter }
 
-    it { is_expected.to eq instance.end_of_june }
+    context "1月始まりの場合（初期値）" do
+      it { is_expected.to eq ::Date.new(2026, 6, 30).end_of_day }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { is_expected.to eq ::Date.new(2026, 9, 30).end_of_day }
+    end
   end
 
   describe "#all_second_quarter" do
@@ -506,16 +1477,154 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Range.new(beginning_of_second_quarter, end_of_second_quarter) }
   end
 
+  describe "#beginning_of_second_quarter?" do
+    subject { instance.beginning_of_second_quarter? }
+
+    context "1月始まりの場合（初期値）" do
+      context "期首" do
+        let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期首以外" do
+        let(:instance) { ::Time.zone.local(2026, 4, 2, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      context "期首" do
+        let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期首以外" do
+        let(:instance) { ::Time.zone.local(2026, 7, 2, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+  end
+
+  describe "#end_of_second_quarter?" do
+    subject { instance.end_of_second_quarter? }
+
+    context "1月始まりの場合（初期値）" do
+      context "期末" do
+        let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期末以外" do
+        let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      context "期末" do
+        let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期末以外" do
+        let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+  end
+
+  describe "#in_second_quarter?" do
+    subject { instance.in_second_quarter? }
+
+    context "第2四半期ではない（前期期末）" do
+      let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "第2四半期期首" do
+      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第2四半期中" do
+      let(:instance) { ::Time.zone.local(2026, 5, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第2四半期末" do
+      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第2四半期ではない（翌期期首）" do
+      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 第3四半期
+  #
+
   describe "#beginning_of_third_quarter" do
     subject { instance.beginning_of_third_quarter }
 
-    it { is_expected.to eq instance.beginning_of_july }
+    context "1月始まりの場合（初期値）" do
+      it { is_expected.to eq ::Date.new(2026, 7, 1).beginning_of_day }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { is_expected.to eq ::Date.new(2026, 10, 1).beginning_of_day }
+    end
   end
 
   describe "#end_of_third_quarter" do
     subject { instance.end_of_third_quarter }
 
-    it { is_expected.to eq instance.end_of_september }
+    context "1月始まりの場合（初期値）" do
+      it { is_expected.to eq ::Date.new(2026, 9, 30).end_of_day }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { is_expected.to eq ::Date.new(2026, 12, 31).end_of_day }
+    end
   end
 
   describe "#all_third_quarter" do
@@ -527,16 +1636,154 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Range.new(beginning_of_third_quarter, end_of_third_quarter) }
   end
 
+  describe "#beginning_of_third_quarter?" do
+    subject { instance.beginning_of_third_quarter? }
+
+    context "1月始まりの場合（初期値）" do
+      context "期首" do
+        let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期首以外" do
+        let(:instance) { ::Time.zone.local(2026, 7, 2, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      context "期首" do
+        let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期首以外" do
+        let(:instance) { ::Time.zone.local(2026, 10, 2, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+  end
+
+  describe "#end_of_third_quarter?" do
+    subject { instance.end_of_third_quarter? }
+
+    context "1月始まりの場合（初期値）" do
+      context "期末" do
+        let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期末以外" do
+        let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      context "期末" do
+        let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期末以外" do
+        let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+  end
+
+  describe "#in_third_quarter?" do
+    subject { instance.in_third_quarter? }
+
+    context "第3四半期ではない（前期期末）" do
+      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "第3四半期期首" do
+      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第3四半期中" do
+      let(:instance) { ::Time.zone.local(2026, 8, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第3四半期末" do
+      let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第3四半期ではない（翌期期首）" do
+      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 第4四半期
+  #
+
   describe "#beginning_of_fourth_quarter" do
     subject { instance.beginning_of_fourth_quarter }
 
-    it { is_expected.to eq instance.beginning_of_october }
+    context "1月始まりの場合（初期値）" do
+      it { is_expected.to eq ::Date.new(2026, 10, 1).beginning_of_day }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { is_expected.to eq ::Date.new(2027, 1, 1).beginning_of_day }
+    end
   end
 
   describe "#end_of_fourth_quarter" do
     subject { instance.end_of_fourth_quarter }
 
-    it { is_expected.to eq instance.end_of_december }
+    context "1月始まりの場合（初期値）" do
+      it { is_expected.to eq ::Date.new(2026, 12, 31).end_of_day }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { is_expected.to eq ::Date.new(2027, 3, 31).end_of_day }
+    end
   end
 
   describe "#all_fourth_quarter" do
@@ -548,26 +1795,123 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Range.new(beginning_of_fourth_quarter, end_of_fourth_quarter) }
   end
 
-  describe "#beginning_of_fourth_quarter" do
-    subject { instance.beginning_of_fourth_quarter }
+  describe "#beginning_of_fourth_quarter?" do
+    subject { instance.beginning_of_fourth_quarter? }
 
-    it { is_expected.to eq instance.beginning_of_october }
+    context "1月始まりの場合（初期値）" do
+      context "期首" do
+        let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期首以外" do
+        let(:instance) { ::Time.zone.local(2026, 10, 2, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      context "期首" do
+        let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期首以外" do
+        let(:instance) { ::Time.zone.local(2027, 1, 2, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
   end
 
-  describe "#end_of_fourth_quarter" do
-    subject { instance.end_of_fourth_quarter }
+  describe "#end_of_fourth_quarter?" do
+    subject { instance.end_of_fourth_quarter? }
 
-    it { is_expected.to eq instance.end_of_december }
+    context "1月始まりの場合（初期値）" do
+      context "期末" do
+        let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期末以外" do
+        let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      context "期末" do
+        let(:instance) { ::Time.zone.local(2027, 3, 31, 12, 34, 56) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "期末以外" do
+        let(:instance) { ::Time.zone.local(2027, 4, 1, 12, 34, 56) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
   end
 
-  describe "#all_fourth_quarter" do
-    subject { instance.all_fourth_quarter }
+  describe "#in_fourth_quarter?" do
+    subject { instance.in_fourth_quarter? }
 
-    let(:beginning_of_fourth_quarter) { instance.beginning_of_fourth_quarter }
-    let(:end_of_fourth_quarter) { instance.end_of_fourth_quarter }
+    context "第4四半期ではない（前期期末）" do
+      let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
 
-    it { is_expected.to eq ::Range.new(beginning_of_fourth_quarter, end_of_fourth_quarter) }
+      it { is_expected.to be_falsey }
+    end
+
+    context "第4四半期期首" do
+      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第4四半期中" do
+      let(:instance) { ::Time.zone.local(2026, 11, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第4四半期末" do
+      let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "第4四半期ではない（翌期期首）" do
+      let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
   end
+
+  # ###################################################################################################################
+  # 上下期関係
+  # ###################################################################################################################
+
+  #
+  # 上期
+  #
 
   describe "#beginning_of_first_half" do
     subject { instance.beginning_of_first_half }
@@ -590,6 +1934,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
     it { is_expected.to eq ::Range.new(beginning_of_first_half, end_of_first_half) }
   end
 
+  describe "#beginning_of_first_half?" do
+    subject { instance.beginning_of_first_half? }
+
+    context "期首" do
+      let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "期首以外" do
+      let(:instance) { ::Time.zone.local(2026, 1, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_first_half?" do
+    subject { instance.end_of_first_half? }
+
+    context "期末" do
+      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "期末以外" do
+      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_first_half?" do
+    subject { instance.in_first_half? }
+
+    context "上期ではない（前期期末）" do
+      let(:instance) { ::Time.zone.local(2025, 12, 31, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "上期期首" do
+      let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "上期中" do
+      let(:instance) { ::Time.zone.local(2026, 2, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "上期末" do
+      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "上期ではない（翌期期首）" do
+      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  #
+  # 下期
+  #
+
   describe "#beginning_of_second_half" do
     subject { instance.beginning_of_second_half }
 
@@ -610,6 +2024,76 @@ RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
 
     it { is_expected.to eq ::Range.new(beginning_of_second_half, end_of_second_half) }
   end
+
+  describe "#beginning_of_second_half?" do
+    subject { instance.beginning_of_second_half? }
+
+    context "期首" do
+      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "期首以外" do
+      let(:instance) { ::Time.zone.local(2026, 7, 2, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#end_of_second_half?" do
+    subject { instance.end_of_second_half? }
+
+    context "期末" do
+      let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "期末以外" do
+      let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#in_second_half?" do
+    subject { instance.in_second_half? }
+
+    context "上期ではない（前期期末）" do
+      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "上期期首" do
+      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "上期中" do
+      let(:instance) { ::Time.zone.local(2026, 8, 15, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "上期末" do
+      let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "上期ではない（翌期期首）" do
+      let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  # ###################################################################################################################
+  # 満経過月数
+  # ###################################################################################################################
 
   describe ".whole_months_elapsed" do
     subject { ::ActiveSupport::TimeWithZone.whole_months_elapsed(from:, to:) }

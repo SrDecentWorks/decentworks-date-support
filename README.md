@@ -1,5 +1,11 @@
 # Decentworks::Date::Support - 日付機能拡張ライブラリ
 
+## はじめに
+
+このgemは、個人開発用です。  
+そのため、予告なく仕様の追加・変更・削除が行われます。  
+もちろん、このgemを使用したことによるバグなどの責任は負えません。
+
 ## 概要
 
 Railsの`Date`、`ActiveSupport::TimeWithZone`に対する機能拡張を行います。
@@ -55,22 +61,33 @@ using ::Decentworks::ActiveSupport::TimeWithZoneSupport
 gem 'decentworks-date-support'
 ```
 
+### 初期化ファイルの生成（Rails）
+
+Railsから利用する場合は、以下のジェネレータで`config/initializers/decentworks_date_support.rb`を生成できます。
+
+```shell
+bin/rails generate decentworks:date_support:install
+```
+
+- 初期値は1月始まりです。
+- その他の月に変更したい場合は、ファイルの内容を修正してください。
+
 ## 使い方の例
 
 ```ruby
-require 'decentworks_date_support'
+require 'decentworks/date_support'
 
 using ::Decentworks::DateSupport
 
 d = ::Date.new(2026, 8, 5)
-d.all_this_week(:sunday) # => ::Date.new(2026, 8, 2)..::Date.new(2026, 8, 8)
+d.all_this_week # => Mon, 03 Aug 2026..Sun, 09 Aug 2026
 ```
 
 ```ruby
-require 'decentworks_date_support'
+require 'decentworks/date_support'
 
 using ::Decentworks::ActiveSupport::TimeWithZoneSupport
 
 d = ::Time.zone.local(2026, 8, 5)
-d.all_this_week(:sunday) # => ::Date.new(2026, 8, 2).beginning_of_day..::Date.new(2026, 8, 8).end_of_day
+d.all_this_week # => 2026-08-03 00:00:00.000000000 JST +09:00..2026-08-09 23:59:59.999999999 JST +09:00
 ```
