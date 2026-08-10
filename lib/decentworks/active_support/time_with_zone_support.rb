@@ -2,7 +2,7 @@
 
 require "date"
 require "active_support/time"
-require "decentworks/date_support" # using ::Decentworks::DateSupport に必要
+require_relative "../date_support/date" # using ::Decentworks::DateSupport に必要
 
 module Decentworks
   module ActiveSupport

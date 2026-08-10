@@ -75,7 +75,7 @@ bin/rails generate decentworks:date_support:install
 ## 使い方の例
 
 ```ruby
-require 'decentworks_date_support'
+require 'decentworks/date_support'
 
 using ::Decentworks::DateSupport
 
@@ -84,7 +84,7 @@ d.all_this_week # => Mon, 03 Aug 2026..Sun, 09 Aug 2026
 ```
 
 ```ruby
-require 'decentworks_date_support'
+require 'decentworks/date_support'
 
 using ::Decentworks::ActiveSupport::TimeWithZoneSupport
 

@@ -10,7 +10,7 @@ require "active_support/time"
 require "simplecov"
 SimpleCov.start
 
-require "decentworks_date_support"
+require "decentworks/date_support"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
