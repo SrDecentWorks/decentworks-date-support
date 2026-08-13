@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "decentworks/date_support"
-
 ::Decentworks::DateSupport.configure do |config|
   # 第1四半期（上期）の開始月を指定します。
   # 指定可能な値:
