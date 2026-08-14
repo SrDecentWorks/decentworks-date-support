@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "decentworks/date_support"
 
-RSpec.describe ::Decentworks::DateSupport do
-  using ::Decentworks::DateSupport
-
+RSpec.describe ::Date do
   let(:instance) { ::Date.new(2026, 8, 5) }
 
   # ###################################################################################################################

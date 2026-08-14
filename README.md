@@ -7,29 +7,16 @@
 
 Railsの`Date`、`ActiveSupport::TimeWithZone`に対する機能拡張を行います。
 
-## refinements
+## 拡張方式
 
-gemによる影響範囲を限定するため、refinementsを採用しています。  
-利用する場合は、適切なスコープで`using`を利用してください。
+`::Date`と`::ActiveSupport::TimeWithZone`のクラスを再オープン（reopen）してメソッドを追加します。
+
+`require`した時点でアプリケーション全体に適用されるため、`using`の記述は不要です。
+
+> [!WARNING]
+> v0.3.0でrefinementsからクラス再オープンに変更しました。v0.2.0以前から移行する場合は、`using ::Decentworks::DateSupport`と`using ::Decentworks::ActiveSupport::TimeWithZoneSupport`の記述をすべて削除してください。
 
 ## 機能
-
-### Dateクラス拡張
-
-#### using
-
-```ruby
-using ::Decentworks::DateSupport
-```
-
-### ActiveSupport::TimeWithZoneクラス拡張
-
-#### using
-
-```ruby
-using ::Decentworks::ActiveSupport::TimeWithZoneSupport
-```
-
 
 ### 週関係
 
@@ -74,16 +61,12 @@ bin/rails generate decentworks:date_support:install
 ```ruby
 require 'decentworks/date_support'
 
-using ::Decentworks::DateSupport
-
 d = ::Date.new(2026, 8, 5)
 d.all_this_week # => Mon, 03 Aug 2026..Sun, 09 Aug 2026
 ```
 
 ```ruby
 require 'decentworks/date_support'
-
-using ::Decentworks::ActiveSupport::TimeWithZoneSupport
 
 d = ::Time.zone.local(2026, 8, 5)
 d.all_this_week # => 2026-08-03 00:00:00.000000000 JST +09:00..2026-08-09 23:59:59.999999999 JST +09:00

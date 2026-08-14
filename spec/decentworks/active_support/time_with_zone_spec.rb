@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "decentworks/date_support"
-require "decentworks/active_support/time_with_zone_support"
 
-RSpec.describe ::Decentworks::ActiveSupport::TimeWithZoneSupport do
-  using ::Decentworks::ActiveSupport::TimeWithZoneSupport
-
+RSpec.describe ::ActiveSupport::TimeWithZone do
   let(:instance) { ::Time.zone.local(2026, 8, 5, 12, 34, 56) }
 
   # ###################################################################################################################
