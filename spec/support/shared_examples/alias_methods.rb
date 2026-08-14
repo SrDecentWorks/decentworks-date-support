@@ -10,6 +10,8 @@ RSpec.shared_examples "別名メソッドの遅延束縛" do
   let(:instance) { time.call(2026, 8, 5, 12, 34, 56) }
 
   {
+    beginning_of_this_month:  :beginning_of_month,
+    end_of_this_month:        :end_of_month,
     half_year_ago:            :six_months_ago,
     half_year_since:          :six_months_since,
     beginning_of_first_half:  :beginning_of_first_quarter,

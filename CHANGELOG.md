@@ -20,6 +20,9 @@
   - 著作者表記が `yutaka.mizomoto` / `YutakaMizomoto` で不一致だったため、gemspecの`authors`に合わせて `decentworks` に統一
 - gemspecの`email`を設定（未設定だったため`gem build`で警告が出ていた）
 - gemspecに`rubygems_mfa_required`を追加（gem pushに多要素認証を必須にする）
+- `beginning_of_this_month` / `end_of_this_month` を追加
+  - `all_this_month` のみ定義されており、`*_this_*` の命名に揃える方針と不整合だったため
+  - ActiveSupportの`beginning_of_month` / `end_of_month`と同じ値を返す
 
 # [0.2.0]
 

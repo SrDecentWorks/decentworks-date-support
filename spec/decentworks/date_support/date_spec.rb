@@ -52,6 +52,18 @@ RSpec.describe ::Date do
   # 月関係
   # ###################################################################################################################
 
+  describe "#beginning_of_this_month" do
+    subject { instance.beginning_of_this_month }
+
+    it { is_expected.to eq ::Date.new(2026, 8, 1) }
+  end
+
+  describe "#end_of_this_month" do
+    subject { instance.end_of_this_month }
+
+    it { is_expected.to eq ::Date.new(2026, 8, 31) }
+  end
+
   describe "#all_this_month" do
     subject { instance.all_this_month }
 

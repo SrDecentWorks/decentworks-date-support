@@ -34,6 +34,18 @@ RSpec.shared_examples "日時拡張" do
   # 月関係
   # ###################################################################################################################
 
+  describe "#beginning_of_this_month" do
+    subject { instance.beginning_of_this_month }
+
+    it { is_expected.to eq time.call(2026, 8, 1).beginning_of_day }
+  end
+
+  describe "#end_of_this_month" do
+    subject { instance.end_of_this_month }
+
+    it { is_expected.to eq time.call(2026, 8, 31).end_of_day }
+  end
+
   describe "#all_this_month" do
     subject { instance.all_this_month }
 

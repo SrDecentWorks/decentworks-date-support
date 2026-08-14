@@ -143,7 +143,7 @@ d.all_fiscal_year      # => Tue, 01 Apr 2025..Tue, 31 Mar 2026
 
 | メソッド | 内容 |
 | --- | --- |
-| `all_this_month` | 現在の日付が属する月の期間 |
+| `beginning_of_this_month` / `end_of_this_month` / `all_this_month` | 現在の日付が属する月の月初 / 月末 / 期間 |
 | `two_months_ago` 〜 `eleven_months_ago` | Nヶ月前の日付（2〜11） |
 | `two_months_since` 〜 `eleven_months_since` | Nヶ月後の日付（2〜11） |
 | `half_year_ago` / `half_year_since` | 半年前 / 半年後の日付（`six_months_ago` / `six_months_since` の別名） |
@@ -222,7 +222,7 @@ d.all_fiscal_year      # => Tue, 01 Apr 2025..Tue, 31 Mar 2026
 
 ### ActiveSupportと同名の値を返すメソッド
 
-`beginning_of_this_week` / `end_of_this_week` / `all_this_week` / `all_this_month` は、ActiveSupportの `beginning_of_week` / `end_of_week` / `all_week` / `all_month` と同じ値を返します。本ライブラリが追加する `*_this_*` という命名に揃えるために定義しているものであり、機能の追加ではありません。
+`beginning_of_this_week` / `end_of_this_week` / `all_this_week` / `beginning_of_this_month` / `end_of_this_month` / `all_this_month` は、ActiveSupportの `beginning_of_week` / `end_of_week` / `all_week` / `beginning_of_month` / `end_of_month` / `all_month` と同じ値を返します。本ライブラリが追加する `*_this_*` という命名に揃えるために定義しているものであり、機能の追加ではありません。
 
 ## 開発
 

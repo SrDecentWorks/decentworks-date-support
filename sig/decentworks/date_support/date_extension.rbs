@@ -19,6 +19,8 @@ module Decentworks
       def end_of_this_week: -> ::Date
       def all_this_week: -> ::Range[::Date]
 
+      def beginning_of_this_month: -> ::Date
+      def end_of_this_month: -> ::Date
       def all_this_month: -> ::Range[::Date]
 
       def two_months_ago: -> ::Date

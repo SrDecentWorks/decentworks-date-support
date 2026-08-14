@@ -32,6 +32,8 @@ module Decentworks
       def end_of_this_week: -> self
       def all_this_week: -> ::Range[self]
 
+      def beginning_of_this_month: -> self
+      def end_of_this_month: -> self
       def all_this_month: -> ::Range[self]
 
       def two_months_ago: -> self

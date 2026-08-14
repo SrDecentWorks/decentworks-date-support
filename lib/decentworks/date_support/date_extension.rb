@@ -84,8 +84,14 @@ module Decentworks
       # 今月関係
       #
 
+      # 現在の日付が属する月の始まりの日付
+      def beginning_of_this_month = beginning_of_month
+
+      # 現在の日付が属する月の終わりの日付
+      def end_of_this_month = end_of_month
+
       # 現在の日付が属する月の期間
-      def all_this_month = ::Range.new(beginning_of_month, end_of_month)
+      def all_this_month = ::Range.new(beginning_of_this_month, end_of_this_month)
 
       #
       # Nヶ月前関係
