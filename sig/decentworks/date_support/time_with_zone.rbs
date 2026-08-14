@@ -1,10 +1,6 @@
-# frozen_string_literal: true
-
-require "active_support/time"
-require_relative "time_extension"
-
 module ActiveSupport
   class TimeWithZone
     include ::Decentworks::DateSupport::TimeExtension
+    extend ::Decentworks::DateSupport::TimeExtension::ClassMethods
   end
 end

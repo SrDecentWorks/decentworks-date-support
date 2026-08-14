@@ -5,13 +5,20 @@
 
 ## 概要
 
-Railsの`Date`、`ActiveSupport::TimeWithZone`に対する機能拡張を行います。
+Railsの`Date`、`Time`、`DateTime`、`ActiveSupport::TimeWithZone`に対する機能拡張を行います。
 
 ## 拡張方式
 
-`::Date`と`::ActiveSupport::TimeWithZone`のクラスを再オープン（reopen）してメソッドを追加します。
+`::Date`、`::Time`、`::DateTime`、`::ActiveSupport::TimeWithZone`のクラスを再オープン（reopen）してメソッドを追加します。
 
 `require`した時点でアプリケーション全体に適用されるため、`using`の記述は不要です。
+
+`::Time` / `::DateTime` / `::ActiveSupport::TimeWithZone`の3クラスは共通実装
+`Decentworks::DateSupport::TimeExtension`をincludeしており、同じメソッドを同じ仕様で提供します。
+各メソッドはレシーバと同じクラスの値を返します（`::Time#beginning_of_january`は`::Time`、
+`::DateTime#beginning_of_january`は`::DateTime`）。
+
+`::Date`は日付のみを扱うため、`::Date`のメソッドは`::Date`を返します。
 
 > [!WARNING]
 > v0.3.0でrefinementsからクラス再オープンに変更しました。v0.2.0以前から移行する場合は、`using ::Decentworks::DateSupport`と`using ::Decentworks::ActiveSupport::TimeWithZoneSupport`の記述をすべて削除してください。

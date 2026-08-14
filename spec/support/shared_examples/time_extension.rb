@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+# ::Time / ::DateTime / ::ActiveSupport::TimeWithZone 共通の振る舞い
+#
+# includeする側で、年月日時分秒を受け取って対象クラスのインスタンスを返す
+# lambda を `let(:time)` として定義すること。
 
-RSpec.describe ::ActiveSupport::TimeWithZone do
-  let(:instance) { ::Time.zone.local(2026, 8, 5, 12, 34, 56) }
+RSpec.shared_examples "日時拡張" do
+  let(:instance) { time.call(2026, 8, 5, 12, 34, 56) }
 
   # ###################################################################################################################
   # 週関係
@@ -12,19 +15,19 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_this_week" do
     subject { instance.beginning_of_this_week }
 
-    it { is_expected.to eq ::Date.new(2026, 8, 3).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 8, 3).beginning_of_day }
   end
 
   describe "#end_of_this_week" do
     subject { instance.end_of_this_week }
 
-    it { is_expected.to eq ::Date.new(2026, 8, 9).end_of_day }
+    it { is_expected.to eq time.call(2026, 8, 9).end_of_day }
   end
 
   describe "#all_this_week" do
     subject { instance.all_this_week }
 
-    it { is_expected.to eq ::Range.new(::Date.new(2026, 8, 3).beginning_of_day, ::Date.new(2026, 8, 9).end_of_day) }
+    it { is_expected.to eq ::Range.new(time.call(2026, 8, 3).beginning_of_day, time.call(2026, 8, 9).end_of_day) }
   end
 
   # ###################################################################################################################
@@ -34,139 +37,139 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#all_this_month" do
     subject { instance.all_this_month }
 
-    it { is_expected.to eq ::Range.new(::Date.new(2026, 8, 1).beginning_of_day, ::Date.new(2026, 8, 31).end_of_day) }
+    it { is_expected.to eq ::Range.new(time.call(2026, 8, 1).beginning_of_day, time.call(2026, 8, 31).end_of_day) }
   end
 
   describe "#two_months_ago" do
     subject { instance.two_months_ago }
 
-    it { is_expected.to eq ::Time.zone.local(2026, 6, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2026, 6, 5, 12, 34, 56) }
   end
 
   describe "#three_months_ago" do
     subject { instance.three_months_ago }
 
-    it { is_expected.to eq ::Time.zone.local(2026, 5, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2026, 5, 5, 12, 34, 56) }
   end
 
   describe "#four_months_ago" do
     subject { instance.four_months_ago }
 
-    it { is_expected.to eq ::Time.zone.local(2026, 4, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2026, 4, 5, 12, 34, 56) }
   end
 
   describe "#five_months_ago" do
     subject { instance.five_months_ago }
 
-    it { is_expected.to eq ::Time.zone.local(2026, 3, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2026, 3, 5, 12, 34, 56) }
   end
 
   describe "#six_months_ago" do
     subject { instance.six_months_ago }
 
-    it { is_expected.to eq ::Time.zone.local(2026, 2, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2026, 2, 5, 12, 34, 56) }
   end
 
   describe "#half_year_ago" do
     subject { instance.half_year_ago }
 
-    it { is_expected.to eq ::Time.zone.local(2026, 2, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2026, 2, 5, 12, 34, 56) }
   end
 
   describe "#seven_months_ago" do
     subject { instance.seven_months_ago }
 
-    it { is_expected.to eq ::Time.zone.local(2026, 1, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2026, 1, 5, 12, 34, 56) }
   end
 
   describe "#eight_months_ago" do
     subject { instance.eight_months_ago }
 
-    it { is_expected.to eq ::Time.zone.local(2025, 12, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2025, 12, 5, 12, 34, 56) }
   end
 
   describe "#nine_months_ago" do
     subject { instance.nine_months_ago }
 
-    it { is_expected.to eq ::Time.zone.local(2025, 11, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2025, 11, 5, 12, 34, 56) }
   end
 
   describe "#ten_months_ago" do
     subject { instance.ten_months_ago }
 
-    it { is_expected.to eq ::Time.zone.local(2025, 10, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2025, 10, 5, 12, 34, 56) }
   end
 
   describe "#eleven_months_ago" do
     subject { instance.eleven_months_ago }
 
-    it { is_expected.to eq ::Time.zone.local(2025, 9, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2025, 9, 5, 12, 34, 56) }
   end
 
   describe "#two_months_since" do
     subject { instance.two_months_since }
 
-    it { is_expected.to eq ::Time.zone.local(2026, 10, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2026, 10, 5, 12, 34, 56) }
   end
 
   describe "#three_months_since" do
     subject { instance.three_months_since }
 
-    it { is_expected.to eq ::Time.zone.local(2026, 11, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2026, 11, 5, 12, 34, 56) }
   end
 
   describe "#four_months_since" do
     subject { instance.four_months_since }
 
-    it { is_expected.to eq ::Time.zone.local(2026, 12, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2026, 12, 5, 12, 34, 56) }
   end
 
   describe "#five_months_since" do
     subject { instance.five_months_since }
 
-    it { is_expected.to eq ::Time.zone.local(2027, 1, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2027, 1, 5, 12, 34, 56) }
   end
 
   describe "#six_months_since" do
     subject { instance.six_months_since }
 
-    it { is_expected.to eq ::Time.zone.local(2027, 2, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2027, 2, 5, 12, 34, 56) }
   end
 
   describe "#half_year_since" do
     subject { instance.half_year_since }
 
-    it { is_expected.to eq ::Time.zone.local(2027, 2, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2027, 2, 5, 12, 34, 56) }
   end
 
   describe "#seven_months_since" do
     subject { instance.seven_months_since }
 
-    it { is_expected.to eq ::Time.zone.local(2027, 3, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2027, 3, 5, 12, 34, 56) }
   end
 
   describe "#eight_months_since" do
     subject { instance.eight_months_since }
 
-    it { is_expected.to eq ::Time.zone.local(2027, 4, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2027, 4, 5, 12, 34, 56) }
   end
 
   describe "#nine_months_since" do
     subject { instance.nine_months_since }
 
-    it { is_expected.to eq ::Time.zone.local(2027, 5, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2027, 5, 5, 12, 34, 56) }
   end
 
   describe "#ten_months_since" do
     subject { instance.ten_months_since }
 
-    it { is_expected.to eq ::Time.zone.local(2027, 6, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2027, 6, 5, 12, 34, 56) }
   end
 
   describe "#eleven_months_since" do
     subject { instance.eleven_months_since }
 
-    it { is_expected.to eq ::Time.zone.local(2027, 7, 5, 12, 34, 56) }
+    it { is_expected.to eq time.call(2027, 7, 5, 12, 34, 56) }
   end
 
   #
@@ -176,13 +179,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_january" do
     subject { instance.beginning_of_january }
 
-    it { is_expected.to eq ::Date.new(2026, 1, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 1, 1).beginning_of_day }
   end
 
   describe "#end_of_january" do
     subject { instance.end_of_january }
 
-    it { is_expected.to eq ::Date.new(2026, 1, 31).end_of_day }
+    it { is_expected.to eq time.call(2026, 1, 31).end_of_day }
   end
 
   describe "#all_january" do
@@ -198,13 +201,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_january? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 1, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 1, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 1, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -214,13 +217,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_january? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 1, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 1, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2026, 2, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 2, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -230,31 +233,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_january? }
 
     context "1月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2025, 12, 31, 12, 34, 56) }
+      let(:instance) { time.call(2025, 12, 31, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "1月月初" do
-      let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 1, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "1月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 1, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 1, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "1月月末" do
-      let(:instance) { ::Time.zone.local(2026, 1, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 1, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "1月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2026, 2, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 2, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -267,13 +270,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_february" do
     subject { instance.beginning_of_february }
 
-    it { is_expected.to eq ::Date.new(2026, 2, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 2, 1).beginning_of_day }
   end
 
   describe "#end_of_february" do
     subject { instance.end_of_february }
 
-    it { is_expected.to eq ::Date.new(2026, 2, 28).end_of_day }
+    it { is_expected.to eq time.call(2026, 2, 28).end_of_day }
   end
 
   describe "#all_february" do
@@ -289,13 +292,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_february? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 2, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 2, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 2, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 2, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -305,13 +308,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_february? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 2, 28, 12, 34, 56) }
+      let(:instance) { time.call(2026, 2, 28, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2026, 3, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 3, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -321,31 +324,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_february? }
 
     context "1月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2026, 1, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 1, 31, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "2月月初" do
-      let(:instance) { ::Time.zone.local(2026, 2, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 2, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "2月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 2, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 2, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "2月月末" do
-      let(:instance) { ::Time.zone.local(2026, 2, 28, 12, 34, 56) }
+      let(:instance) { time.call(2026, 2, 28, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "2月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2026, 3, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 3, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -358,13 +361,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_march" do
     subject { instance.beginning_of_march }
 
-    it { is_expected.to eq ::Date.new(2026, 3, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 3, 1).beginning_of_day }
   end
 
   describe "#end_of_march" do
     subject { instance.end_of_march }
 
-    it { is_expected.to eq ::Date.new(2026, 3, 31).end_of_day }
+    it { is_expected.to eq time.call(2026, 3, 31).end_of_day }
   end
 
   describe "#all_march" do
@@ -380,13 +383,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_march? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 3, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 3, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 3, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 3, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -396,13 +399,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_march? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 3, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 4, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -412,31 +415,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_march? }
 
     context "3月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2026, 2, 28, 12, 34, 56) }
+      let(:instance) { time.call(2026, 2, 28, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "3月月初" do
-      let(:instance) { ::Time.zone.local(2026, 3, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 3, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "3月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 3, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 3, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "3月月末" do
-      let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 3, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "3月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 4, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -449,13 +452,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_april" do
     subject { instance.beginning_of_april }
 
-    it { is_expected.to eq ::Date.new(2026, 4, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 4, 1).beginning_of_day }
   end
 
   describe "#end_of_april" do
     subject { instance.end_of_april }
 
-    it { is_expected.to eq ::Date.new(2026, 4, 30).end_of_day }
+    it { is_expected.to eq time.call(2026, 4, 30).end_of_day }
   end
 
   describe "#all_april" do
@@ -471,13 +474,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_april? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 4, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 4, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 4, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -487,13 +490,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_april? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 4, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 4, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2026, 5, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 5, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -503,31 +506,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_april? }
 
     context "4月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 3, 31, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "4月月初" do
-      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 4, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "4月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 4, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 4, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "4月月末" do
-      let(:instance) { ::Time.zone.local(2026, 4, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 4, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "4月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2026, 5, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 5, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -540,13 +543,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_may" do
     subject { instance.beginning_of_may }
 
-    it { is_expected.to eq ::Date.new(2026, 5, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 5, 1).beginning_of_day }
   end
 
   describe "#end_of_may" do
     subject { instance.end_of_may }
 
-    it { is_expected.to eq ::Date.new(2026, 5, 31).end_of_day }
+    it { is_expected.to eq time.call(2026, 5, 31).end_of_day }
   end
 
   describe "#all_may" do
@@ -562,13 +565,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_may? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 5, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 5, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 5, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 5, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -578,13 +581,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_may? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 5, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 5, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2026, 6, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -594,31 +597,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_may? }
 
     context "5月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2026, 4, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 4, 30, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "5月月初" do
-      let(:instance) { ::Time.zone.local(2026, 5, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 5, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "5月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 5, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 5, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "5月月末" do
-      let(:instance) { ::Time.zone.local(2026, 5, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 5, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "5月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2026, 6, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -631,13 +634,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_june" do
     subject { instance.beginning_of_june }
 
-    it { is_expected.to eq ::Date.new(2026, 6, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 6, 1).beginning_of_day }
   end
 
   describe "#end_of_june" do
     subject { instance.end_of_june }
 
-    it { is_expected.to eq ::Date.new(2026, 6, 30).end_of_day }
+    it { is_expected.to eq time.call(2026, 6, 30).end_of_day }
   end
 
   describe "#all_june" do
@@ -653,13 +656,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_june? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 6, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 6, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -669,13 +672,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_june? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -685,31 +688,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_june? }
 
     context "6月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2026, 5, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 5, 31, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "6月月初" do
-      let(:instance) { ::Time.zone.local(2026, 6, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "6月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 6, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "6月月末" do
-      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "6月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -722,13 +725,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_july" do
     subject { instance.beginning_of_july }
 
-    it { is_expected.to eq ::Date.new(2026, 7, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 7, 1).beginning_of_day }
   end
 
   describe "#end_of_july" do
     subject { instance.end_of_july }
 
-    it { is_expected.to eq ::Date.new(2026, 7, 31).end_of_day }
+    it { is_expected.to eq time.call(2026, 7, 31).end_of_day }
   end
 
   describe "#all_july" do
@@ -744,13 +747,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_july? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 7, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -760,13 +763,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_july? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 7, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2026, 8, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 8, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -776,31 +779,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_july? }
 
     context "7月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 30, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "7月月初" do
-      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "7月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 7, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "7月月末" do
-      let(:instance) { ::Time.zone.local(2026, 7, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "7月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2026, 8, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 8, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -813,13 +816,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_august" do
     subject { instance.beginning_of_august }
 
-    it { is_expected.to eq ::Date.new(2026, 8, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 8, 1).beginning_of_day }
   end
 
   describe "#end_of_august" do
     subject { instance.end_of_august }
 
-    it { is_expected.to eq ::Date.new(2026, 8, 31).end_of_day }
+    it { is_expected.to eq time.call(2026, 8, 31).end_of_day }
   end
 
   describe "#all_august" do
@@ -835,13 +838,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_august? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 8, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 8, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 8, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 8, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -851,13 +854,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_august? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 8, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 8, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2026, 9, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 9, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -867,31 +870,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_august? }
 
     context "8月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2026, 7, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 31, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "8月月初" do
-      let(:instance) { ::Time.zone.local(2026, 8, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 8, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "8月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 8, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 8, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "8月月末" do
-      let(:instance) { ::Time.zone.local(2026, 8, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 8, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "8月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2026, 9, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 9, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -904,13 +907,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_september" do
     subject { instance.beginning_of_september }
 
-    it { is_expected.to eq ::Date.new(2026, 9, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 9, 1).beginning_of_day }
   end
 
   describe "#end_of_september" do
     subject { instance.end_of_september }
 
-    it { is_expected.to eq ::Date.new(2026, 9, 30).end_of_day }
+    it { is_expected.to eq time.call(2026, 9, 30).end_of_day }
   end
 
   describe "#all_september" do
@@ -926,13 +929,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_september? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 9, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 9, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 9, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 9, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -942,13 +945,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_september? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 9, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 10, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -958,31 +961,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_september? }
 
     context "9月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2026, 8, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 8, 31, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "9月月初" do
-      let(:instance) { ::Time.zone.local(2026, 9, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 9, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "9月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 9, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 9, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "9月月末" do
-      let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 9, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "9月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 10, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -995,13 +998,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_october" do
     subject { instance.beginning_of_october }
 
-    it { is_expected.to eq ::Date.new(2026, 10, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 10, 1).beginning_of_day }
   end
 
   describe "#end_of_october" do
     subject { instance.end_of_october }
 
-    it { is_expected.to eq ::Date.new(2026, 10, 31).end_of_day }
+    it { is_expected.to eq time.call(2026, 10, 31).end_of_day }
   end
 
   describe "#all_october" do
@@ -1017,13 +1020,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_october? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 10, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 10, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 10, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1033,13 +1036,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_october? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 10, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 10, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2026, 11, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 11, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1049,31 +1052,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_october? }
 
     context "10月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 9, 30, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "10月月初" do
-      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 10, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "10月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 10, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 10, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "10月月末" do
-      let(:instance) { ::Time.zone.local(2026, 10, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 10, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "10月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2026, 11, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 11, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1086,13 +1089,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_november" do
     subject { instance.beginning_of_november }
 
-    it { is_expected.to eq ::Date.new(2026, 11, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 11, 1).beginning_of_day }
   end
 
   describe "#end_of_november" do
     subject { instance.end_of_november }
 
-    it { is_expected.to eq ::Date.new(2026, 11, 30).end_of_day }
+    it { is_expected.to eq time.call(2026, 11, 30).end_of_day }
   end
 
   describe "#all_november" do
@@ -1108,13 +1111,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_november? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 11, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 11, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 11, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 11, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1124,13 +1127,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_november? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 11, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 11, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2026, 12, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 12, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1140,31 +1143,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_november? }
 
     context "11月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2026, 10, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 10, 31, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "11月月初" do
-      let(:instance) { ::Time.zone.local(2026, 11, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 11, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "11月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 11, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 11, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "11月月末" do
-      let(:instance) { ::Time.zone.local(2026, 11, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 11, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "11月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2026, 12, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 12, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1177,13 +1180,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   describe "#beginning_of_december" do
     subject { instance.beginning_of_december }
 
-    it { is_expected.to eq ::Date.new(2026, 12, 1).beginning_of_day }
+    it { is_expected.to eq time.call(2026, 12, 1).beginning_of_day }
   end
 
   describe "#end_of_december" do
     subject { instance.end_of_december }
 
-    it { is_expected.to eq ::Date.new(2026, 12, 31).end_of_day }
+    it { is_expected.to eq time.call(2026, 12, 31).end_of_day }
   end
 
   describe "#all_december" do
@@ -1199,13 +1202,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_december? }
 
     context "月初" do
-      let(:instance) { ::Time.zone.local(2026, 12, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 12, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月初以外" do
-      let(:instance) { ::Time.zone.local(2026, 12, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 12, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1215,13 +1218,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_december? }
 
     context "月末" do
-      let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 12, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "月末以外" do
-      let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+      let(:instance) { time.call(2027, 1, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1231,31 +1234,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_december? }
 
     context "12月ではない（前月月末）" do
-      let(:instance) { ::Time.zone.local(2026, 11, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 11, 30, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "12月月初" do
-      let(:instance) { ::Time.zone.local(2026, 12, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 12, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "12月中旬" do
-      let(:instance) { ::Time.zone.local(2026, 12, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 12, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "12月月末" do
-      let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 12, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "12月ではない（翌月月初）" do
-      let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+      let(:instance) { time.call(2027, 1, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1273,7 +1276,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_first_quarter }
 
     context "1月始まりの場合（初期値）" do
-      it { is_expected.to eq ::Date.new(2026, 1, 1).beginning_of_day }
+      it { is_expected.to eq time.call(2026, 1, 1).beginning_of_day }
     end
 
     context "4月始まりの場合" do
@@ -1283,7 +1286,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
         end
       end
 
-      it { is_expected.to eq ::Date.new(2026, 4, 1).beginning_of_day }
+      it { is_expected.to eq time.call(2026, 4, 1).beginning_of_day }
     end
   end
 
@@ -1291,7 +1294,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_first_quarter }
 
     context "1月始まりの場合（初期値）" do
-      it { is_expected.to eq ::Date.new(2026, 3, 31).end_of_day }
+      it { is_expected.to eq time.call(2026, 3, 31).end_of_day }
     end
 
     context "4月始まりの場合" do
@@ -1301,7 +1304,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
         end
       end
 
-      it { is_expected.to eq ::Date.new(2026, 6, 30).end_of_day }
+      it { is_expected.to eq time.call(2026, 6, 30).end_of_day }
     end
   end
 
@@ -1319,13 +1322,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
     context "1月始まりの場合（初期値）" do
       context "期首" do
-        let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 1, 1, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期首以外" do
-        let(:instance) { ::Time.zone.local(2026, 1, 2, 12, 34, 56) }
+        let(:instance) { time.call(2026, 1, 2, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1339,13 +1342,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
       end
 
       context "期首" do
-        let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 4, 1, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期首以外" do
-        let(:instance) { ::Time.zone.local(2026, 4, 2, 12, 34, 56) }
+        let(:instance) { time.call(2026, 4, 2, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1357,13 +1360,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
     context "1月始まりの場合（初期値）" do
       context "期末" do
-        let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+        let(:instance) { time.call(2026, 3, 31, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期末以外" do
-        let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 4, 1, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1377,13 +1380,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
       end
 
       context "期末" do
-        let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+        let(:instance) { time.call(2026, 6, 30, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期末以外" do
-        let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1394,31 +1397,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_first_quarter? }
 
     context "第1四半期ではない（前期期末）" do
-      let(:instance) { ::Time.zone.local(2025, 12, 31, 12, 34, 56) }
+      let(:instance) { time.call(2025, 12, 31, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "第1四半期期首" do
-      let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 1, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第1四半期中" do
-      let(:instance) { ::Time.zone.local(2026, 2, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 2, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第1四半期末" do
-      let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 3, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第1四半期ではない（翌期期首）" do
-      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 4, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1432,7 +1435,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_second_quarter }
 
     context "1月始まりの場合（初期値）" do
-      it { is_expected.to eq ::Date.new(2026, 4, 1).beginning_of_day }
+      it { is_expected.to eq time.call(2026, 4, 1).beginning_of_day }
     end
 
     context "4月始まりの場合" do
@@ -1442,7 +1445,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
         end
       end
 
-      it { is_expected.to eq ::Date.new(2026, 7, 1).beginning_of_day }
+      it { is_expected.to eq time.call(2026, 7, 1).beginning_of_day }
     end
   end
 
@@ -1450,7 +1453,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_second_quarter }
 
     context "1月始まりの場合（初期値）" do
-      it { is_expected.to eq ::Date.new(2026, 6, 30).end_of_day }
+      it { is_expected.to eq time.call(2026, 6, 30).end_of_day }
     end
 
     context "4月始まりの場合" do
@@ -1460,7 +1463,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
         end
       end
 
-      it { is_expected.to eq ::Date.new(2026, 9, 30).end_of_day }
+      it { is_expected.to eq time.call(2026, 9, 30).end_of_day }
     end
   end
 
@@ -1478,13 +1481,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
     context "1月始まりの場合（初期値）" do
       context "期首" do
-        let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 4, 1, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期首以外" do
-        let(:instance) { ::Time.zone.local(2026, 4, 2, 12, 34, 56) }
+        let(:instance) { time.call(2026, 4, 2, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1498,13 +1501,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
       end
 
       context "期首" do
-        let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期首以外" do
-        let(:instance) { ::Time.zone.local(2026, 7, 2, 12, 34, 56) }
+        let(:instance) { time.call(2026, 7, 2, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1516,13 +1519,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
     context "1月始まりの場合（初期値）" do
       context "期末" do
-        let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+        let(:instance) { time.call(2026, 6, 30, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期末以外" do
-        let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1536,13 +1539,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
       end
 
       context "期末" do
-        let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+        let(:instance) { time.call(2026, 9, 30, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期末以外" do
-        let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 10, 1, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1553,31 +1556,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_second_quarter? }
 
     context "第2四半期ではない（前期期末）" do
-      let(:instance) { ::Time.zone.local(2026, 3, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 3, 31, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "第2四半期期首" do
-      let(:instance) { ::Time.zone.local(2026, 4, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 4, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第2四半期中" do
-      let(:instance) { ::Time.zone.local(2026, 5, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 5, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第2四半期末" do
-      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第2四半期ではない（翌期期首）" do
-      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1591,7 +1594,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_third_quarter }
 
     context "1月始まりの場合（初期値）" do
-      it { is_expected.to eq ::Date.new(2026, 7, 1).beginning_of_day }
+      it { is_expected.to eq time.call(2026, 7, 1).beginning_of_day }
     end
 
     context "4月始まりの場合" do
@@ -1601,7 +1604,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
         end
       end
 
-      it { is_expected.to eq ::Date.new(2026, 10, 1).beginning_of_day }
+      it { is_expected.to eq time.call(2026, 10, 1).beginning_of_day }
     end
   end
 
@@ -1609,7 +1612,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_third_quarter }
 
     context "1月始まりの場合（初期値）" do
-      it { is_expected.to eq ::Date.new(2026, 9, 30).end_of_day }
+      it { is_expected.to eq time.call(2026, 9, 30).end_of_day }
     end
 
     context "4月始まりの場合" do
@@ -1619,7 +1622,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
         end
       end
 
-      it { is_expected.to eq ::Date.new(2026, 12, 31).end_of_day }
+      it { is_expected.to eq time.call(2026, 12, 31).end_of_day }
     end
   end
 
@@ -1637,13 +1640,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
     context "1月始まりの場合（初期値）" do
       context "期首" do
-        let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期首以外" do
-        let(:instance) { ::Time.zone.local(2026, 7, 2, 12, 34, 56) }
+        let(:instance) { time.call(2026, 7, 2, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1657,13 +1660,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
       end
 
       context "期首" do
-        let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 10, 1, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期首以外" do
-        let(:instance) { ::Time.zone.local(2026, 10, 2, 12, 34, 56) }
+        let(:instance) { time.call(2026, 10, 2, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1675,13 +1678,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
     context "1月始まりの場合（初期値）" do
       context "期末" do
-        let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+        let(:instance) { time.call(2026, 9, 30, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期末以外" do
-        let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 10, 1, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1695,13 +1698,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
       end
 
       context "期末" do
-        let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+        let(:instance) { time.call(2026, 12, 31, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期末以外" do
-        let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+        let(:instance) { time.call(2027, 1, 1, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1712,31 +1715,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_third_quarter? }
 
     context "第3四半期ではない（前期期末）" do
-      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 30, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "第3四半期期首" do
-      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第3四半期中" do
-      let(:instance) { ::Time.zone.local(2026, 8, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 8, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第3四半期末" do
-      let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 9, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第3四半期ではない（翌期期首）" do
-      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 10, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1750,7 +1753,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_fourth_quarter }
 
     context "1月始まりの場合（初期値）" do
-      it { is_expected.to eq ::Date.new(2026, 10, 1).beginning_of_day }
+      it { is_expected.to eq time.call(2026, 10, 1).beginning_of_day }
     end
 
     context "4月始まりの場合" do
@@ -1760,7 +1763,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
         end
       end
 
-      it { is_expected.to eq ::Date.new(2027, 1, 1).beginning_of_day }
+      it { is_expected.to eq time.call(2027, 1, 1).beginning_of_day }
     end
   end
 
@@ -1768,7 +1771,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_fourth_quarter }
 
     context "1月始まりの場合（初期値）" do
-      it { is_expected.to eq ::Date.new(2026, 12, 31).end_of_day }
+      it { is_expected.to eq time.call(2026, 12, 31).end_of_day }
     end
 
     context "4月始まりの場合" do
@@ -1778,7 +1781,7 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
         end
       end
 
-      it { is_expected.to eq ::Date.new(2027, 3, 31).end_of_day }
+      it { is_expected.to eq time.call(2027, 3, 31).end_of_day }
     end
   end
 
@@ -1796,13 +1799,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
     context "1月始まりの場合（初期値）" do
       context "期首" do
-        let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+        let(:instance) { time.call(2026, 10, 1, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期首以外" do
-        let(:instance) { ::Time.zone.local(2026, 10, 2, 12, 34, 56) }
+        let(:instance) { time.call(2026, 10, 2, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1816,13 +1819,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
       end
 
       context "期首" do
-        let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+        let(:instance) { time.call(2027, 1, 1, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期首以外" do
-        let(:instance) { ::Time.zone.local(2027, 1, 2, 12, 34, 56) }
+        let(:instance) { time.call(2027, 1, 2, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1834,13 +1837,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
     context "1月始まりの場合（初期値）" do
       context "期末" do
-        let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+        let(:instance) { time.call(2026, 12, 31, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期末以外" do
-        let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+        let(:instance) { time.call(2027, 1, 1, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1854,13 +1857,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
       end
 
       context "期末" do
-        let(:instance) { ::Time.zone.local(2027, 3, 31, 12, 34, 56) }
+        let(:instance) { time.call(2027, 3, 31, 12, 34, 56) }
 
         it { is_expected.to be_truthy }
       end
 
       context "期末以外" do
-        let(:instance) { ::Time.zone.local(2027, 4, 1, 12, 34, 56) }
+        let(:instance) { time.call(2027, 4, 1, 12, 34, 56) }
 
         it { is_expected.to be_falsey }
       end
@@ -1871,31 +1874,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_fourth_quarter? }
 
     context "第4四半期ではない（前期期末）" do
-      let(:instance) { ::Time.zone.local(2026, 9, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 9, 30, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "第4四半期期首" do
-      let(:instance) { ::Time.zone.local(2026, 10, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 10, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第4四半期中" do
-      let(:instance) { ::Time.zone.local(2026, 11, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 11, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第4四半期末" do
-      let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 12, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "第4四半期ではない（翌期期首）" do
-      let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+      let(:instance) { time.call(2027, 1, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1934,13 +1937,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_first_half? }
 
     context "期首" do
-      let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 1, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "期首以外" do
-      let(:instance) { ::Time.zone.local(2026, 1, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 1, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1950,13 +1953,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_first_half? }
 
     context "期末" do
-      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "期末以外" do
-      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -1966,31 +1969,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_first_half? }
 
     context "上期ではない（前期期末）" do
-      let(:instance) { ::Time.zone.local(2025, 12, 31, 12, 34, 56) }
+      let(:instance) { time.call(2025, 12, 31, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "上期期首" do
-      let(:instance) { ::Time.zone.local(2026, 1, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 1, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "上期中" do
-      let(:instance) { ::Time.zone.local(2026, 2, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 2, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "上期末" do
-      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 30, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "上期ではない（翌期期首）" do
-      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -2025,13 +2028,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.beginning_of_second_half? }
 
     context "期首" do
-      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "期首以外" do
-      let(:instance) { ::Time.zone.local(2026, 7, 2, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 2, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -2041,13 +2044,13 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.end_of_second_half? }
 
     context "期末" do
-      let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 12, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "期末以外" do
-      let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+      let(:instance) { time.call(2027, 1, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -2057,31 +2060,31 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
     subject { instance.in_second_half? }
 
     context "上期ではない（前期期末）" do
-      let(:instance) { ::Time.zone.local(2026, 6, 30, 12, 34, 56) }
+      let(:instance) { time.call(2026, 6, 30, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
 
     context "上期期首" do
-      let(:instance) { ::Time.zone.local(2026, 7, 1, 12, 34, 56) }
+      let(:instance) { time.call(2026, 7, 1, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "上期中" do
-      let(:instance) { ::Time.zone.local(2026, 8, 15, 12, 34, 56) }
+      let(:instance) { time.call(2026, 8, 15, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "上期末" do
-      let(:instance) { ::Time.zone.local(2026, 12, 31, 12, 34, 56) }
+      let(:instance) { time.call(2026, 12, 31, 12, 34, 56) }
 
       it { is_expected.to be_truthy }
     end
 
     context "上期ではない（翌期期首）" do
-      let(:instance) { ::Time.zone.local(2027, 1, 1, 12, 34, 56) }
+      let(:instance) { time.call(2027, 1, 1, 12, 34, 56) }
 
       it { is_expected.to be_falsey }
     end
@@ -2092,57 +2095,57 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
   # ###################################################################################################################
 
   describe ".whole_months_elapsed" do
-    subject { ::ActiveSupport::TimeWithZone.whole_months_elapsed(from:, to:) }
+    subject { described_class.whole_months_elapsed(from:, to:) }
 
-    let(:from) { ::Time.zone.local(2026, 8, 5) }
-    let(:to) { ::Time.zone.local(2026, 9, 5) }
+    let(:from) { time.call(2026, 8, 5) }
+    let(:to) { time.call(2026, 9, 5) }
 
     context "1月以内の場合" do
-      let(:from) { ::Time.zone.local(2026, 8, 5) }
-      let(:to) { ::Time.zone.local(2026, 9, 4) }
+      let(:from) { time.call(2026, 8, 5) }
+      let(:to) { time.call(2026, 9, 4) }
 
       it { is_expected.to eq(0) }
     end
 
     context "1月ちょうどの場合" do
-      let(:from) { ::Time.zone.local(2026, 8, 5) }
-      let(:to) { ::Time.zone.local(2026, 9, 5) }
+      let(:from) { time.call(2026, 8, 5) }
+      let(:to) { time.call(2026, 9, 5) }
 
       it { is_expected.to eq(1) }
     end
 
     context "1月を超える場合" do
-      let(:from) { ::Time.zone.local(2026, 8, 5) }
-      let(:to) { ::Time.zone.local(2026, 9, 6) }
+      let(:from) { time.call(2026, 8, 5) }
+      let(:to) { time.call(2026, 9, 6) }
 
       it { is_expected.to eq(1) }
     end
 
     context "1年以内の場合" do
-      let(:from) { ::Time.zone.local(2026, 8, 5) }
-      let(:to) { ::Time.zone.local(2027, 8, 4) }
+      let(:from) { time.call(2026, 8, 5) }
+      let(:to) { time.call(2027, 8, 4) }
 
       it { is_expected.to eq(11) }
     end
 
     context "1年ちょうどの場合" do
-      let(:from) { ::Time.zone.local(2026, 8, 5) }
-      let(:to) { ::Time.zone.local(2027, 8, 5) }
+      let(:from) { time.call(2026, 8, 5) }
+      let(:to) { time.call(2027, 8, 5) }
 
       it { is_expected.to eq(12) }
     end
 
     context "1年を超える場合" do
-      let(:from) { ::Time.zone.local(2026, 8, 5) }
-      let(:to) { ::Time.zone.local(2027, 8, 6) }
+      let(:from) { time.call(2026, 8, 5) }
+      let(:to) { time.call(2027, 8, 6) }
 
       it { is_expected.to eq(12) }
     end
 
     context "同日の場合" do
       context "fromとtoが同じ" do
-        let(:from) { ::Time.zone.local(2026, 8, 5) }
-        let(:to) { ::Time.zone.local(2026, 8, 5) }
+        let(:from) { time.call(2026, 8, 5) }
+        let(:to) { time.call(2026, 8, 5) }
 
         it { is_expected.to eq(0) }
       end
@@ -2150,43 +2153,43 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
     context "応当日が存在しない月の場合" do
       context "応当日の前日" do
-        let(:from) { ::Time.zone.local(2026, 1, 31) }
-        let(:to) { ::Time.zone.local(2026, 2, 27) }
+        let(:from) { time.call(2026, 1, 31) }
+        let(:to) { time.call(2026, 2, 27) }
 
         it { is_expected.to eq(0) }
       end
 
       context "応当日（2月末日）" do
-        let(:from) { ::Time.zone.local(2026, 1, 31) }
-        let(:to) { ::Time.zone.local(2026, 2, 28) }
+        let(:from) { time.call(2026, 1, 31) }
+        let(:to) { time.call(2026, 2, 28) }
 
         it { is_expected.to eq(1) }
       end
 
       context "応当日の翌日" do
-        let(:from) { ::Time.zone.local(2026, 1, 31) }
-        let(:to) { ::Time.zone.local(2026, 3, 1) }
+        let(:from) { time.call(2026, 1, 31) }
+        let(:to) { time.call(2026, 3, 1) }
 
         it { is_expected.to eq(1) }
       end
 
       context "30日までしかない月の末日" do
-        let(:from) { ::Time.zone.local(2026, 3, 31) }
-        let(:to) { ::Time.zone.local(2026, 4, 30) }
+        let(:from) { time.call(2026, 3, 31) }
+        let(:to) { time.call(2026, 4, 30) }
 
         it { is_expected.to eq(1) }
       end
 
       context "fromが30日で2月末日" do
-        let(:from) { ::Time.zone.local(2026, 1, 30) }
-        let(:to) { ::Time.zone.local(2026, 2, 28) }
+        let(:from) { time.call(2026, 1, 30) }
+        let(:to) { time.call(2026, 2, 28) }
 
         it { is_expected.to eq(1) }
       end
 
       context "応当日が存在する月まで進めた場合" do
-        let(:from) { ::Time.zone.local(2026, 1, 31) }
-        let(:to) { ::Time.zone.local(2026, 3, 31) }
+        let(:from) { time.call(2026, 1, 31) }
+        let(:to) { time.call(2026, 3, 31) }
 
         it { is_expected.to eq(2) }
       end
@@ -2194,50 +2197,50 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
     context "閏年が絡む場合" do
       context "閏年の2月28日（応当日未到達）" do
-        let(:from) { ::Time.zone.local(2024, 1, 31) }
-        let(:to) { ::Time.zone.local(2024, 2, 28) }
+        let(:from) { time.call(2024, 1, 31) }
+        let(:to) { time.call(2024, 2, 28) }
 
         it { is_expected.to eq(0) }
       end
 
       context "閏年の2月29日（応当日）" do
-        let(:from) { ::Time.zone.local(2024, 1, 31) }
-        let(:to) { ::Time.zone.local(2024, 2, 29) }
+        let(:from) { time.call(2024, 1, 31) }
+        let(:to) { time.call(2024, 2, 29) }
 
         it { is_expected.to eq(1) }
       end
 
       context "閏日起点で応当日の前日" do
-        let(:from) { ::Time.zone.local(2024, 2, 29) }
-        let(:to) { ::Time.zone.local(2024, 3, 28) }
+        let(:from) { time.call(2024, 2, 29) }
+        let(:to) { time.call(2024, 3, 28) }
 
         it { is_expected.to eq(0) }
       end
 
       context "閏日起点で応当日" do
-        let(:from) { ::Time.zone.local(2024, 2, 29) }
-        let(:to) { ::Time.zone.local(2024, 3, 29) }
+        let(:from) { time.call(2024, 2, 29) }
+        let(:to) { time.call(2024, 3, 29) }
 
         it { is_expected.to eq(1) }
       end
 
       context "閏日起点で1年後の前日" do
-        let(:from) { ::Time.zone.local(2024, 2, 29) }
-        let(:to) { ::Time.zone.local(2025, 2, 27) }
+        let(:from) { time.call(2024, 2, 29) }
+        let(:to) { time.call(2025, 2, 27) }
 
         it { is_expected.to eq(11) }
       end
 
       context "閏日起点で1年後（平年の2月末日）" do
-        let(:from) { ::Time.zone.local(2024, 2, 29) }
-        let(:to) { ::Time.zone.local(2025, 2, 28) }
+        let(:from) { time.call(2024, 2, 29) }
+        let(:to) { time.call(2025, 2, 28) }
 
         it { is_expected.to eq(12) }
       end
 
       context "閏日起点で4年後の閏日" do
-        let(:from) { ::Time.zone.local(2024, 2, 29) }
-        let(:to) { ::Time.zone.local(2028, 2, 29) }
+        let(:from) { time.call(2024, 2, 29) }
+        let(:to) { time.call(2028, 2, 29) }
 
         it { is_expected.to eq(48) }
       end
@@ -2245,23 +2248,23 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
     context "年を跨ぐ場合" do
       context "応当日の前日" do
-        let(:from) { ::Time.zone.local(2025, 12, 31) }
-        let(:to) { ::Time.zone.local(2026, 1, 30) }
+        let(:from) { time.call(2025, 12, 31) }
+        let(:to) { time.call(2026, 1, 30) }
 
         it { is_expected.to eq(0) }
       end
 
       context "応当日" do
-        let(:from) { ::Time.zone.local(2025, 12, 31) }
-        let(:to) { ::Time.zone.local(2026, 1, 31) }
+        let(:from) { time.call(2025, 12, 31) }
+        let(:to) { time.call(2026, 1, 31) }
 
         it { is_expected.to eq(1) }
       end
     end
 
     context "toがfromより前の場合" do
-      let(:from) { ::Time.zone.local(2026, 9, 5) }
-      let(:to) { ::Time.zone.local(2026, 8, 5) }
+      let(:from) { time.call(2026, 9, 5) }
+      let(:to) { time.call(2026, 8, 5) }
 
       it { expect { subject }.to raise_error(::ArgumentError) }
     end
