@@ -1,0 +1,21 @@
+module ActiveSupport
+  class TimeWithZone
+    include ::Decentworks::DateSupport::TimeExtension[::ActiveSupport::TimeWithZone]
+    extend ::Decentworks::DateSupport::TimeExtension::ClassMethods
+
+    # ::ActiveSupport::TimeWithZone は method_missing で ::Time に委譲しているため
+    # gem_rbs_collection の activesupport には定義がない。
+    # TimeExtension のself型（_DateTimeCalculations）を満たすために宣言する。
+    # change / advance は activesupport 側で定義済みのため、ここには含めない。
+    def year: () -> ::Integer
+    def month: () -> ::Integer
+    def all_day: () -> ::Range[untyped]
+    def beginning_of_day: () -> untyped
+    def end_of_day: () -> untyped
+    def beginning_of_week: (?untyped start_day) -> untyped
+    def beginning_of_month: () -> untyped
+    def end_of_month: () -> untyped
+    def months_ago: (untyped months) -> untyped
+    def months_since: (untyped months) -> untyped
+  end
+end

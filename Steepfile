@@ -36,8 +36,16 @@ target :lib do
   check "lib"
 
   # 型定義を記述するRBSファイルが格納されているディレクトリ名
-  signature "sig"
+  #
+  # sig          … gemに同梱する型定義
+  # sig-external … 型検査のためだけに必要な型定義（gemには同梱しない）
+  #                Railsジェネレータ用に ::Rails::Generators::Base の最小限のスタブを置いている。
+  #                詳細は sig-external/rails/generators/base.rbs のコメントを参照。
+  signature "sig", "sig-external"
 
   # 取り込みたいライブラリ
-  # library "pathname"
+  # ::Date / ::Time / ::DateTime の拡張メソッド（months_ago / change / end_of_month など）の型定義。
+  # activesupport は rbs_collection.lock.yaml 経由で gem_rbs_collection から取得する。
+  library "date"
+  library "activesupport"
 end

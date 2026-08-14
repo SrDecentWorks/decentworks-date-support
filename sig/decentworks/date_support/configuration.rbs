@@ -1,14 +1,23 @@
 module Decentworks
   module DateSupport
+    def self.configure: () ?{ (::Decentworks::DateSupport::Configuration) -> void } -> void
+    def self.configuration: -> ::Decentworks::DateSupport::Configuration
+
+    def self.reset_configuration!: -> nil
+
+    def self.first_quarter_month_name: -> Symbol
+    def self.first_quarter_month: -> Integer
+    def self.first_quarter_month_offset: -> Integer
+
     class Configuration
       MONTHS: Hash[Symbol, Integer]
       DEFAULT: Symbol
 
-      attr_reader beginning_of_first_quarter: Symbol
+      attr_reader first_quarter_month_name: Symbol
 
-      def beginning_of_first_quarter=: (Symbol) -> void
+      def first_quarter_month_name=: (Symbol) -> void
 
-      def beginning_of_first_quarter_month: -> Integer
+      def first_quarter_month: -> Integer
 
       def first_quarter_month_offset: -> Integer
     end

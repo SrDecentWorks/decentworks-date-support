@@ -17,6 +17,9 @@
 # rspec failure tracking
 .rspec_status
 
+# bundler (bundle config path で vendor/bundle を指定している場合)
+/vendor/
+
 # gem
 .gem/credentials
 /.gem_rbs_collection/

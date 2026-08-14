@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "faker"
 require "date"
 
 require "active_support"
@@ -8,9 +7,17 @@ require "active_support/core_ext"
 require "active_support/time"
 
 require "simplecov"
-SimpleCov.start
+SimpleCov.start do
+  add_filter "/spec/"
+
+  enable_coverage :branch
+
+  minimum_coverage line: 100, branch: 100
+end
 
 require "decentworks/date_support"
+
+::Dir[::File.expand_path("support/**/*.rb", __dir__)].each { |file| require file }
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -29,7 +36,7 @@ RSpec.configure do |config|
 
     # 第1四半期（上期）の開始月の指定
     ::Decentworks::DateSupport.configure do |config|
-      config.beginning_of_first_quarter = :january
+      config.first_quarter_month_name = :january
     end
   end
 

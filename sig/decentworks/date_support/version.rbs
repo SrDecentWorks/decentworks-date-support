@@ -1,0 +1,5 @@
+module Decentworks
+  module DateSupport
+    VERSION: String
+  end
+end

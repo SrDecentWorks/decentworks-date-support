@@ -1,0 +1,248 @@
+module Decentworks
+  module DateSupport
+    # ::Time / ::DateTime / ::ActiveSupport::TimeWithZone が備えている
+    # ActiveSupport（DateAndTime::Calculations）由来のメソッド。
+    #
+    # TimeExtension のself型として指定することで、モジュール内部での
+    # レシーバ省略呼び出しを型検査できるようにする。
+    # 戻り値はレシーバと同じクラスになるため、型引数Tで表す。
+    interface _DateTimeCalculations[T]
+      def year: () -> ::Integer
+      def month: () -> ::Integer
+      def all_day: () -> ::Range[T]
+      def beginning_of_day: () -> T
+      def end_of_day: () -> T
+      def beginning_of_week: (?untyped start_day) -> T
+      def beginning_of_month: () -> T
+      def end_of_month: () -> T
+      def months_ago: (untyped months) -> T
+      def months_since: (untyped months) -> T
+      def change: (untyped options) -> T
+      def advance: (untyped options) -> T
+    end
+
+    # ::Time / ::DateTime / ::ActiveSupport::TimeWithZone に共通の日時拡張
+    #
+    # 戻り値はレシーバと同じクラスになるため、型引数Tで表す。
+    # includeする側で TimeExtension[::Time] のように具体的なクラスを渡す。
+    #
+    # 型引数の上限をモジュール自身（T < TimeExtension[T]）にすることで、
+    # Tの値に対してモジュール自身のメソッドと自己型由来のメソッドの両方を呼べる。
+    # 戻り値をselfで宣言すると、モジュール内部のレシーバ省略呼び出しがモジュール自身の型に
+    # 解決されるため MethodBodyTypeMismatch になるが、型引数であれば一致する。
+    module TimeExtension[T < TimeExtension[T]] : _DateTimeCalculations[T]
+      module ClassMethods
+        def whole_months_elapsed: (from: untyped, to: untyped) -> ::Integer
+      end
+
+      def self.included: (untyped base) -> untyped
+
+      def beginning_of_this_week: -> T
+      def end_of_this_week: -> T
+      def all_this_week: -> ::Range[T]
+
+      def beginning_of_this_month: -> T
+      def end_of_this_month: -> T
+      def all_this_month: -> ::Range[T]
+
+      def two_months_ago: -> T
+      def three_months_ago: -> T
+      def four_months_ago: -> T
+      def five_months_ago: -> T
+      def six_months_ago: -> T
+      def half_year_ago: -> T
+      def seven_months_ago: -> T
+      def eight_months_ago: -> T
+      def nine_months_ago: -> T
+      def ten_months_ago: -> T
+      def eleven_months_ago: -> T
+
+      def two_months_since: -> T
+      def three_months_since: -> T
+      def four_months_since: -> T
+      def five_months_since: -> T
+      def six_months_since: -> T
+      def half_year_since: -> T
+      def seven_months_since: -> T
+      def eight_months_since: -> T
+      def nine_months_since: -> T
+      def ten_months_since: -> T
+      def eleven_months_since: -> T
+
+      def beginning_of_january: -> T
+      def end_of_january: -> T
+      def all_january: -> ::Range[T]
+      def beginning_of_january?: -> bool
+      def end_of_january?: -> bool
+      def in_january?: -> bool
+
+      def beginning_of_february: -> T
+      def end_of_february: -> T
+      def all_february: -> ::Range[T]
+      def beginning_of_february?: -> bool
+      def end_of_february?: -> bool
+      def in_february?: -> bool
+
+      def beginning_of_march: -> T
+      def end_of_march: -> T
+      def all_march: -> ::Range[T]
+      def beginning_of_march?: -> bool
+      def end_of_march?: -> bool
+      def in_march?: -> bool
+
+      def beginning_of_april: -> T
+      def end_of_april: -> T
+      def all_april: -> ::Range[T]
+      def beginning_of_april?: -> bool
+      def end_of_april?: -> bool
+      def in_april?: -> bool
+
+      def beginning_of_may: -> T
+      def end_of_may: -> T
+      def all_may: -> ::Range[T]
+      def beginning_of_may?: -> bool
+      def end_of_may?: -> bool
+      def in_may?: -> bool
+
+      def beginning_of_june: -> T
+      def end_of_june: -> T
+      def all_june: -> ::Range[T]
+      def beginning_of_june?: -> bool
+      def end_of_june?: -> bool
+      def in_june?: -> bool
+
+      def beginning_of_july: -> T
+      def end_of_july: -> T
+      def all_july: -> ::Range[T]
+      def beginning_of_july?: -> bool
+      def end_of_july?: -> bool
+      def in_july?: -> bool
+
+      def beginning_of_august: -> T
+      def end_of_august: -> T
+      def all_august: -> ::Range[T]
+      def beginning_of_august?: -> bool
+      def end_of_august?: -> bool
+      def in_august?: -> bool
+
+      def beginning_of_september: -> T
+      def end_of_september: -> T
+      def all_september: -> ::Range[T]
+      def beginning_of_september?: -> bool
+      def end_of_september?: -> bool
+      def in_september?: -> bool
+
+      def beginning_of_october: -> T
+      def end_of_october: -> T
+      def all_october: -> ::Range[T]
+      def beginning_of_october?: -> bool
+      def end_of_october?: -> bool
+      def in_october?: -> bool
+
+      def beginning_of_november: -> T
+      def end_of_november: -> T
+      def all_november: -> ::Range[T]
+      def beginning_of_november?: -> bool
+      def end_of_november?: -> bool
+      def in_november?: -> bool
+
+      def beginning_of_december: -> T
+      def end_of_december: -> T
+      def all_december: -> ::Range[T]
+      def beginning_of_december?: -> bool
+      def end_of_december?: -> bool
+      def in_december?: -> bool
+
+      def beginning_of_first_quarter: -> T
+      def end_of_first_quarter: -> T
+      def all_first_quarter: -> ::Range[T]
+      def beginning_of_first_quarter?: -> bool
+      def end_of_first_quarter?: -> bool
+      def in_first_quarter?: -> bool
+
+      def beginning_of_second_quarter: -> T
+      def end_of_second_quarter: -> T
+      def all_second_quarter: -> ::Range[T]
+      def beginning_of_second_quarter?: -> bool
+      def end_of_second_quarter?: -> bool
+      def in_second_quarter?: -> bool
+
+      def beginning_of_third_quarter: -> T
+      def end_of_third_quarter: -> T
+      def all_third_quarter: -> ::Range[T]
+      def beginning_of_third_quarter?: -> bool
+      def end_of_third_quarter?: -> bool
+      def in_third_quarter?: -> bool
+
+      def beginning_of_fourth_quarter: -> T
+      def end_of_fourth_quarter: -> T
+      def all_fourth_quarter: -> ::Range[T]
+      def beginning_of_fourth_quarter?: -> bool
+      def end_of_fourth_quarter?: -> bool
+      def in_fourth_quarter?: -> bool
+
+      def beginning_of_first_half: -> T
+      def end_of_first_half: -> T
+      def all_first_half: -> ::Range[T]
+      def beginning_of_first_half?: -> bool
+      def end_of_first_half?: -> bool
+      def in_first_half?: -> bool
+
+      def beginning_of_second_half: -> T
+      def end_of_second_half: -> T
+      def all_second_half: -> ::Range[T]
+      def beginning_of_second_half?: -> bool
+      def end_of_second_half?: -> bool
+      def in_second_half?: -> bool
+
+      def this_quarter_number: -> ::Integer
+      def beginning_of_this_quarter: -> T
+      def end_of_this_quarter: -> T
+      def all_this_quarter: -> ::Range[T]
+
+      def this_half_number: -> ::Integer
+      def beginning_of_this_half: -> T
+      def end_of_this_half: -> T
+      def all_this_half: -> ::Range[T]
+
+      def fiscal_year: -> ::Integer
+      def beginning_of_fiscal_year: -> T
+      def end_of_fiscal_year: -> T
+      def all_fiscal_year: -> ::Range[T]
+
+      def beginning_of_next_quarter: -> T
+      def end_of_next_quarter: -> T
+      def all_next_quarter: -> ::Range[T]
+      def beginning_of_prev_quarter: -> T
+      def end_of_prev_quarter: -> T
+      def all_prev_quarter: -> ::Range[T]
+
+      def beginning_of_next_half: -> T
+      def end_of_next_half: -> T
+      def all_next_half: -> ::Range[T]
+      def beginning_of_prev_half: -> T
+      def end_of_prev_half: -> T
+      def all_prev_half: -> ::Range[T]
+
+      def next_fiscal_year: -> ::Integer
+      def beginning_of_next_fiscal_year: -> T
+      def end_of_next_fiscal_year: -> T
+      def all_next_fiscal_year: -> ::Range[T]
+      def prev_fiscal_year: -> ::Integer
+      def beginning_of_prev_fiscal_year: -> T
+      def end_of_prev_fiscal_year: -> T
+      def all_prev_fiscal_year: -> ::Range[T]
+
+      # ActiveSupportのメソッドの上書き
+      def quarter: -> ::Integer
+      def beginning_of_quarter: -> T
+      def at_beginning_of_quarter: -> T
+      def end_of_quarter: -> T
+      def at_end_of_quarter: -> T
+      def all_quarter: -> ::Range[T]
+      def next_quarter: -> T
+      def prev_quarter: -> T
+      def last_quarter: -> T
+    end
+  end
+end
