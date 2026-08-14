@@ -8,6 +8,16 @@
 - テスト: RSpec
 - Lint: RuboCop
 
+# 設計上の決定事項
+
+以下は検討済みのうえで現状の実装を選択している。改善提案・指摘は不要。
+
+- 設定（`beginning_of_first_quarter`）はプロセスグローバルの単一値とする
+  - テナントごと・呼び出しごとに会計年度を切り替える要件は対象外
+  - スコープ付きの一時切替やメソッドへのキーワード引数によるオーバーライドは追加しない
+- `Decentworks::DateSupport.configuration` の `@configuration ||= Configuration.new` はスレッドセーフにしない
+  - 設定はアプリケーション起動時（Railsのinitializer）に一度だけ行う前提のため
+
 # コミュニケーション
 
 - 日本語で応答する（コード・変数名は英語）
