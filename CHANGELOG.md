@@ -1,3 +1,12 @@
+# [Unreleased]
+
+- `::Date` の拡張方式を、クラスの直接再オープンから `Decentworks::DateSupport::DateExtension` モジュールのincludeに変更
+  - `::Time` / `::DateTime` / `::ActiveSupport::TimeWithZone`（`TimeExtension`）と同じ構成に統一
+  - `date_extension.rb`（モジュール定義）と `date.rb`（対象クラスへのinclude）に分割
+  - `::Date.whole_months_elapsed` は `DateExtension::ClassMethods` 経由で提供
+    （`expiration_date` は引き続き非公開クラスメソッド）
+  - 公開APIの名前・戻り値・可視性に変更はなし
+
 # [0.2.0]
 
 - [refineを廃止する #11](https://github.com/SrDecentWorks/decentworks-date-support/issues/11)

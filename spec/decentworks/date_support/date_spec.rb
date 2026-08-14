@@ -13,6 +13,20 @@ RSpec.describe ::Date do
   it_behaves_like "別名メソッドの遅延束縛"
 
   # ###################################################################################################################
+  # 拡張方式
+  # ###################################################################################################################
+
+  describe "拡張方式" do
+    it "DateExtensionをincludeしている" do
+      expect(::Date.include?(::Decentworks::DateSupport::DateExtension)).to be true
+    end
+
+    it "DateExtension::ClassMethodsをextendしている" do
+      expect(::Date.singleton_class.include?(::Decentworks::DateSupport::DateExtension::ClassMethods)).to be true
+    end
+  end
+
+  # ###################################################################################################################
   # 週関係
   # ###################################################################################################################
 
