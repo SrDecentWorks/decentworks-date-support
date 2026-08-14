@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-require "date"
-require "active_support/time"
-require_relative "date" # ::Date に追加した拡張メソッドを利用するため
-require_relative "configuration"
+require "date"                # ::Date
+require "active_support"
+require "active_support/time" # レシーバに対する change / months_ago / all_day などの拡張
+
+require_relative "date" # ::Date.whole_months_elapsed を利用するため
+require_relative "configuration" # ::Decentworks::DateSupport.first_quarter_month_offset を利用するため
 
 module Decentworks
   module DateSupport
