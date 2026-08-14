@@ -7,8 +7,6 @@ ruby "~> 4.0"
 # Specify your gem's dependencies in decentworks-date.gemspec
 gemspec
 
-gem "activesupport", "~> 8.1"
-
 gem "rake", "~> 13.0"
 
 # rubocop
@@ -23,7 +21,9 @@ gem "steep", "~> 2.0.0"
 
 # RSpec
 gem "rspec", "~> 3.0"
-gem "rspec-rails", "~> 8.0"
+
+# Railsジェネレータ（lib/generators）のspecで rails/generators と Thor を使うため
+gem "railties", "~> 8.1"
 
 # Coverage
 gem "simplecov", "~> 1.0.3"

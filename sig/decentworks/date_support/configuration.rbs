@@ -1,6 +1,6 @@
 module Decentworks
   module DateSupport
-    def self.configure: -> void
+    def self.configure: () ?{ (::Decentworks::DateSupport::Configuration) -> void } -> void
     def self.configuration: -> ::Decentworks::DateSupport::Configuration
 
     def self.reset_configuration!: -> nil

@@ -24,7 +24,6 @@ class ::Date
   #   ::Date.whole_months_elapsed(from: ::Date.new(2024, 2, 29), to: ::Date.new(2025, 2, 28)) # => 12
   #
   # @raise [ArgumentError] toがfromより前の日付の場合
-  # steep:ignore:start
   def self.whole_months_elapsed(from:, to:)
     raise ::ArgumentError, "to must be on or after from (from: #{from}, to: #{to})" if to < from
 
@@ -48,7 +47,6 @@ class ::Date
     corresponding_date.day == beginning_date.day ? corresponding_date.prev_day : corresponding_date
   end
   private_class_method :expiration_date
-  # steep:ignore:end
 
   # ###################################################################################################################
   # 週関係
@@ -59,10 +57,10 @@ class ::Date
   #
 
   # 現在の日付が属する週の始まりの日付
-  def beginning_of_this_week = beginning_of_week(::Date.beginning_of_week) # steep:ignore NoMethod
+  def beginning_of_this_week = beginning_of_week(::Date.beginning_of_week)
 
   # 現在の日付が属する週の終わりの日付
-  def end_of_this_week = beginning_of_this_week.advance(days: 6) # steep:ignore NoMethod
+  def end_of_this_week = beginning_of_this_week.advance(days: 6)
 
   # 今週の期間
   def all_this_week = ::Range.new(beginning_of_this_week, end_of_this_week)
@@ -76,81 +74,81 @@ class ::Date
   #
 
   # 現在の日付が属する月の期間
-  def all_this_month = ::Range.new(beginning_of_month, end_of_month) # steep:ignore NoMethod
+  def all_this_month = ::Range.new(beginning_of_month, end_of_month)
 
   #
   # Nヶ月前関係
   #
 
   # 2ヶ月前の日付
-  def two_months_ago = months_ago(2) # steep:ignore NoMethod
+  def two_months_ago = months_ago(2)
 
   # 3ヶ月前の日付
-  def three_months_ago = months_ago(3) # steep:ignore NoMethod
+  def three_months_ago = months_ago(3)
 
   # 4ヶ月前の日付
-  def four_months_ago = months_ago(4) # steep:ignore NoMethod
+  def four_months_ago = months_ago(4)
 
   # 5ヶ月前の日付
-  def five_months_ago = months_ago(5) # steep:ignore NoMethod
+  def five_months_ago = months_ago(5)
 
   # 6ヶ月前の日付
-  def six_months_ago = months_ago(6) # steep:ignore NoMethod
+  def six_months_ago = months_ago(6)
 
   # 半年前の日付
   def half_year_ago = six_months_ago
 
   # 7ヶ月前の日付
-  def seven_months_ago = months_ago(7) # steep:ignore NoMethod
+  def seven_months_ago = months_ago(7)
 
   # 8ヶ月前の日付
-  def eight_months_ago = months_ago(8) # steep:ignore NoMethod
+  def eight_months_ago = months_ago(8)
 
   # 9ヶ月前の日付
-  def nine_months_ago = months_ago(9) # steep:ignore NoMethod
+  def nine_months_ago = months_ago(9)
 
   # 10ヶ月前の日付
-  def ten_months_ago = months_ago(10) # steep:ignore NoMethod
+  def ten_months_ago = months_ago(10)
 
   # 11ヶ月前の日付
-  def eleven_months_ago = months_ago(11) # steep:ignore NoMethod
+  def eleven_months_ago = months_ago(11)
 
   #
   # Nヶ月後関係
   #
 
   # 2ヶ月後の日付
-  def two_months_since = months_since(2) # steep:ignore NoMethod
+  def two_months_since = months_since(2)
 
   # 3ヶ月後の日付
-  def three_months_since = months_since(3) # steep:ignore NoMethod
+  def three_months_since = months_since(3)
 
   # 4ヶ月後の日付
-  def four_months_since = months_since(4) # steep:ignore NoMethod
+  def four_months_since = months_since(4)
 
   # 5ヶ月後の日付
-  def five_months_since = months_since(5) # steep:ignore NoMethod
+  def five_months_since = months_since(5)
 
   # 6ヶ月後の日付
-  def six_months_since = months_since(6) # steep:ignore NoMethod
+  def six_months_since = months_since(6)
 
   # 半年後の日付
   def half_year_since = six_months_since
 
   # 7ヶ月後の日付
-  def seven_months_since = months_since(7) # steep:ignore NoMethod
+  def seven_months_since = months_since(7)
 
   # 8ヶ月後の日付
-  def eight_months_since = months_since(8) # steep:ignore NoMethod
+  def eight_months_since = months_since(8)
 
   # 9ヶ月後の日付
-  def nine_months_since = months_since(9) # steep:ignore NoMethod
+  def nine_months_since = months_since(9)
 
   # 10ヶ月後の日付
-  def ten_months_since = months_since(10) # steep:ignore NoMethod
+  def ten_months_since = months_since(10)
 
   # 11ヶ月後の日付
-  def eleven_months_since = months_since(11) # steep:ignore NoMethod
+  def eleven_months_since = months_since(11)
 
   #
   # 暦月関係
@@ -161,7 +159,7 @@ class ::Date
   #
 
   # 1月の月初
-  def beginning_of_january = change(month: 1, day: 1) # steep:ignore NoMethod
+  def beginning_of_january = change(month: 1, day: 1)
 
   # 1月の月末
   def end_of_january = beginning_of_january.end_of_month
@@ -183,7 +181,7 @@ class ::Date
   #
 
   # 2月の月初
-  def beginning_of_february = change(month: 2, day: 1) # steep:ignore NoMethod
+  def beginning_of_february = change(month: 2, day: 1)
 
   # 2月の月末
   def end_of_february = beginning_of_february.end_of_month
@@ -205,7 +203,7 @@ class ::Date
   #
 
   # 3月の月初
-  def beginning_of_march = change(month: 3, day: 1) # steep:ignore NoMethod
+  def beginning_of_march = change(month: 3, day: 1)
 
   # 3月の月末
   def end_of_march = beginning_of_march.end_of_month
@@ -227,7 +225,7 @@ class ::Date
   #
 
   # 4月の月初
-  def beginning_of_april = change(month: 4, day: 1) # steep:ignore NoMethod
+  def beginning_of_april = change(month: 4, day: 1)
 
   # 4月の月末
   def end_of_april = beginning_of_april.end_of_month
@@ -249,7 +247,7 @@ class ::Date
   #
 
   # 5月の月初
-  def beginning_of_may = change(month: 5, day: 1) # steep:ignore NoMethod
+  def beginning_of_may = change(month: 5, day: 1)
 
   # 5月の月末
   def end_of_may = beginning_of_may.end_of_month
@@ -271,7 +269,7 @@ class ::Date
   #
 
   # 6月の月初
-  def beginning_of_june = change(month: 6, day: 1) # steep:ignore NoMethod
+  def beginning_of_june = change(month: 6, day: 1)
 
   # 6月の月末
   def end_of_june = beginning_of_june.end_of_month
@@ -293,7 +291,7 @@ class ::Date
   #
 
   # 7月の月初
-  def beginning_of_july = change(month: 7, day: 1) # steep:ignore NoMethod
+  def beginning_of_july = change(month: 7, day: 1)
 
   # 7月の月末
   def end_of_july = beginning_of_july.end_of_month
@@ -315,7 +313,7 @@ class ::Date
   #
 
   # 8月の月初
-  def beginning_of_august = change(month: 8, day: 1) # steep:ignore NoMethod
+  def beginning_of_august = change(month: 8, day: 1)
 
   # 8月の月末
   def end_of_august = beginning_of_august.end_of_month
@@ -337,7 +335,7 @@ class ::Date
   #
 
   # 9月の月初
-  def beginning_of_september = change(month: 9, day: 1) # steep:ignore NoMethod
+  def beginning_of_september = change(month: 9, day: 1)
 
   # 9月の月末
   def end_of_september = beginning_of_september.end_of_month
@@ -359,7 +357,7 @@ class ::Date
   #
 
   # 10月の月初
-  def beginning_of_october = change(month: 10, day: 1) # steep:ignore NoMethod
+  def beginning_of_october = change(month: 10, day: 1)
 
   # 10月の月末
   def end_of_october = beginning_of_october.end_of_month
@@ -381,7 +379,7 @@ class ::Date
   #
 
   # 11月の月初
-  def beginning_of_november = change(month: 11, day: 1) # steep:ignore NoMethod
+  def beginning_of_november = change(month: 11, day: 1)
 
   # 11月の月末
   def end_of_november = beginning_of_november.end_of_month
@@ -403,7 +401,7 @@ class ::Date
   #
 
   # 12月の月初
-  def beginning_of_december = change(month: 12, day: 1) # steep:ignore NoMethod
+  def beginning_of_december = change(month: 12, day: 1)
 
   # 12月の月末
   def end_of_december = beginning_of_december.end_of_month
@@ -435,11 +433,11 @@ class ::Date
 
   # 現在の日付が属する四半期の期首
   def beginning_of_this_quarter
-    beginning_of_first_quarter.months_since((this_quarter_number - 1) * 3) # steep:ignore NoMethod
+    beginning_of_first_quarter.months_since((this_quarter_number - 1) * 3)
   end
 
   # 現在の日付が属する四半期の期末
-  def end_of_this_quarter = beginning_of_this_quarter.two_months_since.end_of_month # steep:ignore NoMethod
+  def end_of_this_quarter = beginning_of_this_quarter.two_months_since.end_of_month
 
   # 現在の日付が属する四半期の期間
   def all_this_quarter = ::Range.new(beginning_of_this_quarter, end_of_this_quarter)
