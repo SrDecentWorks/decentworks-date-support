@@ -4,6 +4,12 @@ require "spec_helper"
 
 RSpec.describe ::Date do
   let(:instance) { ::Date.new(2026, 8, 5) }
+  let(:time) { ->(year, month, day, *) { ::Date.new(year, month, day) } }
+  let(:day_beginning) { ->(year, month, day) { ::Date.new(year, month, day) } }
+  let(:day_end) { ->(year, month, day) { ::Date.new(year, month, day) } }
+
+  it_behaves_like "週始まり曜日"
+  it_behaves_like "境界日"
 
   # ###################################################################################################################
   # 週関係

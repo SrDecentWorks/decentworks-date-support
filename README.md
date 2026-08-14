@@ -27,7 +27,7 @@ Railsの`Date`、`Time`、`DateTime`、`ActiveSupport::TimeWithZone`に対する
 
 ### 週関係
 
-- 週の始まりの曜日を指定しての日付・期間の取得
+- 週の始まりの曜日（`::Date.beginning_of_week`）に従った日付・期間の取得
 
 ### 月関係
 
