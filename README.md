@@ -12,8 +12,10 @@
 ## 特徴
 
 - 四半期・上下期・年度の期首/期末/期間を取得（開始月は設定で変更可能）
+- 次の四半期・前の年度など、隣接する期間の取得
 - 暦月（1月〜12月）の月初/月末/期間の取得と判定
 - Nヶ月前・Nヶ月後の取得メソッド
+- ActiveSupportの四半期メソッド（`quarter` / `beginning_of_quarter` など）を設定を反映した値に上書き
 - 民法（初日不算入・応当日前日満了）に従った満経過月数の計算
 - `using` 不要（`require` した時点でアプリケーション全体に適用）
 - RBS型定義同梱
@@ -161,6 +163,8 @@ d.all_fiscal_year      # => Tue, 01 Apr 2025..Tue, 31 Mar 2026
 | `two_months_since` 〜 `eleven_months_since` | Nヶ月後の日付（2〜11） |
 | `half_year_ago` / `half_year_since` | 半年前 / 半年後の日付（`six_months_ago` / `six_months_since` の別名） |
 
+1ヶ月前・1ヶ月後は定義していません。ActiveSupportの `prev_month` / `next_month` のほうが名前として分かりやすいため、そちらを使ってください。
+
 暦月については、1月〜12月それぞれに以下のメソッドがあります（例は1月）。
 
 | メソッド | 内容 |
@@ -267,6 +271,8 @@ ActiveSupportの四半期メソッドは**暦年基準（1月・4月・7月・10
 ### ActiveSupportと同名の値を返すメソッド
 
 `beginning_of_this_week` / `end_of_this_week` / `all_this_week` / `beginning_of_this_month` / `end_of_this_month` / `all_this_month` は、ActiveSupportの `beginning_of_week` / `end_of_week` / `all_week` / `beginning_of_month` / `end_of_month` / `all_month` と同じ値を返します。本ライブラリが追加する `*_this_*` という命名に揃えるために定義しているものであり、機能の追加ではありません。
+
+一方、ActiveSupportの**四半期**メソッドは同名のまま値を上書きしています。「ActiveSupportの四半期メソッドの上書き」を参照してください。
 
 ## 開発
 
