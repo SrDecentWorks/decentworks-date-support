@@ -1,6 +1,6 @@
 module ActiveSupport
   class TimeWithZone
-    include ::Decentworks::DateSupport::TimeExtension
+    include ::Decentworks::DateSupport::TimeExtension[::ActiveSupport::TimeWithZone]
     extend ::Decentworks::DateSupport::TimeExtension::ClassMethods
 
     # ::ActiveSupport::TimeWithZone は method_missing で ::Time に委譲しているため

@@ -10,6 +10,8 @@ RSpec.shared_examples "別名メソッドの遅延束縛" do
   let(:instance) { time.call(2026, 8, 5, 12, 34, 56) }
 
   {
+    beginning_of_this_month:  :beginning_of_month,
+    end_of_this_month:        :end_of_month,
     half_year_ago:            :six_months_ago,
     half_year_since:          :six_months_since,
     beginning_of_first_half:  :beginning_of_first_quarter,
@@ -17,7 +19,16 @@ RSpec.shared_examples "別名メソッドの遅延束縛" do
     beginning_of_second_half: :beginning_of_third_quarter,
     end_of_second_half:       :end_of_fourth_quarter,
     beginning_of_fiscal_year: :beginning_of_first_quarter,
-    end_of_fiscal_year:       :end_of_fourth_quarter
+    end_of_fiscal_year:       :end_of_fourth_quarter,
+    quarter:                  :this_quarter_number,
+    beginning_of_quarter:     :beginning_of_this_quarter,
+    at_beginning_of_quarter:  :beginning_of_quarter,
+    end_of_quarter:           :end_of_this_quarter,
+    at_end_of_quarter:        :end_of_quarter,
+    all_quarter:              :all_this_quarter,
+    next_quarter:             :beginning_of_next_quarter,
+    prev_quarter:             :beginning_of_prev_quarter,
+    last_quarter:             :prev_quarter
   }.each do |alias_name, original_name|
     describe "##{alias_name}" do
       subject { overridden.public_send(alias_name) }

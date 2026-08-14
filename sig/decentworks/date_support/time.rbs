@@ -1,4 +1,4 @@
 class Time
-  include ::Decentworks::DateSupport::TimeExtension
+  include ::Decentworks::DateSupport::TimeExtension[::Time]
   extend ::Decentworks::DateSupport::TimeExtension::ClassMethods
 end

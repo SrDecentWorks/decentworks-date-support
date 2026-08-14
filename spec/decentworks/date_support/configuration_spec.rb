@@ -20,15 +20,15 @@ RSpec.describe ::Decentworks::DateSupport do
       end
     end
 
-    describe ".beginning_of_first_quarter" do
-      subject { described_class.beginning_of_first_quarter }
+    describe ".first_quarter_month_name" do
+      subject { described_class.first_quarter_month_name }
 
       it { is_expected.to eq ::Decentworks::DateSupport::Configuration::DEFAULT }
       it { is_expected.to eq :january }
     end
 
-    describe ".beginning_of_first_quarter_month" do
-      subject { described_class.beginning_of_first_quarter_month }
+    describe ".first_quarter_month" do
+      subject { described_class.first_quarter_month }
 
       it { is_expected.to eq 1 }
     end
@@ -55,11 +55,11 @@ RSpec.describe ::Decentworks::DateSupport do
   context "configureが実行済みの場合" do
     before do
       described_class.reset_configuration!
-      described_class.configure { |config| config.beginning_of_first_quarter = :april }
+      described_class.configure { |config| config.first_quarter_month_name = :april }
     end
 
-    describe ".beginning_of_first_quarter" do
-      subject { described_class.beginning_of_first_quarter }
+    describe ".first_quarter_month_name" do
+      subject { described_class.first_quarter_month_name }
 
       it { is_expected.to eq :april }
     end
@@ -72,7 +72,7 @@ RSpec.describe ::Decentworks::DateSupport do
       it "ブロックなしで呼び出しても設定を破棄しない" do
         described_class.configure
 
-        expect(described_class.beginning_of_first_quarter).to eq :april
+        expect(described_class.first_quarter_month_name).to eq :april
       end
     end
 
@@ -80,7 +80,7 @@ RSpec.describe ::Decentworks::DateSupport do
       it "初期値に戻る" do
         described_class.reset_configuration!
 
-        expect(described_class.beginning_of_first_quarter).to eq :january
+        expect(described_class.first_quarter_month_name).to eq :january
       end
 
       it { expect(described_class.reset_configuration!).to be_nil }
@@ -113,19 +113,19 @@ RSpec.describe ::Decentworks::DateSupport do
       it { expect(described_class::MONTHS).to have_key(subject) }
     end
 
-    describe "#beginning_of_first_quarter" do
-      subject { configuration.beginning_of_first_quarter }
+    describe "#first_quarter_month_name" do
+      subject { configuration.first_quarter_month_name }
 
       it { is_expected.to eq described_class::DEFAULT }
     end
 
-    describe "#beginning_of_first_quarter=" do
+    describe "#first_quarter_month_name=" do
       context "有効な月名を指定した場合" do
         it "12ヶ月すべてを設定できる" do
           all_months.each do |month|
-            configuration.beginning_of_first_quarter = month
+            configuration.first_quarter_month_name = month
 
-            expect(configuration.beginning_of_first_quarter).to eq month
+            expect(configuration.first_quarter_month_name).to eq month
           end
         end
       end
@@ -133,29 +133,29 @@ RSpec.describe ::Decentworks::DateSupport do
       context "無効な値を指定した場合" do
         [ :foo, "january", nil, 1, :JANUARY ].each do |invalid|
           context "#{invalid.inspect}の場合" do
-            it { expect { configuration.beginning_of_first_quarter = invalid }.to raise_error(::ArgumentError) }
+            it { expect { configuration.first_quarter_month_name = invalid }.to raise_error(::ArgumentError) }
 
             it "指定された値をメッセージに含む" do
-              expect { configuration.beginning_of_first_quarter = invalid }
+              expect { configuration.first_quarter_month_name = invalid }
                 .to raise_error(::ArgumentError, /#{::Regexp.escape(invalid.inspect)}/)
             end
 
             it "設定値を変更しない" do
-              expect { configuration.beginning_of_first_quarter = invalid }.to raise_error(::ArgumentError)
+              expect { configuration.first_quarter_month_name = invalid }.to raise_error(::ArgumentError)
 
-              expect(configuration.beginning_of_first_quarter).to eq described_class::DEFAULT
+              expect(configuration.first_quarter_month_name).to eq described_class::DEFAULT
             end
           end
         end
       end
     end
 
-    describe "#beginning_of_first_quarter_month" do
+    describe "#first_quarter_month" do
       it "月名に対応する月数を返す" do
         all_months.each_with_index do |month, index|
-          configuration.beginning_of_first_quarter = month
+          configuration.first_quarter_month_name = month
 
-          expect(configuration.beginning_of_first_quarter_month).to eq(index + 1)
+          expect(configuration.first_quarter_month).to eq(index + 1)
         end
       end
     end
@@ -163,7 +163,7 @@ RSpec.describe ::Decentworks::DateSupport do
     describe "#first_quarter_month_offset" do
       it "1月始まりとのずれを返す" do
         all_months.each_with_index do |month, index|
-          configuration.beginning_of_first_quarter = month
+          configuration.first_quarter_month_name = month
 
           expect(configuration.first_quarter_month_offset).to eq index
         end

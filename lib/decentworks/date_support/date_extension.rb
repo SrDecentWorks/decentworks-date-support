@@ -1,21 +1,16 @@
 # frozen_string_literal: true
 
-require "date"                # ::Date
+require "date"
 require "active_support"
-require "active_support/time" # レシーバに対する change / months_ago / all_day などの拡張
-
-require_relative "date" # ::Date.whole_months_elapsed を利用するため
-require_relative "configuration" # ::Decentworks::DateSupport.first_quarter_month_offset を利用するため
+require "active_support/time" # レシーバに対する change / months_ago / end_of_month などの拡張
+require_relative "configuration"
 
 module Decentworks
   module DateSupport
-    # ::Time / ::DateTime / ::ActiveSupport::TimeWithZone に共通の日時拡張
+    # ::Date の日付拡張
     #
-    # 各メソッドはレシーバと同じクラスの値を返す。
-    #
-    # sigではgeneric module（TimeExtension[T]）として宣言し、戻り値を型引数Tで表している。
-    # includeする側で TimeExtension[::Time] のように具体的なクラスを渡す。
-    module TimeExtension
+    # 各メソッドは ::Date を返す。
+    module DateExtension
       # includeしたクラスにクラスメソッドを追加する
       def self.included(base) = base.extend(ClassMethods)
 
@@ -26,15 +21,41 @@ module Decentworks
 
         # 満経過月数
         #
-        # fromからtoまでに満了した月数を返す。日付単位で判定し、時刻は考慮しない。
-        # 応当日が存在しない月は、民法第143条第2項に準じてその月の末日を応当日とみなす。
+        # fromからtoまでに満了した月数を返す。
+        # 民法第140条（初日不算入）に従いfromの翌日を起算日とし、
+        # 民法第143条第2項に従い応当日の前日をもって満了とする。
+        # 応当日が存在しない月は、同項ただし書に従いその月の末日をもって満了とする。
         #
-        # @raise [ArgumentError] toの日付がfromの日付より前の場合
+        #   ::Date.whole_months_elapsed(from: ::Date.new(2026, 1, 31), to: ::Date.new(2026, 2, 27)) # => 0
+        #   ::Date.whole_months_elapsed(from: ::Date.new(2026, 1, 31), to: ::Date.new(2026, 2, 28)) # => 1
+        #   ::Date.whole_months_elapsed(from: ::Date.new(2026, 2, 28), to: ::Date.new(2026, 3, 30)) # => 0
+        #   ::Date.whole_months_elapsed(from: ::Date.new(2026, 2, 28), to: ::Date.new(2026, 3, 31)) # => 1
+        #   ::Date.whole_months_elapsed(from: ::Date.new(2024, 2, 29), to: ::Date.new(2025, 2, 28)) # => 12
+        #
+        # @raise [ArgumentError] toがfromより前の日付の場合
         def whole_months_elapsed(from:, to:)
-          ::Date.whole_months_elapsed(
-            from: from.to_date,
-            to:   to.to_date
-          )
+          raise ::ArgumentError, "to must be on or after from (from: #{from}, to: #{to})" if to < from
+
+          months = ((to.year - from.year) * 12) + (to.month - from.month)
+
+          # 満了日に達していない場合は1ヶ月に満たない
+          expiration_date(from:, months:) > to ? months - 1 : months
+        end
+
+        private
+
+        # 満了日
+        #
+        # fromから起算してmonthsヶ月が満了する日を返す。
+        #
+        #   from: 2026-01-15, months: 1 # => 2026-02-15（起算日2026-01-16の応当日2026-02-16の前日）
+        #   from: 2026-01-30, months: 1 # => 2026-02-28（起算日2026-01-31の応当日が存在しないため2月の末日）
+        #   from: 2026-02-28, months: 1 # => 2026-03-31（起算日2026-03-01の応当日2026-04-01の前日）
+        def expiration_date(from:, months:)
+          beginning_date = from.next_day                # 起算日（初日不算入）
+          corresponding_date = beginning_date >> months # 応当日（存在しない場合はその月の末日に繰り下がる）
+
+          corresponding_date.day == beginning_date.day ? corresponding_date.prev_day : corresponding_date
         end
       end
 
@@ -47,10 +68,10 @@ module Decentworks
       #
 
       # 現在の日付が属する週の始まりの日付
-      def beginning_of_this_week = beginning_of_week(::Date.beginning_of_week).beginning_of_day
+      def beginning_of_this_week = beginning_of_week(::Date.beginning_of_week)
 
       # 現在の日付が属する週の終わりの日付
-      def end_of_this_week = beginning_of_this_week.advance(days: 6).end_of_day
+      def end_of_this_week = beginning_of_this_week.advance(days: 6)
 
       # 今週の期間
       def all_this_week = ::Range.new(beginning_of_this_week, end_of_this_week)
@@ -63,10 +84,10 @@ module Decentworks
       # 今月関係
       #
 
-      # 現在の日付が属する月の始まりの日時
+      # 現在の日付が属する月の始まりの日付
       def beginning_of_this_month = beginning_of_month
 
-      # 現在の日付が属する月の終わりの日時
+      # 現在の日付が属する月の終わりの日付
       def end_of_this_month = end_of_month
 
       # 現在の日付が属する月の期間
@@ -155,19 +176,19 @@ module Decentworks
       #
 
       # 1月の月初
-      def beginning_of_january = change(month: 1, day: 1).beginning_of_day
+      def beginning_of_january = change(month: 1, day: 1)
 
       # 1月の月末
-      def end_of_january = beginning_of_january.end_of_month.end_of_day
+      def end_of_january = beginning_of_january.end_of_month
 
       # 1月の期間
       def all_january = ::Range.new(beginning_of_january, end_of_january)
 
       # 1月の月初か？
-      def beginning_of_january? = beginning_of_january.all_day.cover?(self)
+      def beginning_of_january? = self == beginning_of_january
 
       # 1月の月末か？
-      def end_of_january? = end_of_january.all_day.cover?(self)
+      def end_of_january? = self == end_of_january
 
       # 1月か？
       def in_january? = all_january.cover?(self)
@@ -177,19 +198,19 @@ module Decentworks
       #
 
       # 2月の月初
-      def beginning_of_february = change(month: 2, day: 1).beginning_of_day
+      def beginning_of_february = change(month: 2, day: 1)
 
       # 2月の月末
-      def end_of_february = beginning_of_february.end_of_month.end_of_day
+      def end_of_february = beginning_of_february.end_of_month
 
       # 2月の期間
       def all_february = ::Range.new(beginning_of_february, end_of_february)
 
       # 2月の月初か？
-      def beginning_of_february? = beginning_of_february.all_day.cover?(self)
+      def beginning_of_february? = self == beginning_of_february
 
       # 2月の月末か？
-      def end_of_february? = end_of_february.all_day.cover?(self)
+      def end_of_february? = self == end_of_february
 
       # 2月か？
       def in_february? = all_february.cover?(self)
@@ -199,19 +220,19 @@ module Decentworks
       #
 
       # 3月の月初
-      def beginning_of_march = change(month: 3, day: 1).beginning_of_day
+      def beginning_of_march = change(month: 3, day: 1)
 
       # 3月の月末
-      def end_of_march = beginning_of_march.end_of_month.end_of_day
+      def end_of_march = beginning_of_march.end_of_month
 
       # 3月の期間
       def all_march = ::Range.new(beginning_of_march, end_of_march)
 
       # 3月の月初か？
-      def beginning_of_march? = beginning_of_march.all_day.cover?(self)
+      def beginning_of_march? = self == beginning_of_march
 
       # 3月の月末か？
-      def end_of_march? = end_of_march.all_day.cover?(self)
+      def end_of_march? = self == end_of_march
 
       # 3月か？
       def in_march? = all_march.cover?(self)
@@ -221,19 +242,19 @@ module Decentworks
       #
 
       # 4月の月初
-      def beginning_of_april = change(month: 4, day: 1).beginning_of_day
+      def beginning_of_april = change(month: 4, day: 1)
 
       # 4月の月末
-      def end_of_april = beginning_of_april.end_of_month.end_of_day
+      def end_of_april = beginning_of_april.end_of_month
 
       # 4月の期間
       def all_april = ::Range.new(beginning_of_april, end_of_april)
 
       # 4月の月初か？
-      def beginning_of_april? = beginning_of_april.all_day.cover?(self)
+      def beginning_of_april? = self == beginning_of_april
 
       # 4月の月末か？
-      def end_of_april? = end_of_april.all_day.cover?(self)
+      def end_of_april? = self == end_of_april
 
       # 4月か？
       def in_april? = all_april.cover?(self)
@@ -243,19 +264,19 @@ module Decentworks
       #
 
       # 5月の月初
-      def beginning_of_may = change(month: 5, day: 1).beginning_of_day
+      def beginning_of_may = change(month: 5, day: 1)
 
       # 5月の月末
-      def end_of_may = beginning_of_may.end_of_month.end_of_day
+      def end_of_may = beginning_of_may.end_of_month
 
       # 5月の期間
       def all_may = ::Range.new(beginning_of_may, end_of_may)
 
       # 5月の月初か？
-      def beginning_of_may? = beginning_of_may.all_day.cover?(self)
+      def beginning_of_may? = self == beginning_of_may
 
       # 5月の月末か？
-      def end_of_may? = end_of_may.all_day.cover?(self)
+      def end_of_may? = self == end_of_may
 
       # 5月か？
       def in_may? = all_may.cover?(self)
@@ -265,19 +286,19 @@ module Decentworks
       #
 
       # 6月の月初
-      def beginning_of_june = change(month: 6, day: 1).beginning_of_day
+      def beginning_of_june = change(month: 6, day: 1)
 
       # 6月の月末
-      def end_of_june = beginning_of_june.end_of_month.end_of_day
+      def end_of_june = beginning_of_june.end_of_month
 
       # 6月の期間
       def all_june = ::Range.new(beginning_of_june, end_of_june)
 
       # 6月の月初か？
-      def beginning_of_june? = beginning_of_june.all_day.cover?(self)
+      def beginning_of_june? = self == beginning_of_june
 
       # 6月の月末か？
-      def end_of_june? = end_of_june.all_day.cover?(self)
+      def end_of_june? = self == end_of_june
 
       # 6月か？
       def in_june? = all_june.cover?(self)
@@ -287,19 +308,19 @@ module Decentworks
       #
 
       # 7月の月初
-      def beginning_of_july = change(month: 7, day: 1).beginning_of_day
+      def beginning_of_july = change(month: 7, day: 1)
 
       # 7月の月末
-      def end_of_july = beginning_of_july.end_of_month.end_of_day
+      def end_of_july = beginning_of_july.end_of_month
 
       # 7月の期間
       def all_july = ::Range.new(beginning_of_july, end_of_july)
 
       # 7月の月初か？
-      def beginning_of_july? = beginning_of_july.all_day.cover?(self)
+      def beginning_of_july? = self == beginning_of_july
 
       # 7月の月末か？
-      def end_of_july? = end_of_july.all_day.cover?(self)
+      def end_of_july? = self == end_of_july
 
       # 7月か？
       def in_july? = all_july.cover?(self)
@@ -309,19 +330,19 @@ module Decentworks
       #
 
       # 8月の月初
-      def beginning_of_august = change(month: 8, day: 1).beginning_of_day
+      def beginning_of_august = change(month: 8, day: 1)
 
       # 8月の月末
-      def end_of_august = beginning_of_august.end_of_month.end_of_day
+      def end_of_august = beginning_of_august.end_of_month
 
       # 8月の期間
       def all_august = ::Range.new(beginning_of_august, end_of_august)
 
       # 8月の月初か？
-      def beginning_of_august? = beginning_of_august.all_day.cover?(self)
+      def beginning_of_august? = self == beginning_of_august
 
       # 8月の月末か？
-      def end_of_august? = end_of_august.all_day.cover?(self)
+      def end_of_august? = self == end_of_august
 
       # 8月か？
       def in_august? = all_august.cover?(self)
@@ -331,19 +352,19 @@ module Decentworks
       #
 
       # 9月の月初
-      def beginning_of_september = change(month: 9, day: 1).beginning_of_day
+      def beginning_of_september = change(month: 9, day: 1)
 
       # 9月の月末
-      def end_of_september = beginning_of_september.end_of_month.end_of_day
+      def end_of_september = beginning_of_september.end_of_month
 
       # 9月の期間
       def all_september = ::Range.new(beginning_of_september, end_of_september)
 
       # 9月の月初か？
-      def beginning_of_september? = beginning_of_september.all_day.cover?(self)
+      def beginning_of_september? = self == beginning_of_september
 
       # 9月の月末か？
-      def end_of_september? = end_of_september.all_day.cover?(self)
+      def end_of_september? = self == end_of_september
 
       # 9月か？
       def in_september? = all_september.cover?(self)
@@ -353,19 +374,19 @@ module Decentworks
       #
 
       # 10月の月初
-      def beginning_of_october = change(month: 10, day: 1).beginning_of_day
+      def beginning_of_october = change(month: 10, day: 1)
 
       # 10月の月末
-      def end_of_october = beginning_of_october.end_of_month.end_of_day
+      def end_of_october = beginning_of_october.end_of_month
 
       # 10月の期間
       def all_october = ::Range.new(beginning_of_october, end_of_october)
 
       # 10月の月初か？
-      def beginning_of_october? = beginning_of_october.all_day.cover?(self)
+      def beginning_of_october? = self == beginning_of_october
 
       # 10月の月末か？
-      def end_of_october? = end_of_october.all_day.cover?(self)
+      def end_of_october? = self == end_of_october
 
       # 10月か？
       def in_october? = all_october.cover?(self)
@@ -375,19 +396,19 @@ module Decentworks
       #
 
       # 11月の月初
-      def beginning_of_november = change(month: 11, day: 1).beginning_of_day
+      def beginning_of_november = change(month: 11, day: 1)
 
       # 11月の月末
-      def end_of_november = beginning_of_november.end_of_month.end_of_day
+      def end_of_november = beginning_of_november.end_of_month
 
       # 11月の期間
       def all_november = ::Range.new(beginning_of_november, end_of_november)
 
       # 11月の月初か？
-      def beginning_of_november? = beginning_of_november.all_day.cover?(self)
+      def beginning_of_november? = self == beginning_of_november
 
       # 11月の月末か？
-      def end_of_november? = end_of_november.all_day.cover?(self)
+      def end_of_november? = self == end_of_november
 
       # 11月か？
       def in_november? = all_november.cover?(self)
@@ -397,19 +418,19 @@ module Decentworks
       #
 
       # 12月の月初
-      def beginning_of_december = change(month: 12, day: 1).beginning_of_day
+      def beginning_of_december = change(month: 12, day: 1)
 
       # 12月の月末
-      def end_of_december = beginning_of_december.end_of_month.end_of_day
+      def end_of_december = beginning_of_december.end_of_month
 
       # 12月の期間
       def all_december = ::Range.new(beginning_of_december, end_of_december)
 
       # 12月の月初か？
-      def beginning_of_december? = beginning_of_december.all_day.cover?(self)
+      def beginning_of_december? = self == beginning_of_december
 
       # 12月の月末か？
-      def end_of_december? = end_of_december.all_day.cover?(self)
+      def end_of_december? = self == end_of_december
 
       # 12月か？
       def in_december? = all_december.cover?(self)
@@ -429,11 +450,11 @@ module Decentworks
 
       # 現在の日付が属する四半期の期首
       def beginning_of_this_quarter
-        beginning_of_first_quarter.months_since((this_quarter_number - 1) * 3).beginning_of_day
+        beginning_of_first_quarter.months_since((this_quarter_number - 1) * 3)
       end
 
       # 現在の日付が属する四半期の期末
-      def end_of_this_quarter = beginning_of_this_quarter.two_months_since.end_of_month.end_of_day
+      def end_of_this_quarter = beginning_of_this_quarter.two_months_since.end_of_month
 
       # 現在の日付が属する四半期の期間
       def all_this_quarter = ::Range.new(beginning_of_this_quarter, end_of_this_quarter)
@@ -443,10 +464,10 @@ module Decentworks
       #
 
       # 次の四半期の期首
-      def beginning_of_next_quarter = beginning_of_this_quarter.three_months_since.beginning_of_day
+      def beginning_of_next_quarter = beginning_of_this_quarter.three_months_since
 
       # 次の四半期の期末
-      def end_of_next_quarter = beginning_of_next_quarter.two_months_since.end_of_month.end_of_day
+      def end_of_next_quarter = beginning_of_next_quarter.two_months_since.end_of_month
 
       # 次の四半期の期間
       def all_next_quarter = ::Range.new(beginning_of_next_quarter, end_of_next_quarter)
@@ -456,10 +477,10 @@ module Decentworks
       #
 
       # 前の四半期の期首
-      def beginning_of_prev_quarter = beginning_of_this_quarter.three_months_ago.beginning_of_day
+      def beginning_of_prev_quarter = beginning_of_this_quarter.three_months_ago
 
       # 前の四半期の期末
-      def end_of_prev_quarter = beginning_of_prev_quarter.two_months_since.end_of_month.end_of_day
+      def end_of_prev_quarter = beginning_of_prev_quarter.two_months_since.end_of_month
 
       # 前の四半期の期間
       def all_prev_quarter = ::Range.new(beginning_of_prev_quarter, end_of_prev_quarter)
@@ -470,24 +491,22 @@ module Decentworks
 
       # 第1四半期の期首
       def beginning_of_first_quarter
-        # 1月始まりと見た時の対応した日付に移動してから開始月に合わせる
         beginning_of_month
-          .months_ago(::Decentworks::DateSupport.first_quarter_month_offset)
+          .months_ago(::Decentworks::DateSupport.first_quarter_month_offset) # 1月始まりと見た時の対応した日付に移動
           .change(month: ::Decentworks::DateSupport.first_quarter_month, day: 1)
-          .beginning_of_day
       end
 
       # 第1四半期の期末
-      def end_of_first_quarter = beginning_of_first_quarter.two_months_since.end_of_month.end_of_day
+      def end_of_first_quarter = beginning_of_first_quarter.two_months_since.end_of_month
 
       # 第1四半期の期間
       def all_first_quarter = ::Range.new(beginning_of_first_quarter, end_of_first_quarter)
 
       # 第1四半期の期首か？
-      def beginning_of_first_quarter? = beginning_of_first_quarter.all_day.cover?(self)
+      def beginning_of_first_quarter? = self == beginning_of_first_quarter
 
       # 第1四半期の期末か？
-      def end_of_first_quarter? = end_of_first_quarter.all_day.cover?(self)
+      def end_of_first_quarter? = self == end_of_first_quarter
 
       # 第1四半期か？
       def in_first_quarter? = all_first_quarter.cover?(self)
@@ -497,19 +516,19 @@ module Decentworks
       #
 
       # 第2四半期の期首
-      def beginning_of_second_quarter = beginning_of_first_quarter.three_months_since.beginning_of_day
+      def beginning_of_second_quarter = beginning_of_first_quarter.three_months_since
 
       # 第2四半期の期末
-      def end_of_second_quarter = beginning_of_second_quarter.two_months_since.end_of_month.end_of_day
+      def end_of_second_quarter = beginning_of_second_quarter.two_months_since.end_of_month
 
       # 第2四半期の期間
       def all_second_quarter = ::Range.new(beginning_of_second_quarter, end_of_second_quarter)
 
       # 第2四半期の期首か？
-      def beginning_of_second_quarter? = beginning_of_second_quarter.all_day.cover?(self)
+      def beginning_of_second_quarter? = self == beginning_of_second_quarter
 
       # 第2四半期の期末か？
-      def end_of_second_quarter? = end_of_second_quarter.all_day.cover?(self)
+      def end_of_second_quarter? = self == end_of_second_quarter
 
       # 第2四半期か？
       def in_second_quarter? = all_second_quarter.cover?(self)
@@ -519,19 +538,19 @@ module Decentworks
       #
 
       # 第3四半期の期首
-      def beginning_of_third_quarter = beginning_of_first_quarter.six_months_since.beginning_of_day
+      def beginning_of_third_quarter = beginning_of_first_quarter.six_months_since
 
       # 第3四半期の期末
-      def end_of_third_quarter = beginning_of_third_quarter.two_months_since.end_of_month.end_of_day
+      def end_of_third_quarter = beginning_of_third_quarter.two_months_since.end_of_month
 
       # 第3四半期の期間
       def all_third_quarter = ::Range.new(beginning_of_third_quarter, end_of_third_quarter)
 
       # 第3四半期の期首か？
-      def beginning_of_third_quarter? = beginning_of_third_quarter.all_day.cover?(self)
+      def beginning_of_third_quarter? = self == beginning_of_third_quarter
 
       # 第3四半期の期末か？
-      def end_of_third_quarter? = end_of_third_quarter.all_day.cover?(self)
+      def end_of_third_quarter? = self == end_of_third_quarter
 
       # 第3四半期か？
       def in_third_quarter? = all_third_quarter.cover?(self)
@@ -541,19 +560,19 @@ module Decentworks
       #
 
       # 第4四半期の期首
-      def beginning_of_fourth_quarter = beginning_of_first_quarter.nine_months_since.beginning_of_day
+      def beginning_of_fourth_quarter = beginning_of_first_quarter.nine_months_since
 
       # 第4四半期の期末
-      def end_of_fourth_quarter = beginning_of_fourth_quarter.two_months_since.end_of_month.end_of_day
+      def end_of_fourth_quarter = beginning_of_fourth_quarter.two_months_since.end_of_month
 
       # 第4四半期の期間
       def all_fourth_quarter = ::Range.new(beginning_of_fourth_quarter, end_of_fourth_quarter)
 
       # 第4四半期の期首か？
-      def beginning_of_fourth_quarter? = beginning_of_fourth_quarter.all_day.cover?(self)
+      def beginning_of_fourth_quarter? = self == beginning_of_fourth_quarter
 
       # 第4四半期の期末か？
-      def end_of_fourth_quarter? = end_of_fourth_quarter.all_day.cover?(self)
+      def end_of_fourth_quarter? = self == end_of_fourth_quarter
 
       # 第4四半期か？
       def in_fourth_quarter? = all_fourth_quarter.cover?(self)
@@ -583,10 +602,10 @@ module Decentworks
       #
 
       # 次の期の期首
-      def beginning_of_next_half = beginning_of_this_half.six_months_since.beginning_of_day
+      def beginning_of_next_half = beginning_of_this_half.six_months_since
 
       # 次の期の期末
-      def end_of_next_half = beginning_of_next_half.five_months_since.end_of_month.end_of_day
+      def end_of_next_half = beginning_of_next_half.five_months_since.end_of_month
 
       # 次の期の期間
       def all_next_half = ::Range.new(beginning_of_next_half, end_of_next_half)
@@ -596,10 +615,10 @@ module Decentworks
       #
 
       # 前の期の期首
-      def beginning_of_prev_half = beginning_of_this_half.six_months_ago.beginning_of_day
+      def beginning_of_prev_half = beginning_of_this_half.six_months_ago
 
       # 前の期の期末
-      def end_of_prev_half = beginning_of_prev_half.five_months_since.end_of_month.end_of_day
+      def end_of_prev_half = beginning_of_prev_half.five_months_since.end_of_month
 
       # 前の期の期間
       def all_prev_half = ::Range.new(beginning_of_prev_half, end_of_prev_half)
@@ -618,10 +637,10 @@ module Decentworks
       def all_first_half = ::Range.new(beginning_of_first_half, end_of_first_half)
 
       # 上期の期首か？
-      def beginning_of_first_half? = beginning_of_first_half.all_day.cover?(self)
+      def beginning_of_first_half? = self == beginning_of_first_half
 
       # 上期の期末か？
-      def end_of_first_half? = end_of_first_half.all_day.cover?(self)
+      def end_of_first_half? = self == end_of_first_half
 
       # 上期か？
       def in_first_half? = all_first_half.cover?(self)
@@ -640,10 +659,10 @@ module Decentworks
       def all_second_half = ::Range.new(beginning_of_second_half, end_of_second_half)
 
       # 下期の期首か？
-      def beginning_of_second_half? = beginning_of_second_half.all_day.cover?(self)
+      def beginning_of_second_half? = self == beginning_of_second_half
 
       # 下期の期末か？
-      def end_of_second_half? = end_of_second_half.all_day.cover?(self)
+      def end_of_second_half? = self == end_of_second_half
 
       # 下期か？
       def in_second_half? = all_second_half.cover?(self)
@@ -669,10 +688,10 @@ module Decentworks
       def next_fiscal_year = fiscal_year + 1
 
       # 次の年度の期首
-      def beginning_of_next_fiscal_year = beginning_of_fiscal_year.months_since(12).beginning_of_day
+      def beginning_of_next_fiscal_year = beginning_of_fiscal_year.months_since(12)
 
       # 次の年度の期末
-      def end_of_next_fiscal_year = beginning_of_next_fiscal_year.eleven_months_since.end_of_month.end_of_day
+      def end_of_next_fiscal_year = beginning_of_next_fiscal_year.eleven_months_since.end_of_month
 
       # 次の年度の期間
       def all_next_fiscal_year = ::Range.new(beginning_of_next_fiscal_year, end_of_next_fiscal_year)
@@ -685,10 +704,10 @@ module Decentworks
       def prev_fiscal_year = fiscal_year - 1
 
       # 前の年度の期首
-      def beginning_of_prev_fiscal_year = beginning_of_fiscal_year.months_ago(12).beginning_of_day
+      def beginning_of_prev_fiscal_year = beginning_of_fiscal_year.months_ago(12)
 
       # 前の年度の期末
-      def end_of_prev_fiscal_year = beginning_of_prev_fiscal_year.eleven_months_since.end_of_month.end_of_day
+      def end_of_prev_fiscal_year = beginning_of_prev_fiscal_year.eleven_months_since.end_of_month
 
       # 前の年度の期間
       def all_prev_fiscal_year = ::Range.new(beginning_of_prev_fiscal_year, end_of_prev_fiscal_year)

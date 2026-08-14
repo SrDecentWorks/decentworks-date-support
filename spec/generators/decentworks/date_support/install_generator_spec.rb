@@ -30,6 +30,6 @@ RSpec.describe ::Decentworks::DateSupport::Generators::InstallGenerator do
 
     it { is_expected.to include "::Decentworks::DateSupport.configure do |config|" }
 
-    it { is_expected.to include "config.beginning_of_first_quarter = :january" }
+    it { is_expected.to include "config.first_quarter_month_name = :january" }
   end
 end
