@@ -1,7 +1,5 @@
 module Decentworks
   module DateSupport
-    VERSION: String
-
     def self.configure: -> void
     def self.configuration: -> ::Decentworks::DateSupport::Configuration
 
