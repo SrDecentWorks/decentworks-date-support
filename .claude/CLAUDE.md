@@ -12,11 +12,13 @@
 
 以下は検討済みのうえで現状の実装を選択している。改善提案・指摘は不要。
 
-- 設定（`beginning_of_first_quarter`）はプロセスグローバルの単一値とする
+- 設定（`first_quarter_month_name`）はプロセスグローバルの単一値とする
   - テナントごと・呼び出しごとに会計年度を切り替える要件は対象外
   - スコープ付きの一時切替やメソッドへのキーワード引数によるオーバーライドは追加しない
 - `Decentworks::DateSupport.configuration` の `@configuration ||= Configuration.new` はスレッドセーフにしない
   - 設定はアプリケーション起動時（Railsのinitializer）に一度だけ行う前提のため
+- `required_ruby_version` は `>= 4.0.0`、`activesupport` は `~> 8.1` のまま緩めない
+  - 利用想定がこのバージョン以降のため。旧バージョンのRuby / Railsへの対応は行わない
 
 # コミュニケーション
 

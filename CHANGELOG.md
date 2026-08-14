@@ -12,6 +12,14 @@
   - `::Decentworks::DateSupport` 側の委譲メソッドも同様にリネーム
   - `::Date#beginning_of_first_quarter`（期首の日付）と同名で戻り値が異なっていたことによる混同を解消するため
   - 旧名は残していないため、初期化ファイル（`config.beginning_of_first_quarter =`）の修正が必要
+- gemに同梱するファイルの指定を除外方式からホワイトリスト方式に変更
+  - `lib/` `sig/` `exe/` と `README.md` `CHANGELOG.md` `LICENSE` のみを配布
+  - `.claude/` `.rubocop.yml` `.ruby-version` `.rspec` `Steepfile` `rbs_collection*.yaml`
+    `CODE_OF_CONDUCT.md` などの開発用ファイルが同梱されていたため
+- 重複していたライセンスファイルを `LICENSE` に統一（`LICENSE.txt` を削除）
+  - 著作者表記が `yutaka.mizomoto` / `YutakaMizomoto` で不一致だったため、gemspecの`authors`に合わせて `decentworks` に統一
+- gemspecの`email`を設定（未設定だったため`gem build`で警告が出ていた）
+- gemspecに`rubygems_mfa_required`を追加（gem pushに多要素認証を必須にする）
 
 # [0.2.0]
 
