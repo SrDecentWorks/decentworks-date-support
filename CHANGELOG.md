@@ -31,6 +31,13 @@
   - `next_quarter` / `prev_quarter` は3ヶ月後・3ヶ月前の同日ではなく、次/前の四半期の期首を返す
   - ActiveSupportが`alias`で定義している `at_beginning_of_quarter` / `at_end_of_quarter` /
     `last_quarter` は本体の上書きに追従しないため、あわせてメソッド定義で上書き
+- `TimeExtension` の型定義をgeneric module（`TimeExtension[T < TimeExtension[T]]`）に変更
+  - 戻り値を `self` から型引数 `T` に変更し、`# steep:ignore MethodBodyTypeMismatch` 48箇所を削除
+  - `self` 宣言では、モジュール内部のレシーバ省略呼び出しがモジュール自身の型に解決されるため
+    型エラーになっていた。型引数であれば一致する
+  - 型引数の上限をモジュール自身にすることで、`T` の値に対してモジュール自身のメソッドと
+    自己型（`_DateTimeCalculations[T]`）由来のメソッドの両方を呼べる
+  - `sig` の `include` は `TimeExtension[::Time]` のように具体的なクラスを渡す形になった
 - `beginning_of_this_month` / `end_of_this_month` を追加
   - `all_this_month` のみ定義されており、`*_this_*` の命名に揃える方針と不整合だったため
   - ActiveSupportの`beginning_of_month` / `end_of_month`と同じ値を返す

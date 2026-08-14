@@ -13,10 +13,8 @@ module Decentworks
     #
     # 各メソッドはレシーバと同じクラスの値を返す。
     #
-    # sigでは戻り値を self（::Range[self]）と宣言しているが、Steepはモジュール内部での
-    # レシーバ省略呼び出しの型をモジュール自身（TimeExtension）として解決するため、
-    # selfを返すメソッドをそのまま返すだけのメソッドが MethodBodyTypeMismatch になる。
-    # 該当箇所には # steep:ignore MethodBodyTypeMismatch を付けている。
+    # sigではgeneric module（TimeExtension[T]）として宣言し、戻り値を型引数Tで表している。
+    # includeする側で TimeExtension[::Time] のように具体的なクラスを渡す。
     module TimeExtension
       # includeしたクラスにクラスメソッドを追加する
       def self.included(base) = base.extend(ClassMethods)
@@ -55,7 +53,7 @@ module Decentworks
       def end_of_this_week = beginning_of_this_week.advance(days: 6).end_of_day
 
       # 今週の期間
-      def all_this_week = ::Range.new(beginning_of_this_week, end_of_this_week) # steep:ignore MethodBodyTypeMismatch
+      def all_this_week = ::Range.new(beginning_of_this_week, end_of_this_week)
 
       # ###############################################################################################################
       # 月関係
@@ -72,7 +70,7 @@ module Decentworks
       def end_of_this_month = end_of_month
 
       # 現在の日付が属する月の期間
-      def all_this_month = ::Range.new(beginning_of_this_month, end_of_this_month) # steep:ignore MethodBodyTypeMismatch
+      def all_this_month = ::Range.new(beginning_of_this_month, end_of_this_month)
 
       #
       # Nヶ月前関係
@@ -94,7 +92,7 @@ module Decentworks
       def six_months_ago = months_ago(6)
 
       # 半年前の日付
-      def half_year_ago = six_months_ago # steep:ignore MethodBodyTypeMismatch
+      def half_year_ago = six_months_ago
 
       # 7ヶ月前の日付
       def seven_months_ago = months_ago(7)
@@ -131,7 +129,7 @@ module Decentworks
       def six_months_since = months_since(6)
 
       # 半年後の日付
-      def half_year_since = six_months_since # steep:ignore MethodBodyTypeMismatch
+      def half_year_since = six_months_since
 
       # 7ヶ月後の日付
       def seven_months_since = months_since(7)
@@ -163,7 +161,7 @@ module Decentworks
       def end_of_january = beginning_of_january.end_of_month.end_of_day
 
       # 1月の期間
-      def all_january = ::Range.new(beginning_of_january, end_of_january) # steep:ignore MethodBodyTypeMismatch
+      def all_january = ::Range.new(beginning_of_january, end_of_january)
 
       # 1月の月初か？
       def beginning_of_january? = beginning_of_january.all_day.cover?(self)
@@ -185,7 +183,7 @@ module Decentworks
       def end_of_february = beginning_of_february.end_of_month.end_of_day
 
       # 2月の期間
-      def all_february = ::Range.new(beginning_of_february, end_of_february) # steep:ignore MethodBodyTypeMismatch
+      def all_february = ::Range.new(beginning_of_february, end_of_february)
 
       # 2月の月初か？
       def beginning_of_february? = beginning_of_february.all_day.cover?(self)
@@ -207,7 +205,7 @@ module Decentworks
       def end_of_march = beginning_of_march.end_of_month.end_of_day
 
       # 3月の期間
-      def all_march = ::Range.new(beginning_of_march, end_of_march) # steep:ignore MethodBodyTypeMismatch
+      def all_march = ::Range.new(beginning_of_march, end_of_march)
 
       # 3月の月初か？
       def beginning_of_march? = beginning_of_march.all_day.cover?(self)
@@ -229,7 +227,7 @@ module Decentworks
       def end_of_april = beginning_of_april.end_of_month.end_of_day
 
       # 4月の期間
-      def all_april = ::Range.new(beginning_of_april, end_of_april) # steep:ignore MethodBodyTypeMismatch
+      def all_april = ::Range.new(beginning_of_april, end_of_april)
 
       # 4月の月初か？
       def beginning_of_april? = beginning_of_april.all_day.cover?(self)
@@ -251,7 +249,7 @@ module Decentworks
       def end_of_may = beginning_of_may.end_of_month.end_of_day
 
       # 5月の期間
-      def all_may = ::Range.new(beginning_of_may, end_of_may) # steep:ignore MethodBodyTypeMismatch
+      def all_may = ::Range.new(beginning_of_may, end_of_may)
 
       # 5月の月初か？
       def beginning_of_may? = beginning_of_may.all_day.cover?(self)
@@ -273,7 +271,7 @@ module Decentworks
       def end_of_june = beginning_of_june.end_of_month.end_of_day
 
       # 6月の期間
-      def all_june = ::Range.new(beginning_of_june, end_of_june) # steep:ignore MethodBodyTypeMismatch
+      def all_june = ::Range.new(beginning_of_june, end_of_june)
 
       # 6月の月初か？
       def beginning_of_june? = beginning_of_june.all_day.cover?(self)
@@ -295,7 +293,7 @@ module Decentworks
       def end_of_july = beginning_of_july.end_of_month.end_of_day
 
       # 7月の期間
-      def all_july = ::Range.new(beginning_of_july, end_of_july) # steep:ignore MethodBodyTypeMismatch
+      def all_july = ::Range.new(beginning_of_july, end_of_july)
 
       # 7月の月初か？
       def beginning_of_july? = beginning_of_july.all_day.cover?(self)
@@ -317,7 +315,7 @@ module Decentworks
       def end_of_august = beginning_of_august.end_of_month.end_of_day
 
       # 8月の期間
-      def all_august = ::Range.new(beginning_of_august, end_of_august) # steep:ignore MethodBodyTypeMismatch
+      def all_august = ::Range.new(beginning_of_august, end_of_august)
 
       # 8月の月初か？
       def beginning_of_august? = beginning_of_august.all_day.cover?(self)
@@ -339,7 +337,7 @@ module Decentworks
       def end_of_september = beginning_of_september.end_of_month.end_of_day
 
       # 9月の期間
-      def all_september = ::Range.new(beginning_of_september, end_of_september) # steep:ignore MethodBodyTypeMismatch
+      def all_september = ::Range.new(beginning_of_september, end_of_september)
 
       # 9月の月初か？
       def beginning_of_september? = beginning_of_september.all_day.cover?(self)
@@ -361,7 +359,7 @@ module Decentworks
       def end_of_october = beginning_of_october.end_of_month.end_of_day
 
       # 10月の期間
-      def all_october = ::Range.new(beginning_of_october, end_of_october) # steep:ignore MethodBodyTypeMismatch
+      def all_october = ::Range.new(beginning_of_october, end_of_october)
 
       # 10月の月初か？
       def beginning_of_october? = beginning_of_october.all_day.cover?(self)
@@ -383,7 +381,7 @@ module Decentworks
       def end_of_november = beginning_of_november.end_of_month.end_of_day
 
       # 11月の期間
-      def all_november = ::Range.new(beginning_of_november, end_of_november) # steep:ignore MethodBodyTypeMismatch
+      def all_november = ::Range.new(beginning_of_november, end_of_november)
 
       # 11月の月初か？
       def beginning_of_november? = beginning_of_november.all_day.cover?(self)
@@ -405,7 +403,7 @@ module Decentworks
       def end_of_december = beginning_of_december.end_of_month.end_of_day
 
       # 12月の期間
-      def all_december = ::Range.new(beginning_of_december, end_of_december) # steep:ignore MethodBodyTypeMismatch
+      def all_december = ::Range.new(beginning_of_december, end_of_december)
 
       # 12月の月初か？
       def beginning_of_december? = beginning_of_december.all_day.cover?(self)
@@ -438,9 +436,7 @@ module Decentworks
       def end_of_this_quarter = beginning_of_this_quarter.two_months_since.end_of_month.end_of_day
 
       # 現在の日付が属する四半期の期間
-      def all_this_quarter # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_this_quarter, end_of_this_quarter)
-      end
+      def all_this_quarter = ::Range.new(beginning_of_this_quarter, end_of_this_quarter)
 
       #
       # 次の四半期
@@ -453,9 +449,7 @@ module Decentworks
       def end_of_next_quarter = beginning_of_next_quarter.two_months_since.end_of_month.end_of_day
 
       # 次の四半期の期間
-      def all_next_quarter # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_next_quarter, end_of_next_quarter)
-      end
+      def all_next_quarter = ::Range.new(beginning_of_next_quarter, end_of_next_quarter)
 
       #
       # 前の四半期
@@ -468,9 +462,7 @@ module Decentworks
       def end_of_prev_quarter = beginning_of_prev_quarter.two_months_since.end_of_month.end_of_day
 
       # 前の四半期の期間
-      def all_prev_quarter # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_prev_quarter, end_of_prev_quarter)
-      end
+      def all_prev_quarter = ::Range.new(beginning_of_prev_quarter, end_of_prev_quarter)
 
       #
       # 第1四半期
@@ -489,9 +481,7 @@ module Decentworks
       def end_of_first_quarter = beginning_of_first_quarter.two_months_since.end_of_month.end_of_day
 
       # 第1四半期の期間
-      def all_first_quarter # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_first_quarter, end_of_first_quarter)
-      end
+      def all_first_quarter = ::Range.new(beginning_of_first_quarter, end_of_first_quarter)
 
       # 第1四半期の期首か？
       def beginning_of_first_quarter? = beginning_of_first_quarter.all_day.cover?(self)
@@ -513,9 +503,7 @@ module Decentworks
       def end_of_second_quarter = beginning_of_second_quarter.two_months_since.end_of_month.end_of_day
 
       # 第2四半期の期間
-      def all_second_quarter # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_second_quarter, end_of_second_quarter)
-      end
+      def all_second_quarter = ::Range.new(beginning_of_second_quarter, end_of_second_quarter)
 
       # 第2四半期の期首か？
       def beginning_of_second_quarter? = beginning_of_second_quarter.all_day.cover?(self)
@@ -537,9 +525,7 @@ module Decentworks
       def end_of_third_quarter = beginning_of_third_quarter.two_months_since.end_of_month.end_of_day
 
       # 第3四半期の期間
-      def all_third_quarter # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_third_quarter, end_of_third_quarter)
-      end
+      def all_third_quarter = ::Range.new(beginning_of_third_quarter, end_of_third_quarter)
 
       # 第3四半期の期首か？
       def beginning_of_third_quarter? = beginning_of_third_quarter.all_day.cover?(self)
@@ -561,9 +547,7 @@ module Decentworks
       def end_of_fourth_quarter = beginning_of_fourth_quarter.two_months_since.end_of_month.end_of_day
 
       # 第4四半期の期間
-      def all_fourth_quarter # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_fourth_quarter, end_of_fourth_quarter)
-      end
+      def all_fourth_quarter = ::Range.new(beginning_of_fourth_quarter, end_of_fourth_quarter)
 
       # 第4四半期の期首か？
       def beginning_of_fourth_quarter? = beginning_of_fourth_quarter.all_day.cover?(self)
@@ -586,17 +570,13 @@ module Decentworks
       def this_half_number = this_quarter_number <= 2 ? 1 : 2
 
       # 現在の日付が属する期の期首
-      def beginning_of_this_half # steep:ignore MethodBodyTypeMismatch
-        this_half_number == 1 ? beginning_of_first_half : beginning_of_second_half
-      end
+      def beginning_of_this_half = this_half_number == 1 ? beginning_of_first_half : beginning_of_second_half
 
       # 現在の日付が属する期の期末
-      def end_of_this_half # steep:ignore MethodBodyTypeMismatch
-        this_half_number == 1 ? end_of_first_half : end_of_second_half
-      end
+      def end_of_this_half = this_half_number == 1 ? end_of_first_half : end_of_second_half
 
       # 現在の日付が属する期の期間
-      def all_this_half = ::Range.new(beginning_of_this_half, end_of_this_half) # steep:ignore MethodBodyTypeMismatch
+      def all_this_half = ::Range.new(beginning_of_this_half, end_of_this_half)
 
       #
       # 次の期
@@ -609,9 +589,7 @@ module Decentworks
       def end_of_next_half = beginning_of_next_half.five_months_since.end_of_month.end_of_day
 
       # 次の期の期間
-      def all_next_half # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_next_half, end_of_next_half)
-      end
+      def all_next_half = ::Range.new(beginning_of_next_half, end_of_next_half)
 
       #
       # 前の期
@@ -624,22 +602,20 @@ module Decentworks
       def end_of_prev_half = beginning_of_prev_half.five_months_since.end_of_month.end_of_day
 
       # 前の期の期間
-      def all_prev_half # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_prev_half, end_of_prev_half)
-      end
+      def all_prev_half = ::Range.new(beginning_of_prev_half, end_of_prev_half)
 
       #
       # 上期
       #
 
       # 上期の期首
-      def beginning_of_first_half = beginning_of_first_quarter # steep:ignore MethodBodyTypeMismatch
+      def beginning_of_first_half = beginning_of_first_quarter
 
       # 上期の期末
-      def end_of_first_half = end_of_second_quarter # steep:ignore MethodBodyTypeMismatch
+      def end_of_first_half = end_of_second_quarter
 
       # 上期の期間
-      def all_first_half = ::Range.new(beginning_of_first_half, end_of_first_half) # steep:ignore MethodBodyTypeMismatch
+      def all_first_half = ::Range.new(beginning_of_first_half, end_of_first_half)
 
       # 上期の期首か？
       def beginning_of_first_half? = beginning_of_first_half.all_day.cover?(self)
@@ -655,15 +631,13 @@ module Decentworks
       #
 
       # 下期の期首
-      def beginning_of_second_half = beginning_of_third_quarter # steep:ignore MethodBodyTypeMismatch
+      def beginning_of_second_half = beginning_of_third_quarter
 
       # 下期の期末
-      def end_of_second_half = end_of_fourth_quarter # steep:ignore MethodBodyTypeMismatch
+      def end_of_second_half = end_of_fourth_quarter
 
       # 下期の期間
-      def all_second_half # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_second_half, end_of_second_half)
-      end
+      def all_second_half = ::Range.new(beginning_of_second_half, end_of_second_half)
 
       # 下期の期首か？
       def beginning_of_second_half? = beginning_of_second_half.all_day.cover?(self)
@@ -682,10 +656,10 @@ module Decentworks
       def fiscal_year = beginning_of_fiscal_year.year
 
       # 年度の期首
-      def beginning_of_fiscal_year = beginning_of_first_quarter # steep:ignore MethodBodyTypeMismatch
+      def beginning_of_fiscal_year = beginning_of_first_quarter
 
       # 年度の期末
-      def end_of_fiscal_year = end_of_fourth_quarter # steep:ignore MethodBodyTypeMismatch
+      def end_of_fiscal_year = end_of_fourth_quarter
 
       #
       # 次の年度
@@ -701,9 +675,7 @@ module Decentworks
       def end_of_next_fiscal_year = beginning_of_next_fiscal_year.eleven_months_since.end_of_month.end_of_day
 
       # 次の年度の期間
-      def all_next_fiscal_year # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_next_fiscal_year, end_of_next_fiscal_year)
-      end
+      def all_next_fiscal_year = ::Range.new(beginning_of_next_fiscal_year, end_of_next_fiscal_year)
 
       #
       # 前の年度
@@ -719,14 +691,10 @@ module Decentworks
       def end_of_prev_fiscal_year = beginning_of_prev_fiscal_year.eleven_months_since.end_of_month.end_of_day
 
       # 前の年度の期間
-      def all_prev_fiscal_year # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_prev_fiscal_year, end_of_prev_fiscal_year)
-      end
+      def all_prev_fiscal_year = ::Range.new(beginning_of_prev_fiscal_year, end_of_prev_fiscal_year)
 
       # 年度の期間
-      def all_fiscal_year # steep:ignore MethodBodyTypeMismatch
-        ::Range.new(beginning_of_fiscal_year, end_of_fiscal_year)
-      end
+      def all_fiscal_year = ::Range.new(beginning_of_fiscal_year, end_of_fiscal_year)
 
       # ###############################################################################################################
       # ActiveSupportのメソッドの上書き
@@ -743,32 +711,32 @@ module Decentworks
       def quarter = this_quarter_number
 
       # 現在の日付が属する四半期の期首
-      def beginning_of_quarter = beginning_of_this_quarter # steep:ignore MethodBodyTypeMismatch
+      def beginning_of_quarter = beginning_of_this_quarter
 
       # 現在の日付が属する四半期の期首（beginning_of_quarterの別名）
-      def at_beginning_of_quarter = beginning_of_quarter # steep:ignore MethodBodyTypeMismatch
+      def at_beginning_of_quarter = beginning_of_quarter
 
       # 現在の日付が属する四半期の期末
-      def end_of_quarter = end_of_this_quarter # steep:ignore MethodBodyTypeMismatch
+      def end_of_quarter = end_of_this_quarter
 
       # 現在の日付が属する四半期の期末（end_of_quarterの別名）
-      def at_end_of_quarter = end_of_quarter # steep:ignore MethodBodyTypeMismatch
+      def at_end_of_quarter = end_of_quarter
 
       # 現在の日付が属する四半期の期間
-      def all_quarter = all_this_quarter # steep:ignore MethodBodyTypeMismatch
+      def all_quarter = all_this_quarter
 
       # 次の四半期の期首
       #
       # ActiveSupportは3ヶ月後の同日を返すが、期間ベースに揃えて期首を返す。
-      def next_quarter = beginning_of_next_quarter # steep:ignore MethodBodyTypeMismatch
+      def next_quarter = beginning_of_next_quarter
 
       # 前の四半期の期首
       #
       # ActiveSupportは3ヶ月前の同日を返すが、期間ベースに揃えて期首を返す。
-      def prev_quarter = beginning_of_prev_quarter # steep:ignore MethodBodyTypeMismatch
+      def prev_quarter = beginning_of_prev_quarter
 
       # 前の四半期の期首（prev_quarterの別名）
-      def last_quarter = prev_quarter # steep:ignore MethodBodyTypeMismatch
+      def last_quarter = prev_quarter
     end
   end
 end
