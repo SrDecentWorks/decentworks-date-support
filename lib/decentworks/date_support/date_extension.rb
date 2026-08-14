@@ -439,7 +439,7 @@ module Decentworks
 
       # 現在の日付が属する四半期の番号（1〜4）
       def this_quarter_number
-        (((month - ::Decentworks::DateSupport.beginning_of_first_quarter_month) % 12) / 3) + 1
+        (((month - ::Decentworks::DateSupport.first_quarter_month) % 12) / 3) + 1
       end
 
       # 現在の日付が属する四半期の期首
@@ -461,7 +461,7 @@ module Decentworks
       def beginning_of_first_quarter
         beginning_of_month
           .months_ago(::Decentworks::DateSupport.first_quarter_month_offset) # 1月始まりと見た時の対応した日付に移動
-          .change(month: ::Decentworks::DateSupport.beginning_of_first_quarter_month, day: 1)
+          .change(month: ::Decentworks::DateSupport.first_quarter_month, day: 1)
       end
 
       # 第1四半期の期末

@@ -6,6 +6,12 @@
   - `::Date.whole_months_elapsed` は `DateExtension::ClassMethods` 経由で提供
     （`expiration_date` は引き続き非公開クラスメソッド）
   - 公開APIの名前・戻り値・可視性に変更はなし
+- **破壊的変更** 設定メソッドをリネーム
+  - `Configuration#beginning_of_first_quarter` / `=` → `first_quarter_month_name` / `=`
+  - `Configuration#beginning_of_first_quarter_month` → `first_quarter_month`
+  - `::Decentworks::DateSupport` 側の委譲メソッドも同様にリネーム
+  - `::Date#beginning_of_first_quarter`（期首の日付）と同名で戻り値が異なっていたことによる混同を解消するため
+  - 旧名は残していないため、初期化ファイル（`config.beginning_of_first_quarter =`）の修正が必要
 
 # [0.2.0]
 

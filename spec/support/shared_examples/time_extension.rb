@@ -1272,7 +1272,7 @@ RSpec.shared_examples "日時拡張" do
   # 第1四半期
   #
 
-  describe "#beginning_of_first_quarter" do
+  describe "#first_quarter_month_name" do
     subject { instance.beginning_of_first_quarter }
 
     context "1月始まりの場合（初期値）" do
@@ -1282,7 +1282,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1300,7 +1300,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1337,7 +1337,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1375,7 +1375,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1441,7 +1441,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1459,7 +1459,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1496,7 +1496,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1534,7 +1534,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1600,7 +1600,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1618,7 +1618,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1655,7 +1655,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1693,7 +1693,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1759,7 +1759,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1777,7 +1777,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1814,7 +1814,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -1852,7 +1852,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2113,7 +2113,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2134,7 +2134,7 @@ RSpec.shared_examples "日時拡張" do
     context "10月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :october
+          config.first_quarter_month_name = :october
         end
       end
 
@@ -2199,7 +2199,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2260,7 +2260,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2321,7 +2321,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2390,7 +2390,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2411,7 +2411,7 @@ RSpec.shared_examples "日時拡張" do
     context "10月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :october
+          config.first_quarter_month_name = :october
         end
       end
 
@@ -2445,7 +2445,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2475,7 +2475,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2536,7 +2536,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2601,7 +2601,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2631,7 +2631,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2661,7 +2661,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 
@@ -2722,7 +2722,7 @@ RSpec.shared_examples "日時拡張" do
     context "4月始まりの場合" do
       before do
         ::Decentworks::DateSupport.configure do |config|
-          config.beginning_of_first_quarter = :april
+          config.first_quarter_month_name = :april
         end
       end
 

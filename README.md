@@ -37,9 +37,14 @@ bundle install
 
 ## 拡張方式
 
-`::Date` / `::Time` / `::DateTime` / `::ActiveSupport::TimeWithZone` の各クラスを再オープン（reopen）してメソッドを追加します。`require` した時点でアプリケーション全体に適用されるため、`using` の記述は不要です。
+`::Date` / `::Time` / `::DateTime` / `::ActiveSupport::TimeWithZone` の各クラスを再オープン（reopen）し、拡張モジュールをincludeしてメソッドを追加します。`require` した時点でアプリケーション全体に適用されるため、`using` の記述は不要です。
 
-`::Time` / `::DateTime` / `::ActiveSupport::TimeWithZone` の3クラスは共通実装 `Decentworks::DateSupport::TimeExtension` をincludeしており、同じメソッドを同じ仕様で提供します。各メソッドはレシーバと同じクラスの値を返します（`::Time#beginning_of_january` は `::Time`、`::DateTime#beginning_of_january` は `::DateTime`）。
+| 対象クラス | 拡張モジュール |
+| --- | --- |
+| `::Date` | `Decentworks::DateSupport::DateExtension` |
+| `::Time` / `::DateTime` / `::ActiveSupport::TimeWithZone` | `Decentworks::DateSupport::TimeExtension` |
+
+`TimeExtension` をincludeする3クラスは、同じメソッドを同じ仕様で提供します。各メソッドはレシーバと同じクラスの値を返します（`::Time#beginning_of_january` は `::Time`、`::DateTime#beginning_of_january` は `::DateTime`）。
 
 `::Date` は日付のみを扱うため、`::Date` のメソッドは `::Date` を返します。
 
@@ -52,11 +57,14 @@ bundle install
 
 ```ruby
 ::Decentworks::DateSupport.configure do |config|
-  config.beginning_of_first_quarter = :april # 4月始まり
+  config.first_quarter_month_name = :april # 4月始まり
 end
 ```
 
 指定可能な値は `:january` 〜 `:december` です。それ以外を指定した場合は `ArgumentError` が発生します。
+
+> [!WARNING]
+> 設定メソッド名を `beginning_of_first_quarter` から `first_quarter_month_name` に変更しました。`::Date#beginning_of_first_quarter`（第1四半期の期首の**日付**）と同名でありながら戻り値が月名のシンボルで、混同を招いていたためです。旧名は残していないため、初期化ファイルの記述を修正してください。
 
 | 設定値 | 第1四半期 | 第2四半期 | 第3四半期 | 第4四半期 | 上期 | 下期 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -68,10 +76,10 @@ end
 その他の設定用APIは以下のとおりです。
 
 ```ruby
-::Decentworks::DateSupport.beginning_of_first_quarter        # => :april
-::Decentworks::DateSupport.beginning_of_first_quarter_month  # => 4
-::Decentworks::DateSupport.first_quarter_month_offset        # => 3
-::Decentworks::DateSupport.reset_configuration!              # 設定を初期値に戻す
+::Decentworks::DateSupport.first_quarter_month_name   # => :april
+::Decentworks::DateSupport.first_quarter_month        # => 4
+::Decentworks::DateSupport.first_quarter_month_offset # => 3
+::Decentworks::DateSupport.reset_configuration!       # 設定を初期値に戻す
 ```
 
 ### 初期化ファイルの生成（Rails）
@@ -105,7 +113,7 @@ t.all_this_week # => 2026-08-03 00:00:00.000000000 JST +09:00..2026-08-09 23:59:
 require 'decentworks/date_support'
 
 ::Decentworks::DateSupport.configure do |config|
-  config.beginning_of_first_quarter = :april
+  config.first_quarter_month_name = :april
 end
 
 d = ::Date.new(2026, 1, 15)
@@ -172,7 +180,7 @@ d.all_fiscal_year      # => Tue, 01 Apr 2025..Tue, 31 Mar 2026
 `first` を `second` / `third` / `fourth` に置き換えたメソッドが同様に定義されています。
 
 > [!WARNING]
-> ActiveSupportにも `quarter` / `beginning_of_quarter` / `end_of_quarter` / `all_quarter` がありますが、これらは**暦年基準（1月・4月・7月・10月始まり固定）**であり、本ライブラリの `beginning_of_first_quarter` 設定を参照しません。
+> ActiveSupportにも `quarter` / `beginning_of_quarter` / `end_of_quarter` / `all_quarter` がありますが、これらは**暦年基準（1月・4月・7月・10月始まり固定）**であり、本ライブラリの `first_quarter_month_name` 設定を参照しません。
 > 4月始まりに設定していても `::Date.new(2026, 1, 15).all_quarter` は `2026-01-01..2026-03-31` を返します。
 > 設定を反映した四半期が必要な場合は、本ライブラリの `all_this_quarter` を使用してください。
 
@@ -194,7 +202,7 @@ d.all_fiscal_year      # => Tue, 01 Apr 2025..Tue, 31 Mar 2026
 | `fiscal_year` | 現在の日付が属する年度（期首の年） |
 | `beginning_of_fiscal_year` / `end_of_fiscal_year` / `all_fiscal_year` | 年度の期首 / 期末 / 期間 |
 
-年度は `beginning_of_first_quarter` の設定に従い、期首の年を返します（4月始まりの場合、`::Date.new(2026, 3, 31).fiscal_year` は `2025`）。
+年度は `first_quarter_month_name` の設定に従い、期首の年を返します（4月始まりの場合、`::Date.new(2026, 3, 31).fiscal_year` は `2025`）。
 
 ### 満経過月数
 

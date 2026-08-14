@@ -36,7 +36,7 @@ RSpec.configure do |config|
 
     # 第1四半期（上期）の開始月の指定
     ::Decentworks::DateSupport.configure do |config|
-      config.beginning_of_first_quarter = :january
+      config.first_quarter_month_name = :january
     end
   end
 

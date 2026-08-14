@@ -167,13 +167,13 @@ RSpec.shared_examples "境界日" do
   context "期末（2026-03-31）を起点とし4月始まりの場合" do
     before do
       ::Decentworks::DateSupport.configure do |config|
-        config.beginning_of_first_quarter = :april
+        config.first_quarter_month_name = :april
       end
     end
 
     let(:instance) { time.call(2026, 3, 31, 12, 34, 56) }
 
-    describe "#beginning_of_first_quarter" do
+    describe "#first_quarter_month_name" do
       subject { instance.beginning_of_first_quarter }
 
       it { is_expected.to eq day_beginning.call(2025, 4, 1) }
