@@ -26,13 +26,9 @@ module Decentworks
         # fromからtoまでに満了した月数を返す。日付単位で判定し、時刻は考慮しない。
         # 応当日が存在しない月は、民法第143条第2項に準じてその月の末日を応当日とみなす。
         #
-        # @raise [ArgumentError] toがfromより前の日時の場合
+        # @raise [ArgumentError] toの日付がfromの日付より前の場合
         # steep:ignore:start
         def whole_months_elapsed(from:, to:)
-          if to < from
-            raise ::ArgumentError, "to must be on or after from (from: #{from}, to: #{to})"
-          end
-
           ::Date.whole_months_elapsed(
             from: from.to_date,
             to:   to.to_date

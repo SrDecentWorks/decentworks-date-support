@@ -2149,6 +2149,29 @@ RSpec.shared_examples "日時拡張" do
 
         it { is_expected.to eq(0) }
       end
+
+      context "toの時刻がfromより前" do
+        let(:from) { time.call(2026, 8, 5, 18, 0, 0) }
+        let(:to) { time.call(2026, 8, 5, 9, 0, 0) }
+
+        it { is_expected.to eq(0) }
+      end
+    end
+
+    context "応当日で時刻のみ異なる場合" do
+      context "toの時刻がfromより前" do
+        let(:from) { time.call(2026, 8, 5, 18, 0, 0) }
+        let(:to) { time.call(2026, 9, 5, 9, 0, 0) }
+
+        it { is_expected.to eq(1) }
+      end
+
+      context "応当日の前日でtoの時刻がfromより後" do
+        let(:from) { time.call(2026, 8, 5, 9, 0, 0) }
+        let(:to) { time.call(2026, 9, 4, 18, 0, 0) }
+
+        it { is_expected.to eq(0) }
+      end
     end
 
     context "応当日が存在しない月の場合" do

@@ -21,7 +21,7 @@ Railsの`Date`、`Time`、`DateTime`、`ActiveSupport::TimeWithZone`に対する
 `::Date`は日付のみを扱うため、`::Date`のメソッドは`::Date`を返します。
 
 > [!WARNING]
-> v0.3.0でrefinementsからクラス再オープンに変更しました。v0.2.0以前から移行する場合は、`using ::Decentworks::DateSupport`と`using ::Decentworks::ActiveSupport::TimeWithZoneSupport`の記述をすべて削除してください。
+> v0.2.0でrefinementsからクラス再オープンに変更しました。v0.1.1以前から移行する場合は、`using ::Decentworks::DateSupport`と`using ::Decentworks::ActiveSupport::TimeWithZoneSupport`の記述をすべて削除してください。
 
 ## 機能
 
