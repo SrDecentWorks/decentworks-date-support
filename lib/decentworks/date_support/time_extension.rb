@@ -444,7 +444,7 @@ module Decentworks
       #
 
       # 第2四半期の期首
-      def beginning_of_second_quarter = beginning_of_first_quarter.three_months_since
+      def beginning_of_second_quarter = beginning_of_first_quarter.three_months_since.beginning_of_day
 
       # 第2四半期の期末
       def end_of_second_quarter = beginning_of_second_quarter.two_months_since.end_of_month.end_of_day
@@ -466,7 +466,7 @@ module Decentworks
       #
 
       # 第3四半期の期首
-      def beginning_of_third_quarter = beginning_of_first_quarter.six_months_since
+      def beginning_of_third_quarter = beginning_of_first_quarter.six_months_since.beginning_of_day
 
       # 第3四半期の期末
       def end_of_third_quarter = beginning_of_third_quarter.two_months_since.end_of_month.end_of_day
@@ -488,7 +488,7 @@ module Decentworks
       #
 
       # 第4四半期の期首
-      def beginning_of_fourth_quarter = beginning_of_first_quarter.nine_months_since
+      def beginning_of_fourth_quarter = beginning_of_first_quarter.nine_months_since.beginning_of_day
 
       # 第4四半期の期末
       def end_of_fourth_quarter = beginning_of_fourth_quarter.two_months_since.end_of_month.end_of_day

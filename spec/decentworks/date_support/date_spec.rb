@@ -2976,6 +2976,43 @@ RSpec.describe ::Date do
       end
     end
 
+    context "fromが月末日の場合（起算日が月初となる）" do
+      context "応当日" do
+        let(:from) { ::Date.new(2026, 2, 28) }
+        let(:to) { ::Date.new(2026, 3, 28) }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context "満了日の前日" do
+        let(:from) { ::Date.new(2026, 2, 28) }
+        let(:to) { ::Date.new(2026, 3, 30) }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context "満了日（起算月の末日）" do
+        let(:from) { ::Date.new(2026, 2, 28) }
+        let(:to) { ::Date.new(2026, 3, 31) }
+
+        it { is_expected.to eq(1) }
+      end
+
+      context "30日までしかない月から31日ある月へ" do
+        let(:from) { ::Date.new(2026, 4, 30) }
+        let(:to) { ::Date.new(2026, 5, 30) }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context "30日までしかない月から31日ある月への満了日" do
+        let(:from) { ::Date.new(2026, 4, 30) }
+        let(:to) { ::Date.new(2026, 5, 31) }
+
+        it { is_expected.to eq(1) }
+      end
+    end
+
     context "閏年が絡む場合" do
       context "閏年の2月28日（応当日未到達）" do
         let(:from) { ::Date.new(2024, 1, 31) }
@@ -2998,9 +3035,23 @@ RSpec.describe ::Date do
         it { is_expected.to eq(0) }
       end
 
-      context "閏日起点で応当日" do
+      context "閏日起点で応当日（起算日が月初のため満了しない）" do
         let(:from) { ::Date.new(2024, 2, 29) }
         let(:to) { ::Date.new(2024, 3, 29) }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context "閏日起点で満了日の前日" do
+        let(:from) { ::Date.new(2024, 2, 29) }
+        let(:to) { ::Date.new(2024, 3, 30) }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context "閏日起点で満了日（3月の末日）" do
+        let(:from) { ::Date.new(2024, 2, 29) }
+        let(:to) { ::Date.new(2024, 3, 31) }
 
         it { is_expected.to eq(1) }
       end

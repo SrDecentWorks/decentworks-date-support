@@ -13,10 +13,14 @@ class ::Date
   # 満経過月数
   #
   # fromからtoまでに満了した月数を返す。
-  # 応当日が存在しない月は、民法第143条第2項に準じてその月の末日を応当日とみなす。
+  # 民法第140条（初日不算入）に従いfromの翌日を起算日とし、
+  # 民法第143条第2項に従い応当日の前日をもって満了とする。
+  # 応当日が存在しない月は、同項ただし書に従いその月の末日をもって満了とする。
   #
   #   ::Date.whole_months_elapsed(from: ::Date.new(2026, 1, 31), to: ::Date.new(2026, 2, 27)) # => 0
   #   ::Date.whole_months_elapsed(from: ::Date.new(2026, 1, 31), to: ::Date.new(2026, 2, 28)) # => 1
+  #   ::Date.whole_months_elapsed(from: ::Date.new(2026, 2, 28), to: ::Date.new(2026, 3, 30)) # => 0
+  #   ::Date.whole_months_elapsed(from: ::Date.new(2026, 2, 28), to: ::Date.new(2026, 3, 31)) # => 1
   #   ::Date.whole_months_elapsed(from: ::Date.new(2024, 2, 29), to: ::Date.new(2025, 2, 28)) # => 12
   #
   # @raise [ArgumentError] toがfromより前の日付の場合
@@ -26,9 +30,24 @@ class ::Date
 
     months = ((to.year - from.year) * 12) + (to.month - from.month)
 
-    # 応当日（from >> months）に達していない場合は1ヶ月に満たない
-    (from >> months) > to ? months - 1 : months
+    # 満了日に達していない場合は1ヶ月に満たない
+    expiration_date(from:, months:) > to ? months - 1 : months
   end
+
+  # 満了日
+  #
+  # fromから起算してmonthsヶ月が満了する日を返す。
+  #
+  #   from: 2026-01-15, months: 1 # => 2026-02-15（起算日2026-01-16の応当日2026-02-16の前日）
+  #   from: 2026-01-30, months: 1 # => 2026-02-28（起算日2026-01-31の応当日が存在しないため2月の末日）
+  #   from: 2026-02-28, months: 1 # => 2026-03-31（起算日2026-03-01の応当日2026-04-01の前日）
+  def self.expiration_date(from:, months:)
+    beginning_date = from.next_day                # 起算日（初日不算入）
+    corresponding_date = beginning_date >> months # 応当日（存在しない場合はその月の末日に繰り下がる）
+
+    corresponding_date.day == beginning_date.day ? corresponding_date.prev_day : corresponding_date
+  end
+  private_class_method :expiration_date
   # steep:ignore:end
 
   # ###################################################################################################################
@@ -43,7 +62,7 @@ class ::Date
   def beginning_of_this_week = beginning_of_week(::Date.beginning_of_week) # steep:ignore NoMethod
 
   # 現在の日付が属する週の終わりの日付
-  def end_of_this_week = next_week.beginning_of_this_week.yesterday
+  def end_of_this_week = beginning_of_this_week.advance(days: 6) # steep:ignore NoMethod
 
   # 今週の期間
   def all_this_week = ::Range.new(beginning_of_this_week, end_of_this_week)
@@ -57,12 +76,7 @@ class ::Date
   #
 
   # 現在の日付が属する月の期間
-  def all_this_month
-    ::Range.new(
-      beginning_of_month.to_date, # steep:ignore NoMethod
-      end_of_month.to_date        # steep:ignore NoMethod
-    )
-  end
+  def all_this_month = ::Range.new(beginning_of_month, end_of_month) # steep:ignore NoMethod
 
   #
   # Nヶ月前関係
@@ -156,10 +170,10 @@ class ::Date
   def all_january = ::Range.new(beginning_of_january, end_of_january)
 
   # 1月の月初か？
-  def beginning_of_january? = eql?(beginning_of_january)
+  def beginning_of_january? = self == beginning_of_january
 
   # 1月の月末か？
-  def end_of_january? = eql?(end_of_january)
+  def end_of_january? = self == end_of_january
 
   # 1月か？
   def in_january? = all_january.cover?(self)
@@ -178,10 +192,10 @@ class ::Date
   def all_february = ::Range.new(beginning_of_february, end_of_february)
 
   # 2月の月初か？
-  def beginning_of_february? = eql?(beginning_of_february)
+  def beginning_of_february? = self == beginning_of_february
 
   # 2月の月末か？
-  def end_of_february? = eql?(end_of_february)
+  def end_of_february? = self == end_of_february
 
   # 2月か？
   def in_february? = all_february.cover?(self)
@@ -200,10 +214,10 @@ class ::Date
   def all_march = ::Range.new(beginning_of_march, end_of_march)
 
   # 3月の月初か？
-  def beginning_of_march? = eql?(beginning_of_march)
+  def beginning_of_march? = self == beginning_of_march
 
   # 3月の月末か？
-  def end_of_march? = eql?(end_of_march)
+  def end_of_march? = self == end_of_march
 
   # 3月か？
   def in_march? = all_march.cover?(self)
@@ -222,10 +236,10 @@ class ::Date
   def all_april = ::Range.new(beginning_of_april, end_of_april)
 
   # 4月の月初か？
-  def beginning_of_april? = eql?(beginning_of_april)
+  def beginning_of_april? = self == beginning_of_april
 
   # 4月の月末か？
-  def end_of_april? = eql?(end_of_april)
+  def end_of_april? = self == end_of_april
 
   # 4月か？
   def in_april? = all_april.cover?(self)
@@ -244,10 +258,10 @@ class ::Date
   def all_may = ::Range.new(beginning_of_may, end_of_may)
 
   # 5月の月初か？
-  def beginning_of_may? = eql?(beginning_of_may)
+  def beginning_of_may? = self == beginning_of_may
 
   # 5月の月末か？
-  def end_of_may? = eql?(end_of_may)
+  def end_of_may? = self == end_of_may
 
   # 5月か？
   def in_may? = all_may.cover?(self)
@@ -266,10 +280,10 @@ class ::Date
   def all_june = ::Range.new(beginning_of_june, end_of_june)
 
   # 6月の月初か？
-  def beginning_of_june? = eql?(beginning_of_june)
+  def beginning_of_june? = self == beginning_of_june
 
   # 6月の月末か？
-  def end_of_june? = eql?(end_of_june)
+  def end_of_june? = self == end_of_june
 
   # 6月か？
   def in_june? = all_june.cover?(self)
@@ -288,10 +302,10 @@ class ::Date
   def all_july = ::Range.new(beginning_of_july, end_of_july)
 
   # 7月の月初か？
-  def beginning_of_july? = eql?(beginning_of_july)
+  def beginning_of_july? = self == beginning_of_july
 
   # 7月の月末か？
-  def end_of_july? = eql?(end_of_july)
+  def end_of_july? = self == end_of_july
 
   # 7月か？
   def in_july? = all_july.cover?(self)
@@ -310,10 +324,10 @@ class ::Date
   def all_august = ::Range.new(beginning_of_august, end_of_august)
 
   # 8月の月初か？
-  def beginning_of_august? = eql?(beginning_of_august)
+  def beginning_of_august? = self == beginning_of_august
 
   # 8月の月末か？
-  def end_of_august? = eql?(end_of_august)
+  def end_of_august? = self == end_of_august
 
   # 8月か？
   def in_august? = all_august.cover?(self)
@@ -332,10 +346,10 @@ class ::Date
   def all_september = ::Range.new(beginning_of_september, end_of_september)
 
   # 9月の月初か？
-  def beginning_of_september? = eql?(beginning_of_september)
+  def beginning_of_september? = self == beginning_of_september
 
   # 9月の月末か？
-  def end_of_september? = eql?(end_of_september)
+  def end_of_september? = self == end_of_september
 
   # 9月か？
   def in_september? = all_september.cover?(self)
@@ -354,10 +368,10 @@ class ::Date
   def all_october = ::Range.new(beginning_of_october, end_of_october)
 
   # 10月の月初か？
-  def beginning_of_october? = eql?(beginning_of_october)
+  def beginning_of_october? = self == beginning_of_october
 
   # 10月の月末か？
-  def end_of_october? = eql?(end_of_october)
+  def end_of_october? = self == end_of_october
 
   # 10月か？
   def in_october? = all_october.cover?(self)
@@ -376,10 +390,10 @@ class ::Date
   def all_november = ::Range.new(beginning_of_november, end_of_november)
 
   # 11月の月初か？
-  def beginning_of_november? = eql?(beginning_of_november)
+  def beginning_of_november? = self == beginning_of_november
 
   # 11月の月末か？
-  def end_of_november? = eql?(end_of_november)
+  def end_of_november? = self == end_of_november
 
   # 11月か？
   def in_november? = all_november.cover?(self)
@@ -398,10 +412,10 @@ class ::Date
   def all_december = ::Range.new(beginning_of_december, end_of_december)
 
   # 12月の月初か？
-  def beginning_of_december? = eql?(beginning_of_december)
+  def beginning_of_december? = self == beginning_of_december
 
   # 12月の月末か？
-  def end_of_december? = eql?(end_of_december)
+  def end_of_december? = self == end_of_december
 
   # 12月か？
   def in_december? = all_december.cover?(self)
@@ -428,10 +442,10 @@ class ::Date
   def all_first_quarter = ::Range.new(beginning_of_first_quarter, end_of_first_quarter)
 
   # 第1四半期の期首か？
-  def beginning_of_first_quarter? = eql?(beginning_of_first_quarter)
+  def beginning_of_first_quarter? = self == beginning_of_first_quarter
 
   # 第1四半期の期末か？
-  def end_of_first_quarter? = eql?(end_of_first_quarter)
+  def end_of_first_quarter? = self == end_of_first_quarter
 
   # 第1四半期か？
   def in_first_quarter? = all_first_quarter.cover?(self)
@@ -450,10 +464,10 @@ class ::Date
   def all_second_quarter = ::Range.new(beginning_of_second_quarter, end_of_second_quarter)
 
   # 第2四半期の期首か？
-  def beginning_of_second_quarter? = eql?(beginning_of_second_quarter)
+  def beginning_of_second_quarter? = self == beginning_of_second_quarter
 
   # 第2四半期の期末か？
-  def end_of_second_quarter? = eql?(end_of_second_quarter)
+  def end_of_second_quarter? = self == end_of_second_quarter
 
   # 第2四半期か？
   def in_second_quarter? = all_second_quarter.cover?(self)
@@ -472,10 +486,10 @@ class ::Date
   def all_third_quarter = ::Range.new(beginning_of_third_quarter, end_of_third_quarter)
 
   # 第3四半期の期首か？
-  def beginning_of_third_quarter? = eql?(beginning_of_third_quarter)
+  def beginning_of_third_quarter? = self == beginning_of_third_quarter
 
   # 第3四半期の期末か？
-  def end_of_third_quarter? = eql?(end_of_third_quarter)
+  def end_of_third_quarter? = self == end_of_third_quarter
 
   # 第3四半期か？
   def in_third_quarter? = all_third_quarter.cover?(self)
@@ -494,10 +508,10 @@ class ::Date
   def all_fourth_quarter = ::Range.new(beginning_of_fourth_quarter, end_of_fourth_quarter)
 
   # 第4四半期の期首か？
-  def beginning_of_fourth_quarter? = eql?(beginning_of_fourth_quarter)
+  def beginning_of_fourth_quarter? = self == beginning_of_fourth_quarter
 
   # 第4四半期の期末か？
-  def end_of_fourth_quarter? = eql?(end_of_fourth_quarter)
+  def end_of_fourth_quarter? = self == end_of_fourth_quarter
 
   # 第4四半期か？
   def in_fourth_quarter? = all_fourth_quarter.cover?(self)
@@ -520,10 +534,10 @@ class ::Date
   def all_first_half = ::Range.new(beginning_of_first_half, end_of_first_half)
 
   # 上期の期首か？
-  def beginning_of_first_half? = eql?(beginning_of_first_half)
+  def beginning_of_first_half? = self == beginning_of_first_half
 
   # 上期の期末か？
-  def end_of_first_half? = eql?(end_of_first_half)
+  def end_of_first_half? = self == end_of_first_half
 
   # 上期か？
   def in_first_half? = all_first_half.cover?(self)
@@ -542,10 +556,10 @@ class ::Date
   def all_second_half = ::Range.new(beginning_of_second_half, end_of_second_half)
 
   # 下期の期首か？
-  def beginning_of_second_half? = eql?(beginning_of_second_half)
+  def beginning_of_second_half? = self == beginning_of_second_half
 
   # 下期の期末か？
-  def end_of_second_half? = eql?(end_of_second_half)
+  def end_of_second_half? = self == end_of_second_half
 
   # 下期か？
   def in_second_half? = all_second_half.cover?(self)
