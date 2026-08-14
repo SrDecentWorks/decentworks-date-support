@@ -165,6 +165,8 @@ d.all_fiscal_year      # => Tue, 01 Apr 2025..Tue, 31 Mar 2026
 | --- | --- |
 | `this_quarter_number` | 現在の日付が属する四半期の番号（1〜4） |
 | `beginning_of_this_quarter` / `end_of_this_quarter` / `all_this_quarter` | 現在の日付が属する四半期の期首 / 期末 / 期間 |
+| `beginning_of_next_quarter` / `end_of_next_quarter` / `all_next_quarter` | 次の四半期の期首 / 期末 / 期間 |
+| `beginning_of_prev_quarter` / `end_of_prev_quarter` / `all_prev_quarter` | 前の四半期の期首 / 期末 / 期間 |
 
 第1〜第4四半期それぞれに以下のメソッドがあります（例は第1四半期）。
 
@@ -179,10 +181,28 @@ d.all_fiscal_year      # => Tue, 01 Apr 2025..Tue, 31 Mar 2026
 
 `first` を `second` / `third` / `fourth` に置き換えたメソッドが同様に定義されています。
 
+#### ActiveSupportの四半期メソッドの上書き
+
+ActiveSupportの四半期メソッドは**暦年基準（1月・4月・7月・10月始まり固定）**で、`first_quarter_month_name` の設定を参照しません。
+本ライブラリはこれらを設定を反映した値を返すよう上書きします。
+
+| メソッド | 上書き後の内容 |
+| --- | --- |
+| `quarter` | `this_quarter_number` と同じ |
+| `beginning_of_quarter` / `at_beginning_of_quarter` | `beginning_of_this_quarter` と同じ |
+| `end_of_quarter` / `at_end_of_quarter` | `end_of_this_quarter` と同じ |
+| `all_quarter` | `all_this_quarter` と同じ |
+| `next_quarter` | `beginning_of_next_quarter` と同じ |
+| `prev_quarter` / `last_quarter` | `beginning_of_prev_quarter` と同じ |
+
+`next_quarter` / `prev_quarter` / `last_quarter` は、ActiveSupportでは3ヶ月後・3ヶ月前の**同日**を返しますが、
+本ライブラリでは期間ベースに揃えて**期首**を返します。
+
 > [!WARNING]
-> ActiveSupportにも `quarter` / `beginning_of_quarter` / `end_of_quarter` / `all_quarter` がありますが、これらは**暦年基準（1月・4月・7月・10月始まり固定）**であり、本ライブラリの `first_quarter_month_name` 設定を参照しません。
-> 4月始まりに設定していても `::Date.new(2026, 1, 15).all_quarter` は `2026-01-01..2026-03-31` を返します。
-> 設定を反映した四半期が必要な場合は、本ライブラリの `all_this_quarter` を使用してください。
+> `at_beginning_of_quarter` / `at_end_of_quarter` / `last_quarter` はActiveSupportが `alias` で定義しているため、
+> 本体を上書きしただけでは追従しません。値が食い違わないよう本ライブラリ側でメソッド定義として上書きしています。
+>
+> 暦年基準の四半期が必要な場合は、上書きの影響を受けない `beginning_of_year` からの算出など別の手段を使ってください。
 
 ### 上下期関係
 
@@ -190,6 +210,8 @@ d.all_fiscal_year      # => Tue, 01 Apr 2025..Tue, 31 Mar 2026
 | --- | --- |
 | `this_half_number` | 現在の日付が属する期の番号（1〜2） |
 | `beginning_of_this_half` / `end_of_this_half` / `all_this_half` | 現在の日付が属する期の期首 / 期末 / 期間 |
+| `beginning_of_next_half` / `end_of_next_half` / `all_next_half` | 次の期の期首 / 期末 / 期間 |
+| `beginning_of_prev_half` / `end_of_prev_half` / `all_prev_half` | 前の期の期首 / 期末 / 期間 |
 | `beginning_of_first_half` / `end_of_first_half` / `all_first_half` | 上期の期首 / 期末 / 期間 |
 | `beginning_of_first_half?` / `end_of_first_half?` / `in_first_half?` | 上期の期首か？ / 期末か？ / 上期か？ |
 | `beginning_of_second_half` / `end_of_second_half` / `all_second_half` | 下期の期首 / 期末 / 期間 |
@@ -201,8 +223,17 @@ d.all_fiscal_year      # => Tue, 01 Apr 2025..Tue, 31 Mar 2026
 | --- | --- |
 | `fiscal_year` | 現在の日付が属する年度（期首の年） |
 | `beginning_of_fiscal_year` / `end_of_fiscal_year` / `all_fiscal_year` | 年度の期首 / 期末 / 期間 |
+| `next_fiscal_year` / `prev_fiscal_year` | 次の年度 / 前の年度（期首の年） |
+| `beginning_of_next_fiscal_year` / `end_of_next_fiscal_year` / `all_next_fiscal_year` | 次の年度の期首 / 期末 / 期間 |
+| `beginning_of_prev_fiscal_year` / `end_of_prev_fiscal_year` / `all_prev_fiscal_year` | 前の年度の期首 / 期末 / 期間 |
 
 年度は `first_quarter_month_name` の設定に従い、期首の年を返します（4月始まりの場合、`::Date.new(2026, 3, 31).fiscal_year` は `2025`）。
+
+> [!NOTE]
+> 四半期・上下期には `this_quarter_number` / `beginning_of_this_quarter` のように `this_` が付きますが、年度には付きません。
+> `this_` は「第1四半期」「上期」といった**絶対的な期間を指すメソッドと区別するため**に付けているものです。
+> 年度には `first_fiscal_year` のような絶対版が存在せず、`fiscal_year` / `beginning_of_fiscal_year` は常にレシーバが属する年度を指すため、区別する必要がありません。
+> ActiveSupportの `beginning_of_year` / `end_of_year` / `all_year` も同じ理由で `this_` を付けていません。
 
 ### 満経過月数
 

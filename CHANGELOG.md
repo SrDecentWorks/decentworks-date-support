@@ -20,6 +20,17 @@
   - 著作者表記が `yutaka.mizomoto` / `YutakaMizomoto` で不一致だったため、gemspecの`authors`に合わせて `decentworks` に統一
 - gemspecの`email`を設定（未設定だったため`gem build`で警告が出ていた）
 - gemspecに`rubygems_mfa_required`を追加（gem pushに多要素認証を必須にする）
+- 次の期間・前の期間を取得するメソッドを追加
+  - 四半期: `beginning_of_next_quarter` / `end_of_next_quarter` / `all_next_quarter` と `prev` 版
+  - 上下期: `beginning_of_next_half` / `end_of_next_half` / `all_next_half` と `prev` 版
+  - 年度: `next_fiscal_year` / `beginning_of_next_fiscal_year` / `end_of_next_fiscal_year` /
+    `all_next_fiscal_year` と `prev` 版
+- **破壊的変更** ActiveSupportの四半期メソッドを設定を反映した値を返すよう上書き
+  - `quarter` / `beginning_of_quarter` / `end_of_quarter` / `all_quarter` は暦年基準ではなく
+    `first_quarter_month_name` の設定に従う
+  - `next_quarter` / `prev_quarter` は3ヶ月後・3ヶ月前の同日ではなく、次/前の四半期の期首を返す
+  - ActiveSupportが`alias`で定義している `at_beginning_of_quarter` / `at_end_of_quarter` /
+    `last_quarter` は本体の上書きに追従しないため、あわせてメソッド定義で上書き
 - `beginning_of_this_month` / `end_of_this_month` を追加
   - `all_this_month` のみ定義されており、`*_this_*` の命名に揃える方針と不整合だったため
   - ActiveSupportの`beginning_of_month` / `end_of_month`と同じ値を返す

@@ -200,6 +200,40 @@ module Decentworks
       def beginning_of_fiscal_year: -> self
       def end_of_fiscal_year: -> self
       def all_fiscal_year: -> ::Range[self]
+
+      def beginning_of_next_quarter: -> self
+      def end_of_next_quarter: -> self
+      def all_next_quarter: -> ::Range[self]
+      def beginning_of_prev_quarter: -> self
+      def end_of_prev_quarter: -> self
+      def all_prev_quarter: -> ::Range[self]
+
+      def beginning_of_next_half: -> self
+      def end_of_next_half: -> self
+      def all_next_half: -> ::Range[self]
+      def beginning_of_prev_half: -> self
+      def end_of_prev_half: -> self
+      def all_prev_half: -> ::Range[self]
+
+      def next_fiscal_year: -> ::Integer
+      def beginning_of_next_fiscal_year: -> self
+      def end_of_next_fiscal_year: -> self
+      def all_next_fiscal_year: -> ::Range[self]
+      def prev_fiscal_year: -> ::Integer
+      def beginning_of_prev_fiscal_year: -> self
+      def end_of_prev_fiscal_year: -> self
+      def all_prev_fiscal_year: -> ::Range[self]
+
+      # ActiveSupportのメソッドの上書き
+      def quarter: -> ::Integer
+      def beginning_of_quarter: -> self
+      def at_beginning_of_quarter: -> self
+      def end_of_quarter: -> self
+      def at_end_of_quarter: -> self
+      def all_quarter: -> ::Range[self]
+      def next_quarter: -> self
+      def prev_quarter: -> self
+      def last_quarter: -> self
     end
   end
 end
