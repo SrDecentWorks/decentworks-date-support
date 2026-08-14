@@ -15,7 +15,9 @@ RSpec.shared_examples "別名メソッドの遅延束縛" do
     beginning_of_first_half:  :beginning_of_first_quarter,
     end_of_first_half:        :end_of_second_quarter,
     beginning_of_second_half: :beginning_of_third_quarter,
-    end_of_second_half:       :end_of_fourth_quarter
+    end_of_second_half:       :end_of_fourth_quarter,
+    beginning_of_fiscal_year: :beginning_of_first_quarter,
+    end_of_fiscal_year:       :end_of_fourth_quarter
   }.each do |alias_name, original_name|
     describe "##{alias_name}" do
       subject { overridden.public_send(alias_name) }

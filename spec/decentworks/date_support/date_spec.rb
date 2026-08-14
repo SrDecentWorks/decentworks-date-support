@@ -2872,6 +2872,1176 @@ RSpec.describe ::Date do
   end
 
   # ###################################################################################################################
+  # 今四半期関係
+  # ###################################################################################################################
+
+  describe "#this_quarter_number" do
+    context "1月始まりの場合（初期値）" do
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 4 }
+    end
+
+    context "2月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :february
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 4 }
+    end
+
+    context "3月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :march
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 4 }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 3 }
+    end
+
+    context "5月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :may
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 3 }
+    end
+
+    context "6月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :june
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 3 }
+    end
+
+    context "7月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :july
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 2 }
+    end
+
+    context "8月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :august
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 2 }
+    end
+
+    context "9月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :september
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 2 }
+    end
+
+    context "10月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :october
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 1 }
+    end
+
+    context "11月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :november
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 1 }
+    end
+
+    context "12月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :december
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  2, 15).this_quarter_number).to eq 1 }
+      it { expect(::Date.new(2026,  3, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  4, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  5, 15).this_quarter_number).to eq 2 }
+      it { expect(::Date.new(2026,  6, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  7, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  8, 15).this_quarter_number).to eq 3 }
+      it { expect(::Date.new(2026,  9, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026, 10, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026, 11, 15).this_quarter_number).to eq 4 }
+      it { expect(::Date.new(2026, 12, 15).this_quarter_number).to eq 1 }
+    end
+  end
+
+  describe "#beginning_of_this_quarter" do
+    context "1月始まりの場合（初期値）" do
+      it { expect(::Date.new(2026,  1, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  2, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  3, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  4, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  5, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  6, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  7, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  7,  1) }
+      it { expect(::Date.new(2026,  8, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  7,  1) }
+      it { expect(::Date.new(2026,  9, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  7,  1) }
+      it { expect(::Date.new(2026, 10, 15).beginning_of_this_quarter).to eq ::Date.new(2026, 10,  1) }
+      it { expect(::Date.new(2026, 11, 15).beginning_of_this_quarter).to eq ::Date.new(2026, 10,  1) }
+      it { expect(::Date.new(2026, 12, 15).beginning_of_this_quarter).to eq ::Date.new(2026, 10,  1) }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  2, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  3, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  4, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  5, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  6, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  7, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  7,  1) }
+      it { expect(::Date.new(2026,  8, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  7,  1) }
+      it { expect(::Date.new(2026,  9, 15).beginning_of_this_quarter).to eq ::Date.new(2026,  7,  1) }
+      it { expect(::Date.new(2026, 10, 15).beginning_of_this_quarter).to eq ::Date.new(2026, 10,  1) }
+      it { expect(::Date.new(2026, 11, 15).beginning_of_this_quarter).to eq ::Date.new(2026, 10,  1) }
+      it { expect(::Date.new(2026, 12, 15).beginning_of_this_quarter).to eq ::Date.new(2026, 10,  1) }
+    end
+  end
+
+  describe "#end_of_this_quarter" do
+    context "1月始まりの場合（初期値）" do
+      it { expect(::Date.new(2026,  1, 15).end_of_this_quarter).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  2, 15).end_of_this_quarter).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  3, 15).end_of_this_quarter).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  4, 15).end_of_this_quarter).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  5, 15).end_of_this_quarter).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  6, 15).end_of_this_quarter).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  7, 15).end_of_this_quarter).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026,  8, 15).end_of_this_quarter).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026,  9, 15).end_of_this_quarter).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026, 10, 15).end_of_this_quarter).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026, 11, 15).end_of_this_quarter).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026, 12, 15).end_of_this_quarter).to eq ::Date.new(2026, 12, 31) }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).end_of_this_quarter).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  2, 15).end_of_this_quarter).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  3, 15).end_of_this_quarter).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  4, 15).end_of_this_quarter).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  5, 15).end_of_this_quarter).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  6, 15).end_of_this_quarter).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  7, 15).end_of_this_quarter).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026,  8, 15).end_of_this_quarter).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026,  9, 15).end_of_this_quarter).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026, 10, 15).end_of_this_quarter).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026, 11, 15).end_of_this_quarter).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026, 12, 15).end_of_this_quarter).to eq ::Date.new(2026, 12, 31) }
+    end
+  end
+
+  describe "#all_this_quarter" do
+    context "1月始まりの場合（初期値）" do
+      it do
+        expect(::Date.new(2026,  1, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  2, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  3, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  4, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  5, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  6, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  7, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  8, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  9, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026, 10, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026, 10,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 11, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026, 10,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 12, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026, 10,  1), ::Date.new(2026, 12, 31))
+      end
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it do
+        expect(::Date.new(2026,  1, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  2, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  3, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  4, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  5, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  6, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  7, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  8, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  9, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026, 10, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026, 10,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 11, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026, 10,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 12, 15).all_this_quarter)
+          .to eq ::Range.new(::Date.new(2026, 10,  1), ::Date.new(2026, 12, 31))
+      end
+    end
+  end
+
+  # ###################################################################################################################
+  # 今期関係
+  # ###################################################################################################################
+
+  describe "#this_half_number" do
+    context "1月始まりの場合（初期値）" do
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 2 }
+    end
+
+    context "2月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :february
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 2 }
+    end
+
+    context "3月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :march
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 2 }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 2 }
+    end
+
+    context "5月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :may
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 2 }
+    end
+
+    context "6月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :june
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 2 }
+    end
+
+    context "7月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :july
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 1 }
+    end
+
+    context "8月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :august
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 1 }
+    end
+
+    context "9月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :september
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 1 }
+    end
+
+    context "10月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :october
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 1 }
+    end
+
+    context "11月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :november
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 1 }
+    end
+
+    context "12月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :december
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  2, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  3, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  4, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  5, 15).this_half_number).to eq 1 }
+      it { expect(::Date.new(2026,  6, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  7, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  8, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026,  9, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 10, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 11, 15).this_half_number).to eq 2 }
+      it { expect(::Date.new(2026, 12, 15).this_half_number).to eq 1 }
+    end
+  end
+
+  describe "#beginning_of_this_half" do
+    context "1月始まりの場合（初期値）" do
+      it { expect(::Date.new(2026,  1, 15).beginning_of_this_half).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  2, 15).beginning_of_this_half).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  3, 15).beginning_of_this_half).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  4, 15).beginning_of_this_half).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  5, 15).beginning_of_this_half).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  6, 15).beginning_of_this_half).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  7, 15).beginning_of_this_half).to eq ::Date.new(2026,  7,  1) }
+      it { expect(::Date.new(2026,  8, 15).beginning_of_this_half).to eq ::Date.new(2026,  7,  1) }
+      it { expect(::Date.new(2026,  9, 15).beginning_of_this_half).to eq ::Date.new(2026,  7,  1) }
+      it { expect(::Date.new(2026, 10, 15).beginning_of_this_half).to eq ::Date.new(2026,  7,  1) }
+      it { expect(::Date.new(2026, 11, 15).beginning_of_this_half).to eq ::Date.new(2026,  7,  1) }
+      it { expect(::Date.new(2026, 12, 15).beginning_of_this_half).to eq ::Date.new(2026,  7,  1) }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).beginning_of_this_half).to eq ::Date.new(2025, 10,  1) }
+      it { expect(::Date.new(2026,  2, 15).beginning_of_this_half).to eq ::Date.new(2025, 10,  1) }
+      it { expect(::Date.new(2026,  3, 15).beginning_of_this_half).to eq ::Date.new(2025, 10,  1) }
+      it { expect(::Date.new(2026,  4, 15).beginning_of_this_half).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  5, 15).beginning_of_this_half).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  6, 15).beginning_of_this_half).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  7, 15).beginning_of_this_half).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  8, 15).beginning_of_this_half).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  9, 15).beginning_of_this_half).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026, 10, 15).beginning_of_this_half).to eq ::Date.new(2026, 10,  1) }
+      it { expect(::Date.new(2026, 11, 15).beginning_of_this_half).to eq ::Date.new(2026, 10,  1) }
+      it { expect(::Date.new(2026, 12, 15).beginning_of_this_half).to eq ::Date.new(2026, 10,  1) }
+    end
+  end
+
+  describe "#end_of_this_half" do
+    context "1月始まりの場合（初期値）" do
+      it { expect(::Date.new(2026,  1, 15).end_of_this_half).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  2, 15).end_of_this_half).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  3, 15).end_of_this_half).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  4, 15).end_of_this_half).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  5, 15).end_of_this_half).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  6, 15).end_of_this_half).to eq ::Date.new(2026,  6, 30) }
+      it { expect(::Date.new(2026,  7, 15).end_of_this_half).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026,  8, 15).end_of_this_half).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026,  9, 15).end_of_this_half).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026, 10, 15).end_of_this_half).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026, 11, 15).end_of_this_half).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026, 12, 15).end_of_this_half).to eq ::Date.new(2026, 12, 31) }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).end_of_this_half).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  2, 15).end_of_this_half).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  3, 15).end_of_this_half).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  4, 15).end_of_this_half).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026,  5, 15).end_of_this_half).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026,  6, 15).end_of_this_half).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026,  7, 15).end_of_this_half).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026,  8, 15).end_of_this_half).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026,  9, 15).end_of_this_half).to eq ::Date.new(2026,  9, 30) }
+      it { expect(::Date.new(2026, 10, 15).end_of_this_half).to eq ::Date.new(2027,  3, 31) }
+      it { expect(::Date.new(2026, 11, 15).end_of_this_half).to eq ::Date.new(2027,  3, 31) }
+      it { expect(::Date.new(2026, 12, 15).end_of_this_half).to eq ::Date.new(2027,  3, 31) }
+    end
+  end
+
+  describe "#all_this_half" do
+    context "1月始まりの場合（初期値）" do
+      it do
+        expect(::Date.new(2026,  1, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  2, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  3, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  4, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  5, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  6, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026,  6, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  7, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  8, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  9, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 10, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 11, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 12, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  7,  1), ::Date.new(2026, 12, 31))
+      end
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it do
+        expect(::Date.new(2026,  1, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2025, 10,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  2, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2025, 10,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  3, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2025, 10,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  4, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  5, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  6, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  7, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  8, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026,  9, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2026,  9, 30))
+      end
+
+      it do
+        expect(::Date.new(2026, 10, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026, 10,  1), ::Date.new(2027,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 11, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026, 10,  1), ::Date.new(2027,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 12, 15).all_this_half)
+          .to eq ::Range.new(::Date.new(2026, 10,  1), ::Date.new(2027,  3, 31))
+      end
+    end
+  end
+
+  # ###################################################################################################################
+  # 年度関係
+  # ###################################################################################################################
+
+  describe "#fiscal_year" do
+    context "1月始まりの場合（初期値）" do
+      it { expect(::Date.new(2026,  1, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  2, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  3, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  4, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  5, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  6, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  7, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  8, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  9, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026, 10, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026, 11, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026, 12, 15).fiscal_year).to eq 2026 }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).fiscal_year).to eq 2025 }
+      it { expect(::Date.new(2026,  2, 15).fiscal_year).to eq 2025 }
+      it { expect(::Date.new(2026,  3, 15).fiscal_year).to eq 2025 }
+      it { expect(::Date.new(2026,  4, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  5, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  6, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  7, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  8, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026,  9, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026, 10, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026, 11, 15).fiscal_year).to eq 2026 }
+      it { expect(::Date.new(2026, 12, 15).fiscal_year).to eq 2026 }
+    end
+  end
+
+  describe "#beginning_of_fiscal_year" do
+    context "1月始まりの場合（初期値）" do
+      it { expect(::Date.new(2026,  1, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  2, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  3, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  4, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  5, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  6, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  7, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  8, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026,  9, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026, 10, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026, 11, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+      it { expect(::Date.new(2026, 12, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  1,  1) }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).beginning_of_fiscal_year).to eq ::Date.new(2025,  4,  1) }
+      it { expect(::Date.new(2026,  2, 15).beginning_of_fiscal_year).to eq ::Date.new(2025,  4,  1) }
+      it { expect(::Date.new(2026,  3, 15).beginning_of_fiscal_year).to eq ::Date.new(2025,  4,  1) }
+      it { expect(::Date.new(2026,  4, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  5, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  6, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  7, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  8, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026,  9, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026, 10, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026, 11, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  4,  1) }
+      it { expect(::Date.new(2026, 12, 15).beginning_of_fiscal_year).to eq ::Date.new(2026,  4,  1) }
+    end
+  end
+
+  describe "#end_of_fiscal_year" do
+    context "1月始まりの場合（初期値）" do
+      it { expect(::Date.new(2026,  1, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026,  2, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026,  3, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026,  4, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026,  5, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026,  6, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026,  7, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026,  8, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026,  9, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026, 10, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026, 11, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+      it { expect(::Date.new(2026, 12, 15).end_of_fiscal_year).to eq ::Date.new(2026, 12, 31) }
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it { expect(::Date.new(2026,  1, 15).end_of_fiscal_year).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  2, 15).end_of_fiscal_year).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  3, 15).end_of_fiscal_year).to eq ::Date.new(2026,  3, 31) }
+      it { expect(::Date.new(2026,  4, 15).end_of_fiscal_year).to eq ::Date.new(2027,  3, 31) }
+      it { expect(::Date.new(2026,  5, 15).end_of_fiscal_year).to eq ::Date.new(2027,  3, 31) }
+      it { expect(::Date.new(2026,  6, 15).end_of_fiscal_year).to eq ::Date.new(2027,  3, 31) }
+      it { expect(::Date.new(2026,  7, 15).end_of_fiscal_year).to eq ::Date.new(2027,  3, 31) }
+      it { expect(::Date.new(2026,  8, 15).end_of_fiscal_year).to eq ::Date.new(2027,  3, 31) }
+      it { expect(::Date.new(2026,  9, 15).end_of_fiscal_year).to eq ::Date.new(2027,  3, 31) }
+      it { expect(::Date.new(2026, 10, 15).end_of_fiscal_year).to eq ::Date.new(2027,  3, 31) }
+      it { expect(::Date.new(2026, 11, 15).end_of_fiscal_year).to eq ::Date.new(2027,  3, 31) }
+      it { expect(::Date.new(2026, 12, 15).end_of_fiscal_year).to eq ::Date.new(2027,  3, 31) }
+    end
+  end
+
+  describe "#all_fiscal_year" do
+    context "1月始まりの場合（初期値）" do
+      it do
+        expect(::Date.new(2026,  1, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  2, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  3, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  4, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  5, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  6, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  7, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  8, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  9, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 10, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 11, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 12, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  1,  1), ::Date.new(2026, 12, 31))
+      end
+    end
+
+    context "4月始まりの場合" do
+      before do
+        ::Decentworks::DateSupport.configure do |config|
+          config.beginning_of_first_quarter = :april
+        end
+      end
+
+      it do
+        expect(::Date.new(2026,  1, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2025,  4,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  2, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2025,  4,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  3, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2025,  4,  1), ::Date.new(2026,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  4, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2027,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  5, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2027,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  6, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2027,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  7, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2027,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  8, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2027,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026,  9, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2027,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 10, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2027,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 11, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2027,  3, 31))
+      end
+
+      it do
+        expect(::Date.new(2026, 12, 15).all_fiscal_year)
+          .to eq ::Range.new(::Date.new(2026,  4,  1), ::Date.new(2027,  3, 31))
+      end
+    end
+  end
+
+  # ###################################################################################################################
   # 満経過月数
   # ###################################################################################################################
 

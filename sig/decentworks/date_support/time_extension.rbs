@@ -163,6 +163,21 @@ module Decentworks
       def beginning_of_second_half?: -> bool
       def end_of_second_half?: -> bool
       def in_second_half?: -> bool
+
+      def this_quarter_number: -> ::Integer
+      def beginning_of_this_quarter: -> self
+      def end_of_this_quarter: -> self
+      def all_this_quarter: -> ::Range[self]
+
+      def this_half_number: -> ::Integer
+      def beginning_of_this_half: -> self
+      def end_of_this_half: -> self
+      def all_this_half: -> ::Range[self]
+
+      def fiscal_year: -> ::Integer
+      def beginning_of_fiscal_year: -> self
+      def end_of_fiscal_year: -> self
+      def all_fiscal_year: -> ::Range[self]
     end
   end
 end

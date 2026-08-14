@@ -412,6 +412,26 @@ module Decentworks
       # ###############################################################################################################
 
       #
+      # 今四半期
+      #
+
+      # 現在の日付が属する四半期の番号（1〜4）
+      def this_quarter_number
+        (((month - ::Decentworks::DateSupport.beginning_of_first_quarter_month) % 12) / 3) + 1
+      end
+
+      # 現在の日付が属する四半期の期首
+      def beginning_of_this_quarter
+        beginning_of_first_quarter.months_since((this_quarter_number - 1) * 3).beginning_of_day # steep:ignore NoMethod
+      end
+
+      # 現在の日付が属する四半期の期末
+      def end_of_this_quarter = beginning_of_this_quarter.two_months_since.end_of_month.end_of_day
+
+      # 現在の日付が属する四半期の期間
+      def all_this_quarter = ::Range.new(beginning_of_this_quarter, end_of_this_quarter)
+
+      #
       # 第1四半期
       #
 
@@ -510,6 +530,22 @@ module Decentworks
       # ###############################################################################################################
 
       #
+      # 今期
+      #
+
+      # 現在の日付が属する期の番号（1〜2）
+      def this_half_number = this_quarter_number <= 2 ? 1 : 2
+
+      # 現在の日付が属する期の期首
+      def beginning_of_this_half = this_half_number == 1 ? beginning_of_first_half : beginning_of_second_half
+
+      # 現在の日付が属する期の期末
+      def end_of_this_half = this_half_number == 1 ? end_of_first_half : end_of_second_half
+
+      # 現在の日付が属する期の期間
+      def all_this_half = ::Range.new(beginning_of_this_half, end_of_this_half)
+
+      #
       # 上期
       #
 
@@ -552,6 +588,22 @@ module Decentworks
 
       # 下期か？
       def in_second_half? = all_second_half.cover?(self)
+
+      # ###############################################################################################################
+      # 年度関係
+      # ###############################################################################################################
+
+      # 現在の日付が属する年度（期首の年）
+      def fiscal_year = beginning_of_fiscal_year.year
+
+      # 年度の期首
+      def beginning_of_fiscal_year = beginning_of_first_quarter
+
+      # 年度の期末
+      def end_of_fiscal_year = end_of_fourth_quarter
+
+      # 年度の期間
+      def all_fiscal_year = ::Range.new(beginning_of_fiscal_year, end_of_fiscal_year)
     end
   end
 end
