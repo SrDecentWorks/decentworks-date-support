@@ -6,16 +6,16 @@ require "active_support/core_ext/module/delegation"
 module Decentworks
   module DateSupport
     class << self
+      # 設定を変更する
+      # 未実行の場合は初期値（1月始まり）が使用される
       def configure
-        @configuration ||= Configuration.new
-
-        yield(@configuration) if block_given?
+        yield(configuration) if block_given?
       end
 
+      # 設定を取得する
+      # configureが未実行の場合は初期値で生成する
       def configuration
-        raise "Initialization has not been performed." if @configuration.nil?
-
-        @configuration
+        @configuration ||= Configuration.new
       end
 
       # 開始月名
@@ -24,7 +24,7 @@ module Decentworks
       # 開始月数
       delegate :beginning_of_first_quarter_month, to: :configuration
 
-      # 開始月の初期
+      # 設定を初期化する
       def reset_configuration!
         @configuration = nil
       end

@@ -38,12 +38,27 @@ Railsの`Date`、`ActiveSupport::TimeWithZone`に対する機能拡張を行い�
 ### その他
 
 - 満経過月数の計算
+  - 応当日が存在しない月は、民法第143条第2項に準じてその月の末日を応当日とみなします（`2026-01-31` → `2026-02-28` は1ヶ月）。
+  - `to`が`from`より前の場合は`ArgumentError`が発生します。
+  - `ActiveSupport::TimeWithZone`版は日付単位で判定し、時刻は考慮しません。
 
 ## インストール
 
 ```ruby
 gem 'decentworks-date-support'
 ```
+
+## 設定
+
+第1四半期（上期）の開始月を指定します。初期値は`:january`（1月始まり）で、**設定を行わなくてもそのまま利用できます**。
+
+```ruby
+::Decentworks::DateSupport.configure do |config|
+  config.beginning_of_first_quarter = :april # 4月始まり
+end
+```
+
+指定可能な値は`:january`〜`:december`です。それ以外を指定した場合は`ArgumentError`が発生します。
 
 ### 初期化ファイルの生成（Rails）
 
@@ -53,7 +68,7 @@ Railsから利用する場合は、以下のジェネレータで`config/initial
 bin/rails generate decentworks:date_support:install
 ```
 
-- 初期値は1月始まりです。
+- 1月始まりのまま利用する場合、この初期化ファイルは不要です。
 - その他の月に変更したい場合は、ファイルの内容を修正してください。
 
 ## 使い方の例

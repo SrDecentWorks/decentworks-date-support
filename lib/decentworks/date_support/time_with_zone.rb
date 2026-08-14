@@ -11,8 +11,15 @@ module ActiveSupport
     # #################################################################################################################
 
     # 満経過月数
+    #
+    # fromからtoまでに満了した月数を返す。日付単位で判定し、時刻は考慮しない。
+    # 応当日が存在しない月は、民法第143条第2項に準じてその月の末日を応当日とみなす。
+    #
+    # @raise [ArgumentError] toがfromより前の日時の場合
     # steep:ignore:start
     def self.whole_months_elapsed(from:, to:)
+      raise ::ArgumentError, "to must be on or after from (from: #{from}, to: #{to})" if to < from
+
       ::Date.whole_months_elapsed(
         from: from.to_date,
         to:   to.to_date

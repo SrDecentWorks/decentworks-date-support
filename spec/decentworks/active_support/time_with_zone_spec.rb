@@ -2138,5 +2138,132 @@ RSpec.describe ::ActiveSupport::TimeWithZone do
 
       it { is_expected.to eq(12) }
     end
+
+    context "同日の場合" do
+      context "fromとtoが同じ" do
+        let(:from) { ::Time.zone.local(2026, 8, 5) }
+        let(:to) { ::Time.zone.local(2026, 8, 5) }
+
+        it { is_expected.to eq(0) }
+      end
+    end
+
+    context "応当日が存在しない月の場合" do
+      context "応当日の前日" do
+        let(:from) { ::Time.zone.local(2026, 1, 31) }
+        let(:to) { ::Time.zone.local(2026, 2, 27) }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context "応当日（2月末日）" do
+        let(:from) { ::Time.zone.local(2026, 1, 31) }
+        let(:to) { ::Time.zone.local(2026, 2, 28) }
+
+        it { is_expected.to eq(1) }
+      end
+
+      context "応当日の翌日" do
+        let(:from) { ::Time.zone.local(2026, 1, 31) }
+        let(:to) { ::Time.zone.local(2026, 3, 1) }
+
+        it { is_expected.to eq(1) }
+      end
+
+      context "30日までしかない月の末日" do
+        let(:from) { ::Time.zone.local(2026, 3, 31) }
+        let(:to) { ::Time.zone.local(2026, 4, 30) }
+
+        it { is_expected.to eq(1) }
+      end
+
+      context "fromが30日で2月末日" do
+        let(:from) { ::Time.zone.local(2026, 1, 30) }
+        let(:to) { ::Time.zone.local(2026, 2, 28) }
+
+        it { is_expected.to eq(1) }
+      end
+
+      context "応当日が存在する月まで進めた場合" do
+        let(:from) { ::Time.zone.local(2026, 1, 31) }
+        let(:to) { ::Time.zone.local(2026, 3, 31) }
+
+        it { is_expected.to eq(2) }
+      end
+    end
+
+    context "閏年が絡む場合" do
+      context "閏年の2月28日（応当日未到達）" do
+        let(:from) { ::Time.zone.local(2024, 1, 31) }
+        let(:to) { ::Time.zone.local(2024, 2, 28) }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context "閏年の2月29日（応当日）" do
+        let(:from) { ::Time.zone.local(2024, 1, 31) }
+        let(:to) { ::Time.zone.local(2024, 2, 29) }
+
+        it { is_expected.to eq(1) }
+      end
+
+      context "閏日起点で応当日の前日" do
+        let(:from) { ::Time.zone.local(2024, 2, 29) }
+        let(:to) { ::Time.zone.local(2024, 3, 28) }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context "閏日起点で応当日" do
+        let(:from) { ::Time.zone.local(2024, 2, 29) }
+        let(:to) { ::Time.zone.local(2024, 3, 29) }
+
+        it { is_expected.to eq(1) }
+      end
+
+      context "閏日起点で1年後の前日" do
+        let(:from) { ::Time.zone.local(2024, 2, 29) }
+        let(:to) { ::Time.zone.local(2025, 2, 27) }
+
+        it { is_expected.to eq(11) }
+      end
+
+      context "閏日起点で1年後（平年の2月末日）" do
+        let(:from) { ::Time.zone.local(2024, 2, 29) }
+        let(:to) { ::Time.zone.local(2025, 2, 28) }
+
+        it { is_expected.to eq(12) }
+      end
+
+      context "閏日起点で4年後の閏日" do
+        let(:from) { ::Time.zone.local(2024, 2, 29) }
+        let(:to) { ::Time.zone.local(2028, 2, 29) }
+
+        it { is_expected.to eq(48) }
+      end
+    end
+
+    context "年を跨ぐ場合" do
+      context "応当日の前日" do
+        let(:from) { ::Time.zone.local(2025, 12, 31) }
+        let(:to) { ::Time.zone.local(2026, 1, 30) }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context "応当日" do
+        let(:from) { ::Time.zone.local(2025, 12, 31) }
+        let(:to) { ::Time.zone.local(2026, 1, 31) }
+
+        it { is_expected.to eq(1) }
+      end
+    end
+
+    context "toがfromより前の場合" do
+      let(:from) { ::Time.zone.local(2026, 9, 5) }
+      let(:to) { ::Time.zone.local(2026, 8, 5) }
+
+      it { expect { subject }.to raise_error(::ArgumentError) }
+    end
   end
 end

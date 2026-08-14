@@ -10,12 +10,23 @@ class ::Date
   # ###################################################################################################################
 
   # 満経過月数
+  #
+  # fromからtoまでに満了した月数を返す。
+  # 応当日が存在しない月は、民法第143条第2項に準じてその月の末日を応当日とみなす。
+  #
+  #   ::Date.whole_months_elapsed(from: ::Date.new(2026, 1, 31), to: ::Date.new(2026, 2, 27)) # => 0
+  #   ::Date.whole_months_elapsed(from: ::Date.new(2026, 1, 31), to: ::Date.new(2026, 2, 28)) # => 1
+  #   ::Date.whole_months_elapsed(from: ::Date.new(2024, 2, 29), to: ::Date.new(2025, 2, 28)) # => 12
+  #
+  # @raise [ArgumentError] toがfromより前の日付の場合
   # steep:ignore:start
   def self.whole_months_elapsed(from:, to:)
-    diff_year = to.year - from.year
-    diff_month = to.month - from.month
+    raise ::ArgumentError, "to must be on or after from (from: #{from}, to: #{to})" if to < from
 
-    (diff_year * 12) + diff_month - (to.day >= from.day ? 0 : 1)
+    months = ((to.year - from.year) * 12) + (to.month - from.month)
+
+    # 応当日（from >> months）に達していない場合は1ヶ月に満たない
+    (from >> months) > to ? months - 1 : months
   end
   # steep:ignore:end
 
