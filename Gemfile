@@ -27,6 +27,3 @@ gem "rspec-rails", "~> 8.0"
 
 # Coverage
 gem "simplecov", "~> 1.0.3"
-
-# Faker
-gem "faker", "~> 3.8"
