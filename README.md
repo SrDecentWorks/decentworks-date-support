@@ -48,6 +48,19 @@ bundle install
 
 `::Date` は日付のみを扱うため、`::Date` のメソッドは `::Date` を返します。
 
+### 判定メソッド（`?` 付き）の`::Date`と日時クラスの違い
+
+`beginning_of_january?` / `end_of_january?` のような**期首・期末の判定メソッド**は、`::Date` と日時クラスで判定の粒度が異なります。
+
+| レシーバ | 判定内容 | `2026-01-01 12:34:56` の場合 |
+| --- | --- | --- |
+| `::Date` | その日付ちょうどか（`self == beginning_of_january`） | ― |
+| `::Time` / `::DateTime` / `::ActiveSupport::TimeWithZone` | その日のうちか（時刻は問わない） | `true` |
+
+日時クラスで「`2026-01-01 00:00:00` ちょうどか」を判定したい場合は、`beginning_of_january == self` のように値そのものを比較してください。
+
+期間の判定メソッド（`in_january?` / `in_first_quarter?` など）は、どのクラスでも期間に含まれるかを判定するため差はありません。
+
 > [!WARNING]
 > v0.2.0でrefinementsからクラス再オープンに変更しました。v0.1.1以前から移行する場合は、`using ::Decentworks::DateSupport` と `using ::Decentworks::ActiveSupport::TimeWithZoneSupport` の記述をすべて削除してください。
 

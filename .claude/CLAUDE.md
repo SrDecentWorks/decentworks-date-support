@@ -33,6 +33,12 @@
   - ActiveSupportの `beginning_of_year` / `all_year` も同様。理由はREADMEに記載済み
 - `one_month_ago` / `one_month_since` は追加しない
   - ActiveSupportの `next_month` / `prev_month` のほうが理解しやすいため、そちらに委ねる
+- 期首・期末の判定メソッド（`beginning_of_january?` / `end_of_january?` など）は
+  `::Date` と日時クラスで判定の粒度を変える
+  - `::Date` は「その日付ちょうどか」（`self == beginning_of_january`）
+  - `::Time` / `::DateTime` / `::ActiveSupport::TimeWithZone` は「その日のうちか」（`all_day.cover?(self)`）
+  - 日時クラスで時刻まで一致を求めると実用上ほぼ常にfalseになるため、意図した差である
+  - 期間の判定メソッド（`in_january?` など）はどのクラスでも差はない。理由はREADMEに記載済み
 
 # コミュニケーション
 
