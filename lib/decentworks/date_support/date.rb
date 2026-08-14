@@ -83,8 +83,8 @@ class ::Date
   # 6ヶ月前の日付
   def six_months_ago = months_ago(6) # steep:ignore NoMethod
 
-  # 半年前の日
-  alias_method :half_year_ago, :six_months_ago
+  # 半年前の日付
+  def half_year_ago = six_months_ago
 
   # 7ヶ月前の日付
   def seven_months_ago = months_ago(7) # steep:ignore NoMethod
@@ -120,8 +120,8 @@ class ::Date
   # 6ヶ月後の日付
   def six_months_since = months_since(6) # steep:ignore NoMethod
 
-  # 半年前の日
-  alias_method :half_year_since, :six_months_since
+  # 半年後の日付
+  def half_year_since = six_months_since
 
   # 7ヶ月後の日付
   def seven_months_since = months_since(7) # steep:ignore NoMethod
@@ -511,10 +511,10 @@ class ::Date
   #
 
   # 上期の期首
-  alias_method :beginning_of_first_half, :beginning_of_first_quarter
+  def beginning_of_first_half = beginning_of_first_quarter
 
   # 上期の期末
-  alias_method :end_of_first_half, :end_of_second_quarter
+  def end_of_first_half = end_of_second_quarter
 
   # 上期の期間
   def all_first_half = ::Range.new(beginning_of_first_half, end_of_first_half)
@@ -533,10 +533,10 @@ class ::Date
   #
 
   # 下期の期首
-  alias_method :beginning_of_second_half, :beginning_of_third_quarter
+  def beginning_of_second_half = beginning_of_third_quarter
 
   # 下期の期末
-  alias_method :end_of_second_half, :end_of_fourth_quarter
+  def end_of_second_half = end_of_fourth_quarter
 
   # 下期の期間
   def all_second_half = ::Range.new(beginning_of_second_half, end_of_second_half)

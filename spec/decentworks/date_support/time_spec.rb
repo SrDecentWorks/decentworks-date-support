@@ -12,4 +12,5 @@ RSpec.describe ::Time do
   it_behaves_like "日時拡張"
   it_behaves_like "週始まり曜日"
   it_behaves_like "境界日"
+  it_behaves_like "別名メソッドの遅延束縛"
 end
