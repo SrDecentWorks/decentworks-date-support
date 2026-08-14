@@ -1,0 +1,4 @@
+class DateTime
+  include ::Decentworks::DateSupport::TimeExtension
+  extend ::Decentworks::DateSupport::TimeExtension::ClassMethods
+end

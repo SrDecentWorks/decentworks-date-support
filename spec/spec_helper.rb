@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "faker"
 require "date"
 
 require "active_support"
@@ -8,9 +7,17 @@ require "active_support/core_ext"
 require "active_support/time"
 
 require "simplecov"
-SimpleCov.start
+SimpleCov.start do
+  add_filter "/spec/"
+
+  enable_coverage :branch
+
+  minimum_coverage line: 100, branch: 100
+end
 
 require "decentworks/date_support"
+
+::Dir[::File.expand_path("support/**/*.rb", __dir__)].each { |file| require file }
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

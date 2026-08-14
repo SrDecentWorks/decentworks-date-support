@@ -5,8 +5,8 @@ require_relative "lib/decentworks/date_support/version"
 Gem::Specification.new do |spec|
   spec.name = "decentworks-date-support"
   spec.version = ::Decentworks::DateSupport::VERSION
-  spec.authors = ["decentworks"]
-  spec.email = [""]
+  spec.authors = [ "decentworks" ]
+  spec.email = [ "" ]
 
   spec.summary = "日付機能拡張ライブラリ"
   spec.description = "日付機能拡張ライブラリ"
@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   end
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = [ "lib" ]
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

@@ -1,8 +1,53 @@
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
+
+plugins:
+  - rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 4.0
+  NewCops: enable
+  Exclude:
+    - "vendor/**/*"
+    - "tmp/**/*"
+    - "coverage/**/*"
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
+# #####################################################################################################################
+# rubocop-rspec
+# #####################################################################################################################
 
-Style/StringLiteralsInInterpolation:
-  EnforcedStyle: double_quotes
+# contextの説明を日本語で書くため、英語の前置詞で始まることを求めない
+RSpec/ContextWording:
+  Enabled: false
+
+# 再オープンしている対象クラス（::Date / ::Time など）を明示したいため described_class を強制しない
+RSpec/DescribedClass:
+  Enabled: false
+
+# 年度を表す on_fy_2024 のようなletを許可する
+RSpec/IndexedLet:
+  Enabled: false
+
+# is_expected によるワンライナー主体のスタイルのため
+RSpec/NamedSubject:
+  Enabled: false
+
+# specのディレクトリ構成はlibに追従させているため（describe対象のクラス名とは一致しない）
+RSpec/SpecFilePathFormat:
+  Enabled: false
+
+# 月・四半期・上下期でcontextを重ねるため
+RSpec/NestedGroups:
+  Max: 5
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 8
+
+# 値とタイムゾーンのオフセットのように対で確認したいケースがあるため
+RSpec/MultipleExpectations:
+  Max: 3
+
+# gemの読み込み自体を検証するspecのため
+RSpec/DescribeClass:
+  Exclude:
+    - "spec/decentworks/date_support_spec.rb"
