@@ -6,13 +6,13 @@
 RSpec.shared_examples "週始まり曜日" do
   # 起点の2026-08-05は水曜日
   {
-    monday:    [[2026, 8, 3], [2026, 8, 9]],
-    tuesday:   [[2026, 8, 4], [2026, 8, 10]],
-    wednesday: [[2026, 8, 5], [2026, 8, 11]],
-    thursday:  [[2026, 7, 30], [2026, 8, 5]],
-    friday:    [[2026, 7, 31], [2026, 8, 6]],
-    saturday:  [[2026, 8, 1], [2026, 8, 7]],
-    sunday:    [[2026, 8, 2], [2026, 8, 8]]
+    monday:    [ [ 2026, 8, 3 ], [ 2026, 8, 9 ] ],
+    tuesday:   [ [ 2026, 8, 4 ], [ 2026, 8, 10 ] ],
+    wednesday: [ [ 2026, 8, 5 ], [ 2026, 8, 11 ] ],
+    thursday:  [ [ 2026, 7, 30 ], [ 2026, 8, 5 ] ],
+    friday:    [ [ 2026, 7, 31 ], [ 2026, 8, 6 ] ],
+    saturday:  [ [ 2026, 8, 1 ], [ 2026, 8, 7 ] ],
+    sunday:    [ [ 2026, 8, 2 ], [ 2026, 8, 8 ] ]
   }.each do |week_start, (first_day, last_day)|
     context "週の始まりが#{week_start}の場合" do
       before { ::Date.beginning_of_week = week_start }

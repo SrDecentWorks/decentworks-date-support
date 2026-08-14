@@ -38,7 +38,7 @@ module Decentworks
       # { january: 1, february: 2, ... december: 12 }
       MONTHS = ::Date::MONTHNAMES
                .each_with_index
-               .filter_map { |name, index| [name.downcase.to_sym, index] if name }
+               .filter_map { |name, index| [ name.downcase.to_sym, index ] if name }
                .to_h
                .freeze
 

@@ -102,7 +102,7 @@ RSpec.describe ::Decentworks::DateSupport do
       subject { described_class::MONTHS }
 
       it { is_expected.to be_frozen }
-      it { is_expected.to eq all_months.each_with_index.to_h { |name, index| [name, index + 1] } }
+      it { is_expected.to eq all_months.each_with_index.to_h { |name, index| [ name, index + 1 ] } }
       it { expect(subject.size).to eq 12 }
     end
 
@@ -131,7 +131,7 @@ RSpec.describe ::Decentworks::DateSupport do
       end
 
       context "無効な値を指定した場合" do
-        [:foo, "january", nil, 1, :JANUARY].each do |invalid|
+        [ :foo, "january", nil, 1, :JANUARY ].each do |invalid|
           context "#{invalid.inspect}の場合" do
             it { expect { configuration.beginning_of_first_quarter = invalid }.to raise_error(::ArgumentError) }
 
