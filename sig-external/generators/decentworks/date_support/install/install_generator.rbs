@@ -1,0 +1,11 @@
+# ::Rails::Generators::Base のスタブ（sig-external/rails/generators/base.rbs）に依存するため、
+# 配布対象の sig/ ではなくこのディレクトリに置く。
+module Decentworks
+  module DateSupport
+    module Generators
+      class InstallGenerator < ::Rails::Generators::Base
+        def create_initializer_file: () -> void
+      end
+    end
+  end
+end
