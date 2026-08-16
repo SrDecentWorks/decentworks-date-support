@@ -27,3 +27,6 @@ gem "railties", "~> 8.1"
 
 # Coverage
 gem "simplecov", "~> 1.0.3"
+
+# 依存gemの既知脆弱性チェック（CIのbundler-auditで使用）
+gem "bundler-audit", "~> 0.9"
